@@ -74,8 +74,8 @@ const SideNav: React.FC<SideNavProps> = ({ collapsed }) => {
         position: "fixed",
         left: 0,
         top: 0,
-        background: themeType === "dark" ? "#2C3E50" : "#3f4d67",
-        boxShadow: themeType === "light" ? "1px 0 20px 0 #3f4d67" : "none",
+        background: themeType === "dark" ? "#3f4d67" : "#2C3E50",
+        boxShadow: themeType === "dark" ? "1px 0 20px 0 #3f4d67" : "none",
         transition: "all 0.3s ease-in-out",
       }}
     >

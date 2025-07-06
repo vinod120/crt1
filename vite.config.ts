@@ -9,11 +9,11 @@ export default defineConfig(({ mode }) => {
   const API_URL = `${env.VITE_APP_BASE_NAME}`;
   const PORT = 3003;
 
-   return {
+  return {
     server: {
       open: true,
       port: PORT,
-      host: '::',
+      host: false, // Restrict to localhost
     },
     define: {
       global: 'window',
@@ -47,6 +47,9 @@ export default defineConfig(({ mode }) => {
           },
         ],
       },
+    },
+    build: {
+      sourcemap: false,
     },
     base: API_URL,
     plugins: [
