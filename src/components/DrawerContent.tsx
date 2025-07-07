@@ -1,8 +1,8 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import menuItems from '../menu-items';
+import SimpleBarScroll from "../scrollbar/SimpleBarScroll";
 import Navigation from "./Navigation";
-import SimpleBarScroll from "./SimpleBarScroll";
 import './sideNav/SideNav.css';
 
 interface MenuItem {
