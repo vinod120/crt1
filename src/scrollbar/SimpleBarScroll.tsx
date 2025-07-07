@@ -1,6 +1,7 @@
 import { CSSProperties, FC, ReactNode } from 'react';
 import { BrowserView, MobileView } from 'react-device-detect';
 import SimpleBar from 'simplebar-react';
+import "./ScrollBar.css";
 
 interface SimpleBarScrollProps {
   children: ReactNode;
