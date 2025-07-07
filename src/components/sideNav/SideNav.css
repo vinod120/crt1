@@ -1,12 +1,11 @@
-
 .crt-sidebar {
   position: fixed;
   top: 0;
   bottom: 0;
   z-index: 1026;
   overflow: hidden;
-  background: var(--crt-sidebar-bg);
-  box-shadow: var(--crt-sidebar-shadow);
+  background: #3f4d67;
+  box-shadow: 1px 0 20px 0 #3f4d67;
   transition: all 0.3s ease-in-out;
 }
 
