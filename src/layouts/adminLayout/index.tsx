@@ -33,9 +33,8 @@ const AdminLayout = () => {
           placement="left"
           onClose={() => dispatch(close())}
           open={isOpen}
-          bodyStyle={{ padding: 0 }}
           width={250}
-
+          styles={{ body: { padding: 0 } }}
         >
           <SideNav collapsed={false} />
         </Drawer>

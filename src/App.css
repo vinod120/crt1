@@ -1,8 +1,7 @@
+@import "./index.css";
+
 .sider-title {
   position: sticky;
   top: 0;
   z-index: 1;
-}
-.ant-layout-sider {
-  transition: width 0.2s ease !important;
 }

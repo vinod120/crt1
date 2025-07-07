@@ -17,9 +17,12 @@
     "antd": "^5.26.3",
     "date-fns": "^4.1.0",
     "react": "^19.1.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.3",
+    "simplebar-react": "^3.3.2",
+    "swr": "^2.3.4",
     "vite-jsconfig-paths": "^2.0.1",
     "vite-plugin-svgr": "^4.3.0"
   },

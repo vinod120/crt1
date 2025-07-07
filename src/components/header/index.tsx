@@ -5,48 +5,31 @@ import { BellOutlined, MenuOutlined, MoonOutlined, SettingOutlined, SunOutlined,
 import { Breadcrumb, Button } from 'antd';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import './AdminHeader.css';
 
 const AdminHeader = () => {
   const themeType = useSelector((state: RootState) => state.theme.theme);
-
   const dispatch = useDispatch<AppDispatch>();
-const [navFill, setIsNavFill] = useState(false);
+  const [navFill, setIsNavFill] = useState(false);
 
-useEffect(() => {
-  const handleScroll = () => {
-    setIsNavFill(window.scrollY > 0);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsNavFill(window.scrollY > 0);
+    };
 
-  window.addEventListener('scroll', handleScroll);
-  return () => window.removeEventListener('scroll', handleScroll);
-}, []);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div
-      // style={{
-      //   position: 'sticky',
-      //   top: 0,
-      //   background: themeType === 'light' ? '#f4f7fab3' : '#212224b3',
-      //   padding: '0 16px',
-      //   backdropFilter: navFill ? 'blur(7px)' : 'none',
-      //   zIndex: navFill ? 9999 : 'none'
-      // }}
-      style={{
-  position: 'sticky',
-  top: 0,
-  background: themeType === 'light' ? 'rgba(244, 247, 250, 0.95)' : '#212224b3',
-  padding: '0 16px',
-  backdropFilter: navFill ? 'blur(7px)' : 'none',
-  boxShadow: navFill ? '0 2px 6px rgba(0, 0, 0, 0.05)' : 'none',
-  zIndex: 999
-}}
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: 64 }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div className={`crt-header ${navFill ? 'crt-header--filled' : ''}`}>
+      <div className="crt-header-content">
+        <div className="crt-header-left">
           <Button
             type="text"
             icon={<MenuOutlined />}
             onClick={() => dispatch(toggle())}
-            style={{ marginRight: 16, color: themeType === 'light' ? '#000' : '#fff' }}
+            className="crt-header-button"
           />
           <Breadcrumb>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -54,21 +37,29 @@ useEffect(() => {
             <Breadcrumb.Item>Home</Breadcrumb.Item>
           </Breadcrumb>
         </div>
-        <div>
-          <Button type="text" icon={<SettingOutlined />} style={{ color: themeType === 'light' ? '#000' : '#fff' }} />
+        <div className="crt-header-right">
+          <Button
+            type="text"
+            icon={<SettingOutlined />}
+            className="crt-header-button"
+          />
           <Button
             type="text"
             icon={<BellOutlined />}
-            style={{ color: themeType === 'light' ? '#000' : '#fff' }}
+            className="crt-header-button"
           >
-            <span style={{ position: 'relative', top: -10, right: -5, background: '#52c41a', borderRadius: '50%', padding: '2px 6px', color: '#fff', fontSize: 12 }}>3</span>
+            <span className="crt-notification-badge">3</span>
           </Button>
-          <Button type="text" icon={<UserOutlined />} style={{ color: themeType === 'light' ? '#000' : '#fff' }} />
+          <Button
+            type="text"
+            icon={<UserOutlined />}
+            className="crt-header-button"
+          />
           <Button
             type="text"
             icon={themeType === 'light' ? <SunOutlined /> : <MoonOutlined />}
             onClick={() => dispatch(toggleTheme())}
-            style={{ color: themeType === 'light' ? '#000' : '#fff' }}
+            className="crt-header-button"
           />
         </div>
       </div>
