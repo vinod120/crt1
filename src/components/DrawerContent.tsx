@@ -1,9 +1,9 @@
-import { FC, useCallback, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import menuItems from '../menu-items';
+import { DownOutlined, HomeOutlined, RightOutlined } from "@ant-design/icons";
+import { FC, useCallback, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import menuItems from "../menu-items";
 import SimpleBarScroll from "../scrollbar/SimpleBarScroll";
-import Navigation from "./Navigation";
-import './sideNav/SideNav.css';
+import "./sideNav/SideNav.css";
 
 interface MenuItem {
   id: string;
@@ -20,7 +20,11 @@ interface DrawerContentProps {
   collapsed: boolean;
 }
 
-const DrawerContent: FC<DrawerContentProps> = ({ collapsed, selectedItems, setSelectedItems }) => {
+const DrawerContent: FC<DrawerContentProps> = ({
+  collapsed,
+  selectedItems,
+  setSelectedItems,
+}) => {
   const [selectTab, setSelectTab] = useState<MenuItem>(menuItems.items[0]);
   const { pathname } = useLocation();
   const [open, setOpen] = useState<{ [key: string]: boolean }>({});
@@ -51,7 +55,9 @@ const DrawerContent: FC<DrawerContentProps> = ({ collapsed, selectedItems, setSe
       const findAndMark = (entries: MenuItem[] = []) => {
         entries.forEach((item) => {
           if (item.children) {
-            const match = item.children.find((child) => isActive(child) || child.children?.some(isActive));
+            const match = item.children.find(
+              (child) => isActive(child) || child.children?.some(isActive)
+            );
             if (match) openMap[item.id] = true;
             findAndMark(item.children);
           }
@@ -69,41 +75,70 @@ const DrawerContent: FC<DrawerContentProps> = ({ collapsed, selectedItems, setSe
 
   return (
     <>
-      <SimpleBarScroll style={{ height: 'calc(100vh - 74px)' }}>
-        <Navigation
-          collapsed={collapsed}
-          selectedItems={selectedItems}
-          setSelectedItems={setSelectedItems}
-          setSelectTab={setSelectTab}
-        />
-      </SimpleBarScroll>
       <div className="tab-link">
         <div className="pc-trigger">
-          <SimpleBarScroll style={{ height: 'calc(100vh - 74px)' }}>
+          <SimpleBarScroll style={{ height: "calc(100vh - 74px)" }}>
             <ul className="pc-navbar">
               {selectTab?.children?.map((item) => (
                 <li
                   key={item.id}
-                  className={`pc-item pc-hasmenu ${open[item.id] ? 'pc-trigger' : ''} ${isActive(item) ? 'active' : ''}`}
+                  className={`pc-item pc-hasmenu ${
+                    open[item.id] ? "pc-trigger" : ""
+                  } ${isActive(item) ? "active" : ""}`}
                 >
-                  <Link to={item.url || '#'} className="pc-link" onClick={() => handleClick(item)}>
+                  <Link
+                    to={item.url || "#"}
+                    className="pc-link"
+                    onClick={() => handleClick(item)}
+                  >
+                    <span className="pc-micon">
+                      <HomeOutlined
+                        style={{ fontSize: "15px", fontWeight: "bolder" }}
+                      />
+                    </span>
                     <span className="pc-mtext">{item.title}</span>
+                    <span className="pc-arrow">
+                      {" "}
+                      {open[item.id] ? (
+                        <DownOutlined
+                          style={{ fontSize: "12px", fontWeight: "bolder" }}
+                        />
+                      ) : (
+                        <RightOutlined
+                          style={{ fontSize: "12px", fontWeight: "bolder" }}
+                        />
+                      )}
+                    </span>
                   </Link>
                   {open[item.id] && item.children && (
                     <ul className="pc-submenu">
                       {item.children.map((child) => (
                         <li
                           key={child.id}
-                          className={`pc-item ${open[child.id] ? 'pc-trigger' : ''} ${isActive(child) ? 'active' : ''}`}
+                          className={`pc-item ${
+                            open[child.id] ? "pc-trigger" : ""
+                          } ${isActive(child) ? "active" : ""}`}
                         >
-                          <Link to={child.url || '#'} className="pc-link" onClick={() => handleClick(child)}>
+                          <Link
+                            to={child.url || "#"}
+                            className="pc-link"
+                            onClick={() => handleClick(child)}
+                          >
                             {child.title}
                           </Link>
                           {open[child.id] && child.children && (
                             <ul className="pc-submenu">
                               {child.children.map((value) => (
-                                <li key={value.id} className={`pc-item ${isActive(value) ? 'active' : ''}`}>
-                                  <Link className="pc-link" to={value.url || ''}>
+                                <li
+                                  key={value.id}
+                                  className={`pc-item ${
+                                    isActive(value) ? "active" : ""
+                                  }`}
+                                >
+                                  <Link
+                                    className="pc-link"
+                                    to={value.url || ""}
+                                  >
                                     {value.title}
                                   </Link>
                                 </li>
