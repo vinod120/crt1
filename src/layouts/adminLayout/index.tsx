@@ -1,6 +1,6 @@
 import AdminFooter from "@/components/footer";
 import AdminHeader from "@/components/header";
-import SideNav from "@/components/sideNav/indes";
+import SideNav from "@/components/sideNav";
 import Dashboard from "@/pages/dashboard";
 import { AppDispatch, RootState } from '@/store';
 import { close } from '@/store/slices/sidebarSlice';
