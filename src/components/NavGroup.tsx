@@ -124,7 +124,7 @@ const NavGroup: FC<NavGroupProps> = ({
   return (
     <Fragment>
       <li className="pc-item pc-caption" key={item.id}>
-        <label>{item.title}</label>
+        {/* <label>{item.title}</label> */}
       </li>
       {navCollapse}
     </Fragment>

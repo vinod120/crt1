@@ -1,7 +1,8 @@
 import { RootState } from "@/store";
 import { Layout } from "antd";
 import { useSelector } from "react-redux";
-import SimpleBarScroll from "../../scrollbar/SimpleBarScroll";
+import MainDrawer from "../MainDrawer";
+import "./MainDrawer.css";
 import "./SideNav.css";
 import SidebarHeader from "./SidebarHeader";
 
@@ -20,36 +21,7 @@ const SideNav: React.FC<SideNavProps> = ({ collapsed }) => {
       collapsed={collapsed}
     >
       <SidebarHeader collapsed={collapsed} />
-      <SimpleBarScroll style={{ height: "calc(100vh - 74px)" }}>
-        <div className="crt-sidebar-content">
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-          <h1>1234r5t</h1>
-        </div>
-      </SimpleBarScroll>
+      <MainDrawer collapsed={collapsed} />
     </Sider>
   );
 };

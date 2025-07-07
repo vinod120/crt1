@@ -1,5 +1,6 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { matchPath, useLocation, useNavigate } from 'react-router-dom';
+import { DownOutlined, HomeOutlined, RightOutlined } from "@ant-design/icons";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { matchPath, useLocation, useNavigate } from "react-router-dom";
 import NavItem from "./NavItem";
 
 interface MenuItem {
@@ -32,7 +33,7 @@ const NavCollapse: FC<NavCollapseProps> = ({
   selectedItems,
   setSelectedLevel,
   selectedLevel,
-  collapsed
+  collapsed,
 }) => {
   const navigation = useNavigate();
 
@@ -41,10 +42,10 @@ const NavCollapse: FC<NavCollapseProps> = ({
   const { pathname } = useLocation();
 
   const isMenuActive = (menu: MenuItem, currentPath: string): boolean => {
-    if (menu.type === 'item') {
+    if (menu.type === "item") {
       return menu.url === currentPath;
     }
-    if (menu.type === 'collapse' && Array.isArray(menu.children)) {
+    if (menu.type === "collapse" && Array.isArray(menu.children)) {
       return menu.children.some((child) => isMenuActive(child, currentPath));
     }
     return false;
@@ -101,7 +102,10 @@ const NavCollapse: FC<NavCollapseProps> = ({
         if (item.children?.length) {
           checkOpenForParent(item.children, menu.id);
         }
-        if (item.link && !!matchPath({ path: item?.link, end: false }, pathname)) {
+        if (
+          item.link &&
+          !!matchPath({ path: item?.link, end: false }, pathname)
+        ) {
           setSelected(menu.id);
           setOpen(true);
         }
@@ -122,7 +126,7 @@ const NavCollapse: FC<NavCollapseProps> = ({
 
   const navCollapse = menu.children?.map((item: MenuItem) => {
     switch (item.type) {
-      case 'collapse':
+      case "collapse":
         return (
           <NavCollapse
             key={item.id}
@@ -133,10 +137,11 @@ const NavCollapse: FC<NavCollapseProps> = ({
             menu={item}
             level={level + 1}
             parentId={parentId}
+            collapsed={collapsed}
           />
         );
-      case 'item':
-        return <NavItem key={item.id} item={item} level={level + 1} />;
+      case "item":
+        return <NavItem collapsed={collapsed} key={item.id} item={item} level={level + 1} />;
       default:
         return (
           <h6 key={item.id} className="text-danger align-center">
@@ -147,16 +152,15 @@ const NavCollapse: FC<NavCollapseProps> = ({
   });
 
   return (
-    <li className={`pc-item pc-hasmenu ${open && 'pc-trigger'}`}>
+    <li className={`pc-item pc-hasmenu ${open && "pc-trigger"}`}>
       <a className="pc-link" href="#!" onClick={() => handleClick(true)}>
-        {menu.icon && (
-          <span className="pc-micon">
-            <i className={typeof menu.icon === 'string' ? menu.icon : menu.icon?.props.className} />
-          </span>
-        )}
+        <span className="pc-micon">
+          <HomeOutlined style={{fontSize: '15px', fontWeight: 'bolder'}} />
+        </span>
         <span className="pc-mtext">{menu.title}</span>
         <span className="pc-arrow">
-          <i className="ti ti-chevron-right" />
+          {" "}
+          {open ? <DownOutlined style={{fontSize: '12px', fontWeight: 'bolder'}} /> : <RightOutlined style={{fontSize: '12px', fontWeight: 'bolder'}}  />}
         </span>
         {menu.badge && <span className="pc-badge">{menu.badge}</span>}
       </a>

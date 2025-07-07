@@ -23,7 +23,6 @@ interface DrawerContentProps {
 const DrawerContent: FC<DrawerContentProps> = ({ collapsed, selectedItems, setSelectedItems }) => {
   const [selectTab, setSelectTab] = useState<MenuItem>(menuItems.items[0]);
   const { pathname } = useLocation();
-
   const [open, setOpen] = useState<{ [key: string]: boolean }>({});
 
   const handleClick = (item: MenuItem) => {
@@ -71,10 +70,15 @@ const DrawerContent: FC<DrawerContentProps> = ({ collapsed, selectedItems, setSe
   return (
     <>
       <SimpleBarScroll style={{ height: 'calc(100vh - 74px)' }}>
-        <Navigation collapsed={collapsed} selectedItems={selectedItems} setSelectedItems={setSelectedItems} setSelectTab={setSelectTab} />
+        <Navigation
+          collapsed={collapsed}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+          setSelectTab={setSelectTab}
+        />
       </SimpleBarScroll>
       <div className="tab-link">
-        <div className="navbar-content pc-trigger">
+        <div className="pc-trigger">
           <SimpleBarScroll style={{ height: 'calc(100vh - 74px)' }}>
             <ul className="pc-navbar">
               {selectTab?.children?.map((item) => (
@@ -83,17 +87,7 @@ const DrawerContent: FC<DrawerContentProps> = ({ collapsed, selectedItems, setSe
                   className={`pc-item pc-hasmenu ${open[item.id] ? 'pc-trigger' : ''} ${isActive(item) ? 'active' : ''}`}
                 >
                   <Link to={item.url || '#'} className="pc-link" onClick={() => handleClick(item)}>
-                    {item.icon && (
-                      <span className="pc-micon">
-                        <i className={typeof item.icon === 'string' ? item.icon : item.icon?.props.className} />
-                      </span>
-                    )}
                     <span className="pc-mtext">{item.title}</span>
-                    {item.type === 'collapse' && (
-                      <span className="pc-arrow">
-                        <i className="ti ti-chevron-right" />
-                      </span>
-                    )}
                   </Link>
                   {open[item.id] && item.children && (
                     <ul className="pc-submenu">
@@ -103,28 +97,13 @@ const DrawerContent: FC<DrawerContentProps> = ({ collapsed, selectedItems, setSe
                           className={`pc-item ${open[child.id] ? 'pc-trigger' : ''} ${isActive(child) ? 'active' : ''}`}
                         >
                           <Link to={child.url || '#'} className="pc-link" onClick={() => handleClick(child)}>
-                            {child.icon && (
-                              <span className="pc-micon">
-                                <i className={typeof child.icon === 'string' ? child.icon : child.icon?.props.className} />
-                              </span>
-                            )}
                             {child.title}
-                            {child.type === 'collapse' && (
-                              <span className="pc-arrow">
-                                <i className="ti ti-chevron-right" />
-                              </span>
-                            )}
                           </Link>
                           {open[child.id] && child.children && (
                             <ul className="pc-submenu">
                               {child.children.map((value) => (
                                 <li key={value.id} className={`pc-item ${isActive(value) ? 'active' : ''}`}>
                                   <Link className="pc-link" to={value.url || ''}>
-                                    {value.icon && (
-                                      <span className="pc-micon">
-                                        <i className={typeof value.icon === 'string' ? value.icon : value.icon?.props.className} />
-                                      </span>
-                                    )}
                                     {value.title}
                                   </Link>
                                 </li>

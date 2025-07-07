@@ -16,19 +16,9 @@ const MainDrawer: FC<MainDrawerProps> = ({collapsed}) => {
   }, []);
 
   return (
-    <nav id="pc-sidebar" className={`pc-sidebar ${!collapsed ? 'pc-sidebar-hide mob-sidebar-active' : ''}`}>
-      <div className="navbar-wrapper">
-        <div className="m-header">
-          <a className="b-brand text-primary">
-            <img src={""} className="logo logo-lg" alt="logo" style={{ width: '100%' }} />
-          </a>
-        </div>
-        <div className="navbar-content">
+        <div className="crt-sidebar-content">
           <DrawerContent collapsed={collapsed} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
         </div>
-      </div>
-      {/* {collapsed && isMobile && <div className="pc-menu-overlay" ref={overlayRef} />} */}
-    </nav>
   );
 };
 
