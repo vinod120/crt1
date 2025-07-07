@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const { Content, Footer } = Layout;
 
 const AdminLayout = () => {
-  const { lg } = useBreakpoint();
+  const { lg, md } = useBreakpoint();
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
   const themeType = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch<AppDispatch>();
@@ -25,7 +25,7 @@ const AdminLayout = () => {
 
   return (
     <Layout style={{ minHeight: '100vh', display: 'flex', flexDirection: 'row' }}>
-      {lg ? (
+      {(lg || md)? (
         <SideNav collapsed={!isOpen} />
       ) : (
         <Drawer
