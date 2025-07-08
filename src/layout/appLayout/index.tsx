@@ -1,4 +1,4 @@
-import AdminFooter from "@/components/footer";
+import FooterNav from "@/components/footer";
 import Header from "@/components/header";
 import SideNav from "@/components/sidebar";
 import Dashboard from "@/pages/dashboard";
@@ -47,13 +47,11 @@ const AppLayout = () => {
           </div>
         )}
        <Header />
-        <Content style={{ flex: 1, overflow: 'auto', margin: '24px 16px 0' }}>
-          <div style={{ padding: 24, minHeight: 'calc(100vh - 64px - 70px)' }}>
+        <Content style={{ flex: 1, overflow: 'auto'}} className="app-layout-content">
             <Dashboard />
-          </div>
         </Content>
-        <Footer style={{ textAlign: 'center'}}>
-         <AdminFooter />
+        <Footer className="crt-footer">
+         <FooterNav />
         </Footer>
       </Layout>
     </Layout>

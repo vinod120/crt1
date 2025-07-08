@@ -1,5 +1,11 @@
-const AdminFooter = () => {
-  return <>Footer © {new Date().getFullYear()}</>;
+import "./Footer.css";
+const FooterNav: React.FC = ({}) => {
+  return (
+    <>
+      <div>Copyright © Amphenol Advanced Sensors - All rights reserved.</div>
+      <div>© {new Date().getFullYear()}</div>
+    </>
+  );
 };
 
-export default AdminFooter;
+export default FooterNav;

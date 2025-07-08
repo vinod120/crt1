@@ -1,9 +1,11 @@
+import BreadcrumbView from "@/components/breadcrumb/Breadcrumb";
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Card, Col, Progress, Row } from 'antd';
 
 const Dashboard = () => {
   return (
-    <div style={{ minHeight: '2000px' }}>
+    <>
+      <BreadcrumbView />
       <Row gutter={16}>
         <Col span={8}>
           <Card title="Daily Sales">
@@ -27,7 +29,7 @@ const Dashboard = () => {
           </Card>
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 
