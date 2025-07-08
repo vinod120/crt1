@@ -318,7 +318,7 @@
 }
 
 .crt-sidebar-content .pc-arrow {
-  display: inline-block;
+  float: right;
   transition: all 0.2s ease-in-out;
 }
 
