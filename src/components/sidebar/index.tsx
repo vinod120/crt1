@@ -1,9 +1,8 @@
 import { RootState } from "@/store";
 import { Layout } from "antd";
 import { useSelector } from "react-redux";
-import MainDrawer from "../MainDrawer";
-import "./MainDrawer.css";
-import "./SideNav.css";
+import SidebarMenu from "../SidebarMenu";
+import "./Sidebar.css";
 import SidebarHeader from "./SidebarHeader";
 
 const { Sider } = Layout;
@@ -21,7 +20,7 @@ const SideNav: React.FC<SideNavProps> = ({ collapsed }) => {
       collapsed={collapsed}
     >
       <SidebarHeader collapsed={collapsed} />
-      <MainDrawer collapsed={collapsed} />
+      <SidebarMenu collapsed={collapsed} />
     </Sider>
   );
 };

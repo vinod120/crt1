@@ -1,7 +1,1 @@
-@import './index.css';
-
-.sider-title {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
+@import './theme.css';

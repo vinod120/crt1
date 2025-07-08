@@ -1,0 +1,50 @@
+[data-theme='light'] .app-container, :root {
+    --bs-body-bg: #f4f7fa;
+    --bs-body-bg-rgb: 244,247,250;
+    --pc-heading-color: #1d2630;
+    --pc-active-background: #f3f5f7;
+    --crt-sidebar-background: #3f4d67;
+    --crt-sidebar-color: #a9b7d0;
+    --crt-sidebar-color-rgb: 169,183,208;
+    --crt-sidebar-active-color: #04a9f5;
+    --crt-sidebar-active-background: rgba(0, 0, 0, 0.1);
+    --crt-sidebar-main-active-color: #fff;
+    --crt-sidebar-shadow: 1px 0 20px 0 #3f4d67;
+    --crt-sidebar-caption-color: #e8edf7;
+    --crt-sidebar-border: none;
+    --pc-header-background: rgba(var(--bs-body-bg-rgb), 0.7);
+    --pc-header-color: #5b6b79;
+    --pc-header-shadow: none;
+    --pc-card-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    --pc-header-submenu-background: #ffffff;
+    --pc-header-submenu-color: #5b6b79
+}
+
+[data-theme='dark'] .app-container {
+   --bs-body-bg: #212224;
+    --bs-body-bg-rgb: 33,34,36;
+    --pc-heading-color: rgba(255, 255, 255, 0.8);
+    --crt-sidebar-background: #2b2c2f;
+    --crt-sidebar-color: rgba(255, 255, 255, 0.7);
+    --crt-sidebar-shadow: none;
+    --crt-sidebar-color-rgb: 255,255,255;
+    --crt-sidebar-border: 1px dashed #242d39;
+    --crt-sidebar-main-active-color: #fff;
+    --crt-sidebar-submenu-border-color: var(--bs-gray-600);
+    --crt-sidebar-caption-color: rgba(255, 255, 255, 0.8);
+    --pc-header-background: rgba(var(--bs-body-bg-rgb), 0.7);
+    --pc-header-color: #6f747f;
+    --pc-header-shadow: none;
+    --pc-active-background: #282a2c;
+    --pc-card-box-shadow: 0 0px 2px 0 rgba(69, 90, 100, 0.5);
+    --pc-header-submenu-background: #393b3f;
+    --pc-header-submenu-color: var(--bs-body-color);
+    --bs-heading-color: #fafafa;
+    --bs-body-color: #bfbfbf;
+    --bs-body-color-rgb: to-rgb(#bfbfbf);
+    --bs-border-color: #46484c;
+    --ck-color-image-caption-background: #2b2c2f;
+    --ck-color-image-caption-text: #bfbfbf;
+    --crt-sidebar-active-background: rgba(0, 0, 0, 0.1);
+    --crt-sidebar-active-color: #04a9f5;
+}

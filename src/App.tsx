@@ -1,7 +1,7 @@
 import { ConfigProvider, theme } from 'antd';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import AdminLayout from "./layouts/adminLayout";
+import AppLayout from "./layout/appLayout";
 import { RootState } from './store';
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
       <ConfigProvider theme={{ algorithm: themeType === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm }}>
         <div className="app-container">
         <Router>
-          <AdminLayout />
+          <AppLayout />
         </Router>
         </div>
       </ConfigProvider>

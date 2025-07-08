@@ -1,0 +1,15 @@
+.loading-progress {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+.app-layout {
+  transition: margin-left .2s ease;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+
+.footer {
+  text-align: center;
+}

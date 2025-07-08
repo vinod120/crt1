@@ -1,5 +1,4 @@
 import React from "react";
-import "./SideNav.css";
 import "./SidebarHeader.css";
 
 interface SidebarHeaderProps {

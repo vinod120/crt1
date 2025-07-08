@@ -3,7 +3,6 @@ import { FC, useCallback, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import menuItems from "../menu-items";
 import SimpleBarScroll from "../scrollbar/SimpleBarScroll";
-import "./sideNav/SideNav.css";
 
 interface MenuItem {
   id: string;
@@ -14,13 +13,13 @@ interface MenuItem {
   children?: MenuItem[];
 }
 
-interface DrawerContentProps {
+interface SidebarContentProps {
   selectedItems?: MenuItem;
   setSelectedItems: (item: MenuItem | undefined) => void;
   collapsed: boolean;
 }
 
-const DrawerContent: FC<DrawerContentProps> = ({
+const SidebarContent: FC<SidebarContentProps> = ({
   collapsed,
   selectedItems,
   setSelectedItems,
@@ -74,7 +73,7 @@ const DrawerContent: FC<DrawerContentProps> = ({
   }, [autoOpenParents, selectTab]);
 
   return (
-    <>
+    <div className="crt-sidebar-content">
       <div className="tab-link">
         <div className="pc-trigger">
           <SimpleBarScroll style={{ height: "calc(100vh - 74px)" }}>
@@ -155,8 +154,8 @@ const DrawerContent: FC<DrawerContentProps> = ({
           </SimpleBarScroll>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default DrawerContent;
+export default SidebarContent;
