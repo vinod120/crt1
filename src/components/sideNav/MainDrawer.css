@@ -1,109 +1,10 @@
-/* .crt-sidebar-content ul {
-    list-style: none;
-    padding-left: 0;
-    margin-bottom: 0;
-    margin-top: 0;
-}
-.crt-sidebar-content .pc-caption:first-child {
-    padding-top: 10px !important;
-}
-.crt-sidebar-content .pc-caption label {
-    color: #e8edf7;
-    display: block;
-    padding: 24px 23px 8px !important;
-    text-transform: uppercase;
-    position: relative;
-    line-height: 1.66;
-    font-size: 11px;
-    font-weight: 600;
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).active, .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).pc-trigger, .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):hover {
-    background: rgba(0, 0, 0, 0.1);
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption) {
-    position: relative;
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).active:before {
-background: #04a9f5;
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 3px;
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).active>.pc-link{
-        font-weight: 500;
-    color: #fff;
-
-}
-.crt-sidebar-content .pc-link {
-    display: block;
-    padding: 10px 20px;
-    position: relative;
-    color: #a9b7d0;
-   
-}
-.crt-sidebar-content .pc-mtext {
-    color: #a9b7d0;
- font-size: 14px;
-}
-.crt-sidebar-content .pc-micon {
-    margin-right: 15px;
-    height: 24px;
-    width: 24px;
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).active>.pc-link {
-font-weight: 500;
-    color: #fff;
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption){
-    position: relative;
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 3px;
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):hover {
-    background: rgba(0, 0, 0, 0.1);
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):hover:before {
-    background: #04a9f5;
-}
- .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):hover>.pc-link:after {
-    background: #000;
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption)>.pc-link::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    opacity: .1;
-}
-.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):hover>.pc-link>.pc-mtext {
-    font-weight: 500;
-    color: #fff !important;
-} */
-
-
 .crt-sidebar-content ul {
     list-style: none;
     padding-left: 0
 }
 
 .crt-sidebar-content .pc-caption label  {
-    color: #e8edf7;
+    color: var(--crt-sidebar-caption-color);
     display: block;
     padding: 24px 23px 8px!important;
     text-transform: uppercase;
@@ -151,7 +52,7 @@ font-weight: 500;
 .crt-sidebar-content .pc-link {
     display: block;
     padding: 10px 20px;
-    color: #a9b7d0;
+    color: var(--crt-sidebar-color);
     position: relative;
     font-size: 14px;
     font-weight: 400
@@ -185,16 +86,16 @@ font-weight: 500;
 }
 
 .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).active,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).pc-trigger,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: var(--crt-sidebar-active-background);
 }
 
 .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).active:before,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).pc-trigger:before,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):hover:before {
-    background: #04a9f5
+    background: var(--crt-sidebar-active-color)
 }
 
 .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).active>.pc-link,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).pc-trigger>.pc-link,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):hover>.pc-link {
     font-weight: 500;
-    color: #fff
+    color: var(--crt-sidebar-main-active-color)
 }
 
 .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).active>.pc-link:after,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).pc-trigger>.pc-link:after,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):hover>.pc-link:after {
@@ -212,20 +113,20 @@ font-weight: 500;
     top: 16px;
     width: 5px;
     height: 5px;
-    background: #a9b7d0;
+    background: var(--crt-sidebar-color);
     opacity: 0;
     transition: all 80ms cubic-bezier(.37,.24,.53,.99)
 }
 
 .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption) .pc-submenu .pc-item.active>.pc-link,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption) .pc-submenu .pc-item.pc-trigger>.pc-link {
     font-weight: 500;
-    color: #04a9f5;
+    color: var(--crt-sidebar-active-color);
 }
 
 .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption) .pc-submenu .pc-item.active>.pc-link:after,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption) .pc-submenu .pc-item.pc-trigger>.pc-link:after,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption) .pc-submenu .pc-item:focus>.pc-link:after,.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption) .pc-submenu .pc-item:hover>.pc-link:after {
     opacity: 1;
     transform: scale(1.2);
-    background: #04a9f5
+    background: var(--crt-sidebar-active-color)
 }
 
 .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption) .pc-submenu:after {
@@ -287,16 +188,20 @@ font-weight: 500;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--crt-sidebar-main-active-color);
     width: 20px;
     height: 20px;
     border-radius: 50%;
     font-size: 10px;
     line-height: 1;
     float: right;
-    background:#04a9f5
+    background: var(--crt-sidebar-active-color)
 }
 .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption):hover>.pc-link>.pc-mtext {
     font-weight: 500;
-    color: #fff !important;
+    color: var(--crt-sidebar-main-active-color) !important;
 } 
+
+.crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).active, .crt-sidebar-content .pc-navbar>.pc-item:not(.pc-caption).pc-trigger {
+background: var(--crt-sidebar-active-background);
+}

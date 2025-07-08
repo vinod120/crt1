@@ -13,6 +13,7 @@ const themeSlice = createSlice({
   initialState,
   reducers: {
     toggleTheme: (state) => {
+    document.body.setAttribute('data-theme', state.theme === 'light' ? 'dark' : 'light');
       state.theme = state.theme === 'light' ? 'dark' : 'light';
     },
   },

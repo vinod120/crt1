@@ -13,5 +13,5 @@
 .crt-logo-text {
   margin-left: 8px;
   font-size: 18px;
-  color: #fff;
+  color: var(--crt-sidebar-main-active-color);;
 }

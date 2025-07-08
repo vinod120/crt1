@@ -30,6 +30,7 @@ export default defineConfig(({ mode }) => {
         },
         less: {
           charset: false,
+          javascriptEnabled: true,
         },
       },
       charset: false,

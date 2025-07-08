@@ -6,12 +6,13 @@ import { RootState } from './store';
 
 const App = () => {
   const themeType = useSelector((state: RootState) => state.theme.theme);
-
   return (
       <ConfigProvider theme={{ algorithm: themeType === 'light' ? theme.defaultAlgorithm : theme.darkAlgorithm }}>
+        <div className="app-container">
         <Router>
           <AdminLayout />
         </Router>
+        </div>
       </ConfigProvider>
   );
 };
