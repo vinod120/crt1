@@ -1,51 +1,31 @@
 .crt-header {
   position: sticky;
   top: 0;
-  padding: 0 16px;
   z-index: 999;
-  transition: left 0.2s ease;
-  background: var(--pc-header-background);
-  color: var(--pc-header-color);
-  min-height: 64px;
-  -webkit-backdrop-filter: blur(7px);
-  backdrop-filter: blur(7px);
-  box-shadow: var(--pc-header-shadow);
+  height: 64px;
+  padding: 0 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 64px;
-}
-.crt-header-button > .ant-btn-icon > .crt-header-menu {
-  z-index: 5;
-  color: #5b6b79;
-  transition: all 0.08s cubic-bezier(0.37, 0.24, 0.53, 0.99);
-  font-size: 24px;
+  background: var(--pc-header-background);
+  color: var(--pc-header-color);
+  backdrop-filter: blur(7px);
+  box-shadow: var(--pc-header-shadow);
+  transition: left 0.2s ease;
 }
 
-.crt-header-left {
-  display: flex;
-  align-items: center;
-}
-
+.crt-header-left,
 .crt-header-right {
   display: flex;
   align-items: center;
 }
 
-.crt-notification-badge {
-  position: relative;
-  top: -10px;
-  right: -5px;
-  background: #52c41a;
-  border-radius: 50%;
-  padding: 2px 6px;
-  color: #fff;
-  font-size: 12px;
-}
-.crt-header-button:hover .crt-header-menu {
-  color: var(--crt-sidebar-active-color) !important;
+.crt-header-icon {
+  font-size: 18px;
+  padding: 5px;
 }
 
-.crt-sidebar .pc-caption:first-child {
-    padding-top: 10px !important;
+.crt-header-icon:hover .anticon {
+  color: var(--crt-sidebar-active-color);
+  cursor: pointer;
 }

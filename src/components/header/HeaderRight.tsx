@@ -1,39 +1,52 @@
 import { AppDispatch, RootState } from "@/store";
 import { toggleTheme } from "@/store/slices/themeSlice";
 import {
-    BellOutlined,
-    MoonOutlined,
-    SettingOutlined,
-    SunOutlined,
-    UserOutlined,
+  ClockCircleOutlined,
+  MoonOutlined,
+  SettingOutlined,
+  SunOutlined,
 } from "@ant-design/icons";
-import { Button } from "antd";
+import { Space } from "antd";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import UserProfile from "../profile/UserProfile";
 
 const HeaderRight: React.FC = () => {
   const themeType = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch<AppDispatch>();
+
+  const [time, setTime] = useState(() => new Date().toLocaleTimeString());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="crt-header-right">
-      <Button
-        type="text"
-        icon={<SettingOutlined />}
-        className="crt-header-button"
-      />
-      <Button type="text" icon={<BellOutlined />} className="crt-header-button">
-        <span className="crt-notification-badge">3</span>
-      </Button>
-      <Button
-        type="text"
-        icon={<UserOutlined />}
-        className="crt-header-button"
-      />
-      <Button
-        type="text"
-        icon={themeType === "light" ? <SunOutlined /> : <MoonOutlined />}
-        onClick={() => dispatch(toggleTheme())}
-        className="crt-header-button"
-      />
+      <Space size="middle" align="center">
+        <div className="crt-time">
+          <ClockCircleOutlined style={{ marginRight: 4 }} />
+          <span>{time}</span>
+        </div>
+        <div className="crt-header-icon">
+          <span
+            role="button"
+            tabIndex={0}
+            aria-label="Toggle Theme"
+            onClick={() => dispatch(toggleTheme())}
+            className="crt-header-icon"
+          >
+            {themeType === "light" ? <SunOutlined /> : <MoonOutlined />}
+          </span>
+        </div>
+        <div className="crt-header-icon">
+          <SettingOutlined />
+        </div>
+        <UserProfile />
+      </Space>
     </div>
   );
 };

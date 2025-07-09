@@ -6,18 +6,14 @@ import { useDispatch } from "react-redux";
 
 const HeaderLeft: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+
   return (
     <div className="crt-header-left">
       <Button
         type="text"
-        icon={
-          <MenuOutlined
-            className="crt-header-menu"
-            style={{ fontSize: "20px", color: "#5b6b79" }}
-          />
-        }
+        icon={<MenuOutlined />}
+        className="crt-header-icon"
         onClick={() => dispatch(toggle())}
-        className="crt-header-button"
       />
     </div>
   );

@@ -1,0 +1,39 @@
+.user-profile .ant-dropdown-menu {
+  padding: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  min-width: 220px;
+  /* background: var(--bs-card-border-color); */
+  color: var(--bs-body-color);
+}
+
+.user-profile .ant-dropdown-menu-item-group-title {
+  padding: unset !important;
+}
+.user-profile-title,
+.user-profile-sub-title {
+  color: rgba(var(--bs-white-rgb));
+}
+.user-profile-sub-title {
+  opacity: 0.75;
+}
+.user-profile .dropdown-header,
+.logout-btn {
+  background-color: rgba(
+    var(--bs-primary-rgb),
+    var(--bs-bg-opacity)
+  ) !important;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.user-profile .ant-dropdown-menu-item {
+  padding: 10px 16px;
+}
+.user-profile-label {
+  padding: 8px;
+  color: var(--bs-body-color);
+}
+.user-profile .ant-dropdown-menu-item .anticon {
+  font-size: 16px;
+}
