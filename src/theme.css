@@ -17,7 +17,10 @@
     --pc-header-shadow: none;
     --pc-card-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
     --pc-header-submenu-background: #ffffff;
-    --pc-header-submenu-color: #5b6b79
+    --pc-header-submenu-color: #5b6b79;
+     --bs-card-border-color: #f1f1f1;
+    --bs-card-bg: #ffffff;
+    --bs-body-color: #888;
 }
 
 [data-theme='dark'] .app-container {
@@ -47,4 +50,7 @@
     --ck-color-image-caption-text: #bfbfbf;
     --crt-sidebar-active-background: rgba(0, 0, 0, 0.1);
     --crt-sidebar-active-color: #04a9f5;
+    --bs-card-bg: #2b2c2f;
+    --bs-card-border-color: #393b3f;
+    --bs-body-color: #bfbfbf;
 }

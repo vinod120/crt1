@@ -22,17 +22,17 @@ const BreadcrumbView: React.FC<BreadcrumbViewProps> = React.memo(
   ({ breadcrumbs = items }) => {
     const breadcrumbItems =
       breadcrumbs?.length > 0
-        ? breadcrumbs.map((breadcrumb) => ({
+        ? breadcrumbs.map((breadcrumb, idx) => ({
             title: breadcrumb?.title,
-            key: breadcrumb?.key,
-            onClick: breadcrumb?.onClick,
-            menu: breadcrumb?.menu,
+            key: (breadcrumb as any)?.key ?? breadcrumb?.title ?? idx,
+            onClick: (breadcrumb as any)?.onClick,
+            menu: (breadcrumb as any)?.menu,
           }))
         : undefined;
     return (
-      <div className="page-header">
-        <div className="page-header-title">
-          <h5>Analytics</h5>
+      <div className="breadcrumb-header">
+        <div className="breadcrumb-header-title">
+          <h5>Dashboard</h5>
         </div>
         <Breadcrumb
           className="breadcrumb"

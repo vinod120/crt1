@@ -13,7 +13,6 @@ export const getDateFormat = (date?: string | Date) => {
   } else {
     dateToFormat = date && isValid(date) ? date : new Date();
   }
-
   return format(dateToFormat, 'dd-MMM-yyyy, hh:mm:ss');
 };
 

@@ -1,56 +1,45 @@
-.page-header {
-  margin-bottom: 10px;
+.breadcrumb-header {
+  padding-bottom: 24px;
 }
-.page-header .h5,
-.page-header h5 {
+.breadcrumb-header .h5,
+.breadcrumb-header h5 {
   margin-bottom: 0;
   font-weight: 500;
   font-size: 1.125rem;
   color: var(--pc-heading-color);
 }
 
-.page-header .breadcrumb {
+.breadcrumb-header .breadcrumb {
   padding: 0;
   display: inline-flex;
   background: 0 0;
   font-size: 14px;
 }
 
-.page-header .breadcrumb .ant-breadcrumb-link {
+.breadcrumb-header .breadcrumb .ant-breadcrumb-link {
   color: var(--bs-body-color);
   cursor: pointer;
 }
 
-.page-header .breadcrumb .ant-breadcrumb-link:hover {
+.breadcrumb-header .breadcrumb .ant-breadcrumb-link:hover {
   color: #04a9f5;
 }
-
-.page-header .breadcrumb .ant-breadcrumb-link::before {
-  position: relative;
-  top: 2px;
-}
-.page-header .breadcrumb svg {
-  width: 14px;
-  height: 14px;
-  vertical-align: baseline;
-}
-
 @media (max-width: 575.98px) {
-  .page-header .h5,
-  .page-header h5 {
+  .breadcrumb-header .h5,
+  .breadcrumb-header h5 {
     padding-bottom: 5px;
     margin-bottom: 0;
     border-right: none;
     font-size: 14px;
   }
 
-  .page-header .breadcrumb {
+  .breadcrumb-header .breadcrumb {
     display: flex;
     margin-bottom: 0;
     font-size: 12px;
   }
 
-  .page-header .text-md-right {
+  .breadcrumb-header .text-md-right {
     margin-top: 5px;
   }
 }
