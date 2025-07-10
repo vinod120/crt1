@@ -1,6 +1,6 @@
 .dashboard-card-container {
   transition: box-shadow 0.2s ease-in-out;
-  background-color: var(--bs-card-bg);
+  background-color: var(--crt-dashboard-card-background); /* Changed to dashboard-specific variable */
   border-radius: 2px;
   cursor: pointer;
 }
@@ -15,16 +15,17 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--pc-heading-color);
+  color: var(--crt-dashboard-card-text-color); /* Changed to dashboard-specific variable */
 }
 
 .dashboard-card-title {
   font-weight: 600;
   font-size: 16px;
+  /* If title needs a color different from dashboard-card-left, use --crt-dashboard-card-text-color or a new one */
 }
 
 .dashboard-card-count {
   font-weight: 700;
   font-size: 18px;
-  color: var(--pc-heading-color);
+  color: var(--crt-dashboard-card-count-text-color); /* Changed to dashboard-specific variable */
 }

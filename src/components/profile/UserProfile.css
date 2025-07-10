@@ -3,8 +3,8 @@
   border-radius: 6px;
   overflow: hidden;
   min-width: 220px;
-  /* background: var(--bs-card-border-color); */
-  color: var(--bs-body-color);
+  background: var(--crt-user-profile-dropdown-background); /* Changed to specific variable */
+  color: var(--crt-user-profile-dropdown-text-color); /* Changed to specific variable */
 }
 
 .user-profile .ant-dropdown-menu-item-group-title {
@@ -12,18 +12,21 @@
 }
 .user-profile-title,
 .user-profile-sub-title {
-  color: rgba(var(--bs-white-rgb));
+  color: var(--crt-user-profile-header-text-color); /* Changed to specific variable */
 }
 .user-profile-sub-title {
-  opacity: 0.75;
+  opacity: 0.75; /* This could also be a variable if needed, e.g., --crt-user-profile-header-subtext-opacity */
 }
-.user-profile .dropdown-header,
-.logout-btn {
-  background-color: rgba(
-    var(--bs-primary-rgb),
-    var(--bs-bg-opacity)
-  ) !important;
+.user-profile .dropdown-header {
+  background-color: var(--crt-user-profile-header-background) !important; /* Changed to specific variable */
   padding: 16px;
+  box-sizing: border-box;
+}
+
+.logout-btn {
+  background-color: var(--crt-logout-button-background) !important; /* Changed to specific variable */
+  /* Assuming logout-btn is part of the dropdown header or shares similar styling. If it's a standalone button, it might need its own text color variable too. */
+  padding: 16px; /* This padding seems to be for header context, adjust if it's a standalone button */
   box-sizing: border-box;
 }
 
@@ -32,7 +35,7 @@
 }
 .user-profile-label {
   padding: 8px;
-  color: var(--bs-body-color);
+  color: var(--crt-user-profile-label-text-color); /* Changed to specific variable */
 }
 .user-profile .ant-dropdown-menu-item .anticon {
   font-size: 16px;
