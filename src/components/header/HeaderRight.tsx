@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from "../profile/UserProfile";
+import ThemeCustomizer from "./ThemeCustomizer"; // Import the new component
 
 const HeaderRight: React.FC = () => {
   const themeType = useSelector((state: RootState) => state.theme.theme);
@@ -19,6 +20,7 @@ const HeaderRight: React.FC = () => {
   const { i18n } = useTranslation();
 
   const [time, setTime] = useState(() => new Date().toLocaleTimeString());
+  const [isColorSettingsVisible, setIsColorSettingsVisible] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,6 +45,10 @@ const HeaderRight: React.FC = () => {
       onClick: () => changeLanguage("fr"),
     },
   ];
+
+  const handleSettingsClick = () => {
+    setIsColorSettingsVisible(!isColorSettingsVisible);
+  };
 
   return (
     <div className="crt-header-right">
@@ -69,7 +75,22 @@ const HeaderRight: React.FC = () => {
           </span>
         </div>
         <div className="crt-header-icon">
-          <SettingOutlined />
+          <Dropdown
+            dropdownRender={() => <ThemeCustomizer />}
+            trigger={['click']}
+            open={isColorSettingsVisible}
+            onOpenChange={setIsColorSettingsVisible}
+            placement="bottomRight"
+          >
+            <span
+              role="button"
+              tabIndex={0}
+              aria-label="Customize Theme Colors"
+              onClick={handleSettingsClick} // Keep this if direct click handling is preferred for the icon itself
+            >
+              <SettingOutlined />
+            </span>
+          </Dropdown>
         </div>
         <UserProfile />
       </Space>
