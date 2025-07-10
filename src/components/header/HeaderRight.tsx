@@ -2,21 +2,21 @@ import { AppDispatch, RootState } from "@/store";
 import { toggleTheme } from "@/store/slices/themeSlice";
 import {
   ClockCircleOutlined,
+  GlobalOutlined,
   MoonOutlined,
   SettingOutlined,
   SunOutlined,
-  GlobalOutlined, // Icon for language switcher
 } from "@ant-design/icons";
-import { Space, Dropdown, Button, Menu } from "antd"; // Added Dropdown, Button, Menu
+import { Dropdown, Space } from "antd";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from "../profile/UserProfile";
-import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const HeaderRight: React.FC = () => {
   const themeType = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch<AppDispatch>();
-  const { i18n } = useTranslation(); // Hook for i18n
+  const { i18n } = useTranslation();
 
   const [time, setTime] = useState(() => new Date().toLocaleTimeString());
 
@@ -31,16 +31,18 @@ const HeaderRight: React.FC = () => {
     i18n.changeLanguage(lng);
   };
 
-  const languageMenu = (
-    <Menu>
-      <Menu.Item key="en" onClick={() => changeLanguage('en')}>
-        English
-      </Menu.Item>
-      <Menu.Item key="fr" onClick={() => changeLanguage('fr')}>
-        Français
-      </Menu.Item>
-    </Menu>
-  );
+  const languageMenu = [
+    {
+      key: "en",
+      label: "English",
+      onClick: () => changeLanguage("en"),
+    },
+    {
+      key: "fr",
+      label: "Français",
+      onClick: () => changeLanguage("fr"),
+    },
+  ];
 
   return (
     <div className="crt-header-right">
@@ -50,8 +52,10 @@ const HeaderRight: React.FC = () => {
           <span>{time}</span>
         </div>
         <div className="crt-header-icon">
-          <Dropdown overlay={languageMenu} placement="bottomRight">
-            <Button type="text" icon={<GlobalOutlined />} className="crt-header-icon" />
+          <Dropdown menu={{ items: languageMenu }} placement="bottomRight">
+            <span role="button" tabIndex={0} aria-label="Toggle Language">
+              <GlobalOutlined />
+            </span>
           </Dropdown>
         </div>
         <div className="crt-header-icon">

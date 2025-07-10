@@ -1,4 +1,5 @@
-[data-theme='light'] .app-container, :root {
+[data-theme="light"],
+:root {
   --bs-body-bg: #f4f7fa;
   --bs-body-bg-rgb: 244, 247, 250;
   --pc-heading-color: #1d2630;
@@ -12,26 +13,23 @@
   --crt-sidebar-shadow: 1px 0 20px 0 #3f4d67;
   --crt-sidebar-caption-color: #e8edf7;
   --crt-sidebar-border: none;
-  --crt-sidebar-scrollbar-color: #9cb7d2; /* Added for sidebar scrollbar */
-  --crt-sidebar-caption-secondary-text-color: #67758a; /* Added for sidebar caption secondary text */
-  --crt-sidebar-link-active-highlight-color: rgba(0, 0, 0, 0.1); /* Adjusted from direct #000 to match active-background */
-  --crt-footer-background: var(--bs-body-bg); /* Added for footer */
-  --crt-footer-text-color: var(--bs-body-color); /* Added for footer */
-  --crt-app-layout-background: var(--bs-body-bg); /* Added for main app layout */
-  --crt-app-layout-text-color: var(--bs-body-color); /* Added for main app layout */
-  --crt-dashboard-card-background: var(--bs-card-bg); /* Added for dashboard cards */
-  --crt-dashboard-card-text-color: var(--pc-heading-color); /* Added for dashboard cards */
-  --crt-dashboard-card-count-text-color: var(--pc-heading-color); /* Added for dashboard card count */
-
-  /* UserProfile variables */
+  --crt-sidebar-scrollbar-color: #9cb7d2;
+  --crt-sidebar-caption-secondary-text-color: #67758a;
+  --crt-sidebar-link-active-highlight-color: rgba(0, 0, 0, 0.1);
+  --crt-footer-background: var(--bs-body-bg);
+  --crt-footer-text-color: var(--bs-body-color);
+  --crt-app-layout-background: var(--bs-body-bg);
+  --crt-app-layout-text-color: var(--bs-body-color);
+  --crt-dashboard-card-background: var(--bs-card-bg);
+  --crt-dashboard-card-text-color: var(--pc-heading-color);
+  --crt-dashboard-card-count-text-color: var(--pc-heading-color);
   --crt-user-profile-dropdown-text-color: var(--bs-body-color);
-  --crt-user-profile-dropdown-background: var(--bs-card-bg); /* Or var(--pc-header-submenu-background) */
-  --crt-user-profile-header-text-color: var(--bs-white-rgb); /* Needs careful consideration for light theme if header is light */
-  --crt-user-profile-header-background: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity));
-  --crt-logout-button-background: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity));
+  --crt-user-profile-dropdown-background: var(--bs-card-bg);
+  --crt-user-profile-header-text-color: var(--bs-white-rgb);
+  --crt-user-profile-header-background: var(--bs-primary-rgb);
+  --crt-logout-button-background: var(--bs-primary-rgb);
   --crt-user-profile-label-text-color: var(--bs-body-color);
 
-  /* Breadcrumb variables */
   --crt-breadcrumb-title-color: var(--pc-heading-color);
   --crt-breadcrumb-link-color: var(--bs-body-color);
   --crt-breadcrumb-link-hover-color: #04a9f5;
@@ -39,7 +37,7 @@
   --pc-header-background: rgba(var(--bs-body-bg-rgb), 0.7);
   --pc-header-color: #5b6b79;
   --pc-header-shadow: none;
-  --crt-header-icon-hover-color: #04a9f5; /* Added for header icon hover */
+  --crt-header-icon-hover-color: #04a9f5;
   --pc-card-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
   --pc-header-submenu-background: #ffffff;
   --pc-header-submenu-color: #5b6b79;
@@ -51,7 +49,7 @@
   --bs-white-rgb: 255, 255, 255, 1;
 }
 
-[data-theme="dark"] .app-container {
+[data-theme="dark"] {
   --bs-body-bg: #212224;
   --bs-body-bg-rgb: 33, 34, 36;
   --pc-heading-color: rgba(255, 255, 255, 0.8);
@@ -78,36 +76,32 @@
   --ck-color-image-caption-text: #bfbfbf;
   --crt-sidebar-active-background: rgba(0, 0, 0, 0.1);
   --crt-sidebar-active-color: #04a9f5;
-  --crt-sidebar-scrollbar-color: #505d70; /* Added for sidebar scrollbar - dark theme */
-  --crt-sidebar-caption-secondary-text-color: #8a9eb5; /* Added for sidebar caption secondary text - dark theme */
-  --crt-sidebar-link-active-highlight-color: rgba(255, 255, 255, 0.05); /* Adjusted for dark theme */
-  --crt-footer-background: var(--bs-body-bg); /* Added for footer */
-  --crt-footer-text-color: var(--bs-body-color); /* Added for footer */
-  --crt-app-layout-background: var(--bs-body-bg); /* Added for main app layout */
-  --crt-app-layout-text-color: var(--bs-body-color); /* Added for main app layout */
-  --crt-dashboard-card-background: var(--bs-card-bg); /* Added for dashboard cards */
-  --crt-dashboard-card-text-color: var(--pc-heading-color); /* Added for dashboard cards */
-  --crt-dashboard-card-count-text-color: var(--pc-heading-color); /* Added for dashboard card count */
-
-  /* UserProfile variables */
+  --crt-sidebar-scrollbar-color: #505d70;
+  --crt-sidebar-caption-secondary-text-color: #8a9eb5;
+  --crt-sidebar-link-active-highlight-color: rgba(255, 255, 255, 0.05);
+  --crt-footer-background: var(--bs-body-bg);
+  --crt-footer-text-color: var(--bs-body-color);
+  --crt-app-layout-background: var(--bs-body-bg);
+  --crt-app-layout-text-color: var(--bs-body-color);
+  --crt-dashboard-card-background: var(--bs-card-bg);
+  --crt-dashboard-card-text-color: var(--pc-heading-color);
+  --crt-dashboard-card-count-text-color: var(--pc-heading-color);
   --crt-user-profile-dropdown-text-color: var(--bs-body-color);
-  --crt-user-profile-dropdown-background: var(--bs-card-bg); /* Or var(--pc-header-submenu-background) */
+  --crt-user-profile-dropdown-background: var(--bs-card-bg);
   --crt-user-profile-header-text-color: var(--bs-white-rgb);
-  --crt-user-profile-header-background: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity));
-  --crt-logout-button-background: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity));
+  --crt-user-profile-header-background: var(--bs-primary-rgb);
+  --crt-logout-button-background: var(--bs-primary-rgb);
   --crt-user-profile-label-text-color: var(--bs-body-color);
 
-  /* Breadcrumb variables */
   --crt-breadcrumb-title-color: var(--pc-heading-color);
   --crt-breadcrumb-link-color: var(--bs-body-color);
-  --crt-breadcrumb-link-hover-color: #04a9f5; /* This primary blue should be fine on dark backgrounds too */
+  --crt-breadcrumb-link-hover-color: #04a9f5;
 
-  --crt-header-icon-hover-color: #04a9f5; /* Added for header icon hover */
+  --crt-header-icon-hover-color: #04a9f5;
   --bs-card-bg: #2b2c2f;
-    --bs-card-border-color: #393b3f;
+  --bs-card-border-color: #393b3f;
   --bs-body-color: #bfbfbf;
   --bs-bg-opacity: 1;
-  --bs-primary-rgb: 4, 169, 245;
-  --bs-white-rgb: 255, 255, 255, 1;
-
+  --bs-primary-rgb: rgba(4, 169, 245, 1);
+  --bs-white-rgb: rgba(255, 255, 255, 1);
 }

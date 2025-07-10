@@ -23,15 +23,9 @@
 .crt-header-icon {
   font-size: 18px;
   padding: 5px;
-  /* Define a specific class for the icon color itself if needed, e.g., .crt-header-icon-color */
-}
-
-.crt-header-icon .anticon {
-  /* If icons have a default color that needs to be themeable, define it here using a variable */
-  /* e.g., color: var(--crt-header-icon-default-color); */
 }
 
 .crt-header-icon:hover .anticon {
-  color: var(--crt-header-icon-hover-color); /* Changed to header-specific variable */
+  color: var(--crt-header-icon-hover-color);
   cursor: pointer;
 }
