@@ -1,5 +1,6 @@
 
 @import "simplebar-react/dist/simplebar.min.css";
+
 .simplebar-scrollbar {
   position: absolute;
   right: 2px;

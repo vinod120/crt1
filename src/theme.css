@@ -45,6 +45,18 @@
   --crt-sidebar-header-main-active-color: #fff;
 /* end -> sidebar header(logo) for light -> default theme */
 
+/* start -> sidebar for for light -> default theme */
+  --crt-sidebar-main-background: #3f4d67;
+  --crt-sidebar-main-shadow: 1px 0 20px 0 #3f4d67;
+  --crt-sidebar-main-caption-color: #e8edf7;
+  --crt-sidebar-main-caption-secondary-text-color: #67758a;
+  --crt-sidebar-main-color: #a9b7d0;
+  --crt-sidebar-main-active-background: rgba(0, 0, 0, 0.1);
+  --crt-sidebar-main-active-color: #04a9f5;
+  --crt-sidebar-main-active-clr: #fff;
+  --crt-sidebar-main-link-active-highlight-color: rgba(0, 0, 0, 0.1);
+/* end -> sidebar for for light -> default theme */
+
   --pc-card-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
   --pc-header-submenu-background: #ffffff;
   --pc-header-submenu-color: #5b6b79;
@@ -78,6 +90,18 @@
   --crt-sidebar-header-background: #2b2c2f;
   --crt-sidebar-header-main-active-color: #fff;
 /* end -> sidebar header(logo) for dark theme */
+
+/* start -> sidebar for dark theme */
+  --crt-sidebar-main-background: #2b2c2f;
+  --crt-sidebar-main-shadow: none;
+  --crt-sidebar-main-caption-color: rgba(255, 255, 255, 0.8);
+  --crt-sidebar-main-caption-secondary-text-color: #8a9eb5;
+  --crt-sidebar-main-color: rgba(255, 255, 255, 0.7);
+  --crt-sidebar-main-active-background: rgba(0, 0, 0, 0.1);
+  --crt-sidebar-main-active-color: #04a9f5;
+  --crt-sidebar-main-active-clr: #fff;
+  --crt-sidebar-main-link-active-highlight-color: rgba(255, 255, 255, 0.05);
+/* end -> sidebar for dark theme */
 
   --pc-active-background: #282a2c;
   --pc-card-box-shadow: 0 0px 2px 0 rgba(69, 90, 100, 0.5);
