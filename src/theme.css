@@ -39,6 +39,12 @@
   --crt-header-shadow: none;
   --crt-header-icon-hover-color: #04a9f5;
 /* end -> header color for light -> default theme */
+  
+/* start -> sidebar header(logo) color for light -> default theme */
+  --crt-sidebar-header-background: #3f4d67;
+  --crt-sidebar-header-main-active-color: #fff;
+/* end -> sidebar header(logo) for light -> default theme */
+
 
   --pc-card-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
   --pc-header-submenu-background: #ffffff;
@@ -68,6 +74,11 @@
   --crt-header-color: #6f747f;
   --crt-header-shadow: none;
 /* end -> header color for dark theme */
+
+/* start -> sidebar header(logo) color for dark theme */
+  --crt-sidebar-header-background: #2b2c2f;
+  --crt-sidebar-header-main-active-color: #fff;
+/* end -> sidebar header(logo) for dark theme */
 
   --pc-active-background: #282a2c;
   --pc-card-box-shadow: 0 0px 2px 0 rgba(69, 90, 100, 0.5);

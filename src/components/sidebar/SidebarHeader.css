@@ -1,3 +1,12 @@
+.crt-sidebar-header {
+  max-height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  box-sizing: border-box;
+  background-color: var(--crt-sidebar-header-background);
+}
+
 .crt-logo-image {
   width: 32px;
   height: 32px;
@@ -6,5 +15,5 @@
 .crt-logo-text {
   margin-left: 8px;
   font-size: 18px;
-  color: var(--crt-sidebar-main-active-color);;
+  color: var(--crt-sidebar-header-main-active-color);
 }
