@@ -33,11 +33,13 @@
   --crt-breadcrumb-title-color: var(--pc-heading-color);
   --crt-breadcrumb-link-color: var(--bs-body-color);
   --crt-breadcrumb-link-hover-color: #04a9f5;
-
-  --pc-header-background: rgba(var(--bs-body-bg-rgb), 0.7);
-  --pc-header-color: #5b6b79;
-  --pc-header-shadow: none;
+/* start -> header color for light -> default theme */
+  --crt-header-background: rgba(244, 247, 250, 0.7);
+  --crt-header-color: #5b6b79;
+  --crt-header-shadow: none;
   --crt-header-icon-hover-color: #04a9f5;
+/* end -> header color for light -> default theme */
+
   --pc-card-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
   --pc-header-submenu-background: #ffffff;
   --pc-header-submenu-color: #5b6b79;
@@ -61,9 +63,12 @@
   --crt-sidebar-main-active-color: #fff;
   --crt-sidebar-submenu-border-color: var(--bs-gray-600);
   --crt-sidebar-caption-color: rgba(255, 255, 255, 0.8);
-  --pc-header-background: rgba(var(--bs-body-bg-rgb), 0.7);
-  --pc-header-color: #6f747f;
-  --pc-header-shadow: none;
+/* start -> header color for dark theme */
+  --crt-header-background: rgba(33, 34, 36, 0.7);
+  --crt-header-color: #6f747f;
+  --crt-header-shadow: none;
+/* end -> header color for dark theme */
+
   --pc-active-background: #282a2c;
   --pc-card-box-shadow: 0 0px 2px 0 rgba(69, 90, 100, 0.5);
   --pc-header-submenu-background: #393b3f;

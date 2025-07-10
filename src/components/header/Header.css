@@ -7,10 +7,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--pc-header-background);
-  color: var(--pc-header-color);
+  background: var(--crt-header-background);
+  color: var(--crt-header-color);
   backdrop-filter: blur(7px);
-  box-shadow: var(--pc-header-shadow);
+  box-shadow: var(--crt-header-shadow);
   transition: left 0.2s ease;
 }
 
