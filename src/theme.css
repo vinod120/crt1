@@ -25,7 +25,7 @@
   --crt-dashboard-card-count-text-color: var(--pc-heading-color);
   --crt-user-profile-dropdown-text-color: var(--bs-body-color);
   --crt-user-profile-dropdown-background: var(--bs-card-bg);
-  --crt-user-profile-header-text-color: var(--bs-white-rgb);
+  --crt-user-profile-header-text-color: var(--bs-body-color);
   --crt-user-profile-header-background: var(--bs-primary-rgb);
   --crt-logout-button-background: var(--bs-primary-rgb);
   --crt-user-profile-label-text-color: var(--bs-body-color);
@@ -88,7 +88,7 @@
   --crt-dashboard-card-count-text-color: var(--pc-heading-color);
   --crt-user-profile-dropdown-text-color: var(--bs-body-color);
   --crt-user-profile-dropdown-background: var(--bs-card-bg);
-  --crt-user-profile-header-text-color: var(--bs-white-rgb);
+  --crt-user-profile-header-text-color: var(--bs-body-color);
   --crt-user-profile-header-background: var(--bs-primary-rgb);
   --crt-logout-button-background: var(--bs-primary-rgb);
   --crt-user-profile-label-text-color: var(--bs-body-color);
