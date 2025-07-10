@@ -90,33 +90,53 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
   }, [visible, loadInitialColors]);
 
   const handleColorSwatchClick = (bgVariableName: string, colorValue: string) => {
+    const newChoice = { background: colorValue, text: '#FFFFFF' };
     setStagedColors(prev => ({
       ...prev,
-      [bgVariableName]: { background: colorValue, text: '#FFFFFF' },
+      [bgVariableName]: newChoice,
     }));
+
+    // Apply live preview
+    const section = colorSections.find(s => s.bgVariableName === bgVariableName);
+    if (section) {
+      document.documentElement.style.setProperty(section.bgVariableName, newChoice.background);
+      if (newChoice.text) { // Should always be #FFFFFF
+        document.documentElement.style.setProperty(section.textVariableName, newChoice.text);
+      }
+    }
   };
 
   const handleSave = () => {
-    Object.keys(stagedColors).forEach(bgVariable => {
-      const choice = stagedColors[bgVariable];
-      const section = colorSections.find(s => s.bgVariableName === bgVariable);
-      if (choice.background && section) {
-        document.documentElement.style.setProperty(section.bgVariableName, choice.background);
-        if (choice.text) { // Should always be #FFFFFF if background is set
-          document.documentElement.style.setProperty(section.textVariableName, choice.text);
-        }
-      } else if (section) { // Handle case where a color might be "deselected" or reset in staged
-        document.documentElement.style.removeProperty(section.bgVariableName);
-        document.documentElement.style.removeProperty(section.textVariableName);
-      }
-    });
+    // The styles are already live previewed by handleColorSwatchClick.
+    // Save just needs to persist stagedColors to localStorage and update initialPanelColors.
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stagedColors));
-    setInitialPanelColors(JSON.parse(JSON.stringify(stagedColors))); // Update initial state after save
+    setInitialPanelColors(JSON.parse(JSON.stringify(stagedColors))); // Update baseline for "Cancel"
     onClose(); // Close panel on save
   };
 
   const handleCancel = () => {
-    setStagedColors(initialPanelColors); // Revert to colors when panel was opened
+    // Revert live UI to the state stored in initialPanelColors
+    Object.keys(initialPanelColors).forEach(bgVariableKey => {
+      const choice = initialPanelColors[bgVariableKey];
+      const section = colorSections.find(s => s.bgVariableName === bgVariableKey);
+
+      if (section) {
+        if (choice && choice.background) {
+          document.documentElement.style.setProperty(section.bgVariableName, choice.background);
+          if (choice.text) {
+            document.documentElement.style.setProperty(section.textVariableName, choice.text);
+          } else { // Should not happen if saved correctly, but good practice
+            document.documentElement.style.removeProperty(section.textVariableName);
+          }
+        } else {
+          // If initial state for this section was "no custom color"
+          document.documentElement.style.removeProperty(section.bgVariableName);
+          document.documentElement.style.removeProperty(section.textVariableName);
+        }
+      }
+    });
+
+    setStagedColors(initialPanelColors); // Reset staged colors to match the reverted live UI
     onClose();
   };
 
