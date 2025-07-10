@@ -64,7 +64,6 @@ const HeaderRight: React.FC = () => {
             tabIndex={0}
             aria-label="Toggle Theme"
             onClick={() => dispatch(toggleTheme())}
-            className="crt-header-icon"
           >
             {themeType === "light" ? <SunOutlined /> : <MoonOutlined />}
           </span>

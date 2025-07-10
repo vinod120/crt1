@@ -4,7 +4,7 @@ import {
     LogoutOutlined,
     SettingOutlined,
     ShareAltOutlined,
-    UserOutlined
+    UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, MenuProps, Space } from "antd";
 import type { FC } from "react";
@@ -58,16 +58,19 @@ const items: MenuProps["items"] = [
 
 const UserProfile: FC = () => {
   return (
-    <Dropdown
-      menu={{ items }}
-      trigger={["click"]}
-      placement="bottomRight"
-      overlayClassName="user-profile"
-    >
-      <span className="crt-header-icon" style={{ cursor: "pointer" }}>
-        <UserOutlined style={{ fontSize: 20 }} />
-      </span>
-    </Dropdown>
+    <div className="user-profile-container">
+      <Dropdown
+        menu={{ items }}
+        trigger={["click"]}
+        placement="bottomRight"
+        overlayClassName="user-profile"
+      >
+        <div className=" crt-header-profile-container">
+          <UserOutlined style={{ fontSize: 20, cursor: "pointer" }} />
+        </div>
+      </Dropdown>
+      <div className="user-profile-name">Test User</div>
+    </div>
   );
 };
 
