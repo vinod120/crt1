@@ -7,12 +7,12 @@ import {
   SettingOutlined,
   SunOutlined,
 } from "@ant-design/icons";
-import { Dropdown, Space } from "antd";
+import { Dropdown, Space } from "antd"; // Dropdown might not be needed here anymore unless other settings use it
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from "../profile/UserProfile";
-import ThemeCustomizer from "./ThemeCustomizer"; // Import the new component
+import SettingsPanel from "../settingsPanel/SettingsPanel"; // Import the SettingsPanel
 
 const HeaderRight: React.FC = () => {
   const themeType = useSelector((state: RootState) => state.theme.theme);
@@ -20,7 +20,7 @@ const HeaderRight: React.FC = () => {
   const { i18n } = useTranslation();
 
   const [time, setTime] = useState(() => new Date().toLocaleTimeString());
-  const [isColorSettingsVisible, setIsColorSettingsVisible] = useState(false);
+  const [isSettingsPanelVisible, setIsSettingsPanelVisible] = useState(false); // State for panel visibility
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -46,8 +46,12 @@ const HeaderRight: React.FC = () => {
     },
   ];
 
-  const handleSettingsClick = () => {
-    setIsColorSettingsVisible(!isColorSettingsVisible);
+  const showSettingsPanel = () => {
+    setIsSettingsPanelVisible(true);
+  };
+
+  const hideSettingsPanel = () => {
+    setIsSettingsPanelVisible(false);
   };
 
   return (
@@ -75,25 +79,18 @@ const HeaderRight: React.FC = () => {
           </span>
         </div>
         <div className="crt-header-icon">
-          <Dropdown
-            dropdownRender={() => <ThemeCustomizer />}
-            trigger={['click']}
-            open={isColorSettingsVisible}
-            onOpenChange={setIsColorSettingsVisible}
-            placement="bottomRight"
+          <span
+            role="button"
+            tabIndex={0}
+            aria-label="Open Theme Customizer"
+            onClick={showSettingsPanel} // Open the panel
           >
-            <span
-              role="button"
-              tabIndex={0}
-              aria-label="Customize Theme Colors"
-              onClick={handleSettingsClick} // Keep this if direct click handling is preferred for the icon itself
-            >
-              <SettingOutlined />
-            </span>
-          </Dropdown>
+            <SettingOutlined />
+          </span>
         </div>
         <UserProfile />
       </Space>
+      <SettingsPanel visible={isSettingsPanelVisible} onClose={hideSettingsPanel} />
     </div>
   );
 };
