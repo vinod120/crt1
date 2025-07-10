@@ -1,4 +1,4 @@
-[data-theme='light'] .app-container, :root {
+[data-theme='light'], :root {
   --bs-body-bg: #f4f7fa;
   --bs-body-bg-rgb: 244, 247, 250;
   --pc-heading-color: #1d2630;
@@ -26,7 +26,7 @@
   --bs-white-rgb: 255, 255, 255, 1;
 }
 
-[data-theme="dark"] .app-container {
+[data-theme="dark"] {
   --bs-body-bg: #212224;
   --bs-body-bg-rgb: 33, 34, 36;
   --pc-heading-color: rgba(255, 255, 255, 0.8);
@@ -54,7 +54,7 @@
   --crt-sidebar-active-background: rgba(0, 0, 0, 0.1);
   --crt-sidebar-active-color: #04a9f5;
   --bs-card-bg: #2b2c2f;
-    --bs-card-border-color: #393b3f;
+  --bs-card-border-color: #393b3f;
   --bs-body-color: #bfbfbf;
   --bs-bg-opacity: 1;
   --bs-primary-rgb: 4, 169, 245;

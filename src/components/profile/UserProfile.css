@@ -3,7 +3,7 @@
   border-radius: 6px;
   overflow: hidden;
   min-width: 220px;
-  /* background: var(--bs-card-border-color); */
+  background: var(--bs-card-border-color);
   color: var(--bs-body-color);
 }
 
