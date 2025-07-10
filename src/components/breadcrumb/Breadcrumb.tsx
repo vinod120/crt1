@@ -1,7 +1,9 @@
 import { Breadcrumb } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./Breadcrumb.css";
 import { BreadcrumbViewProps } from "./types";
+
 const items = [
   {
     title: "Home",
@@ -18,8 +20,10 @@ const items = [
     title: "An Application",
   },
 ];
+
 const BreadcrumbView: React.FC<BreadcrumbViewProps> = React.memo(
   ({ breadcrumbs = items }) => {
+    const { t } = useTranslation();
     const breadcrumbItems =
       breadcrumbs?.length > 0
         ? breadcrumbs.map((breadcrumb, idx) => ({
@@ -32,7 +36,7 @@ const BreadcrumbView: React.FC<BreadcrumbViewProps> = React.memo(
     return (
       <div className="breadcrumb-header">
         <div className="breadcrumb-header-title">
-          <h5>Dashboard</h5>
+          <h5>{t('dashboard')}</h5>
         </div>
         <Breadcrumb
           className="breadcrumb"

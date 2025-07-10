@@ -27,6 +27,6 @@
 }
 
 .crt-header-icon:hover .anticon {
-  color: var(--crt-sidebar-active-color);
+  color: var(--crt-header-icon-hover-color);
   cursor: pointer;
 }

@@ -6,7 +6,7 @@
   margin-bottom: 0;
   font-weight: 500;
   font-size: 1.125rem;
-  color: var(--pc-heading-color);
+  color: var(--crt-breadcrumb-title-color);
 }
 
 .breadcrumb-header .breadcrumb {
@@ -17,12 +17,12 @@
 }
 
 .breadcrumb-header .breadcrumb .ant-breadcrumb-link {
-  color: var(--bs-body-color);
+  color: var(--crt-breadcrumb-link-color);
   cursor: pointer;
 }
 
 .breadcrumb-header .breadcrumb .ant-breadcrumb-link:hover {
-  color: #04a9f5;
+  color: var(--crt-breadcrumb-link-hover-color);
 }
 @media (max-width: 575.98px) {
   .breadcrumb-header .h5,

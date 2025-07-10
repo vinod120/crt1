@@ -3,26 +3,27 @@
   border-radius: 6px;
   overflow: hidden;
   min-width: 220px;
-  background: var(--bs-card-border-color);
-  color: var(--bs-body-color);
+  background: var(--crt-user-profile-dropdown-background);
+  color: var(--crt-user-profile-dropdown-text-color);
 }
-
 .user-profile .ant-dropdown-menu-item-group-title {
   padding: unset !important;
 }
 .user-profile-title,
 .user-profile-sub-title {
-  color: rgba(var(--bs-white-rgb));
+  color: var(--crt-user-profile-header-text-color);
 }
 .user-profile-sub-title {
   opacity: 0.75;
 }
-.user-profile .dropdown-header,
+.user-profile .dropdown-header {
+  background-color: var(--crt-user-profile-header-background) !important;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
 .logout-btn {
-  background-color: rgba(
-    var(--bs-primary-rgb),
-    var(--bs-bg-opacity)
-  ) !important;
+  background-color: var(--crt-logout-button-background) !important;
   padding: 16px;
   box-sizing: border-box;
 }
@@ -32,7 +33,7 @@
 }
 .user-profile-label {
   padding: 8px;
-  color: var(--bs-body-color);
+  color: var(--crt-user-profile-label-text-color);
 }
 .user-profile .ant-dropdown-menu-item .anticon {
   font-size: 16px;
@@ -46,4 +47,5 @@
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
+  color: var(--crt-user-profile-header-text-color);
 }

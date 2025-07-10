@@ -33,7 +33,7 @@
   height: calc(100vh - 64px);
 }
 .simplebar-scrollbar::before {
-  background-color: #9cb7d2;
+  background-color: var(--crt-sidebar-scrollbar-color);
 }
 
 .crt-sidebar-content {
@@ -69,7 +69,7 @@
 
 .crt-sidebar-content .pc-caption span:not(.badge) {
   display: block;
-  color: #67758a;
+  color: var(--crt-sidebar-caption-secondary-text-color);
   font-size: 14px;
   font-weight: 500;
 }
@@ -166,7 +166,7 @@
   .pc-navbar
   > .pc-item:not(.pc-caption):hover
   > .pc-link:after {
-  background: #000;
+  background: var(--crt-sidebar-link-active-highlight-color);
 }
 
 .crt-sidebar-content .pc-navbar > .pc-item:not(.pc-caption) .pc-submenu {
