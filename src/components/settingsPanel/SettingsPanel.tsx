@@ -209,8 +209,8 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
       className="crt-settings-panel"
       open={visible}
       width={320}
-      style={{ overflow: "hidden" }}
-      styles={{ body: { padding: 0, overflow: 'hidden' } }}
+      style={{ overflow: "hidden",  transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)' }}
+      styles={{ body: { padding: 0, overflow: 'hidden', transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)' } }}
       footer={
         <Space style={{ width: "100%", justifyContent: "space-between" }}>
           <Button onClick={handleCancel}>Cancel</Button>

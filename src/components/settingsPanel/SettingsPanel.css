@@ -68,3 +68,6 @@
   color: var(--crt-primary-orange) !important;
   border: 1px solid var(--crt-primary-orange) !important;
 }
+.ant-drawer-content-wrapper {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
