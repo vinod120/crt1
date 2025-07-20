@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Drawer, Typography, Button, Space, Divider, Tooltip } from 'antd'; // Added Tooltip
-import './SettingsPanel.css';
+import SimpleBarScroll from "@/scrollbar/SimpleBarScroll";
+import { Button, Drawer, Space, Tooltip, Typography } from "antd";
+import React, { useCallback, useEffect, useState } from "react";
+import { LiaCheckDoubleSolid } from "react-icons/lia";
+import "./SettingsPanel.css";
 
 const { Title } = Typography;
 
@@ -11,56 +13,58 @@ interface SettingsPanelProps {
 
 interface ColorChoice {
   background: string | null;
-  text: string | null; // Expected to be '#FFFFFF' or null
+  text: string | null;
 }
 
 interface StagedColors {
   [variableName: string]: ColorChoice;
 }
 
-const LOCAL_STORAGE_KEY = 'crtCustomThemeSettings';
+const LOCAL_STORAGE_KEY = "crtCustomThemeSettings";
 
 const presetColors = [
-  { name: 'Primary', value: '#04a9f5' },
-  { name: 'Blue', value: '#1677ff' },
-  { name: 'Purple', value: '#722ED1' },
-  { name: 'Green', value: '#52C41A' },
-  { name: 'Red', value: '#F5222D' },
-  { name: 'Orange', value: '#FA8C16' },
-  { name: 'Dark Grey', value: '#595959' },
-  { name: 'Teal', value: '#13c2c2' },
+  { name: "Orange", value: "#e46c09" },
+  { name: "Teal", value: "#2a838a" },
+  { name: "Light Blue", value: "#74cee2" },
+  { name: "Cornflower", value: "#71a0cb" },
+  { name: "Green", value: "#00a585" },
+  { name: "Mint", value: "#7cccbf" },
+  { name: "Dark Grey", value: "#595959" },
+  { name: "Night Sky", value: "#0c3e54" }
 ];
 
 const colorSections = [
   {
-    key: 'header',
-    label: 'Header Color',
-    bgVariableName: '--crt-header-background',
-    textVariableName: '--crt-header-color',
+    key: "header",
+    label: "Header",
+    bgVariableName: "--crt-header-background",
+    textVariableName: "--crt-header-color",
   },
   {
-    key: 'sidebar',
-    label: 'Sidebar Color',
-    bgVariableName: '--crt-sidebar-background',
-    textVariableName: '--crt-sidebar-color',
+    key: "sidebar",
+    label: "Sidebar",
+    bgVariableName: "--crt-sidebar-background",
+    textVariableName: "--crt-sidebar-color",
   },
   {
-    key: 'logoHeader',
-    label: 'Logo Header Color',
-    bgVariableName: '--crt-sidebar-header-background',
-    textVariableName: '--crt-sidebar-header-main-active-color',
+    key: "logoHeader",
+    label: "Header Logo",
+    bgVariableName: "--crt-sidebar-header-background",
+    textVariableName: "--crt-sidebar-header-main-active-color",
   },
 ];
 
-const getDefaultColorChoice = (): ColorChoice => ({ background: null, text: null });
+const getDefaultColorChoice = (): ColorChoice => ({
+  background: null,
+  text: null,
+});
 
 const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
   const [stagedColors, setStagedColors] = useState<StagedColors>({});
-  const [initialPanelColors, setInitialPanelColors] = useState<StagedColors>({}); // To store state on panel open for cancel
+  const [initialPanelColors, setInitialPanelColors] = useState<StagedColors>({});
 
   const loadInitialColors = useCallback(() => {
     let currentColors: StagedColors = {};
-    // Try to load from localStorage first
     const savedSettings = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (savedSettings) {
       try {
@@ -68,20 +72,23 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
       } catch (e) {
         console.error("Failed to parse saved theme settings:", e);
       }
-    } else if (typeof window !== 'undefined') {
-      // If no localStorage, initialize from current live CSS (inline or computed)
-      colorSections.forEach(section => {
-        const bg = document.documentElement.style.getPropertyValue(section.bgVariableName).trim() ||
-                   getComputedStyle(document.documentElement).getPropertyValue(section.bgVariableName).trim();
-        const text = document.documentElement.style.getPropertyValue(section.textVariableName).trim() ||
-                     getComputedStyle(document.documentElement).getPropertyValue(section.textVariableName).trim();
-        currentColors[section.bgVariableName] = { background: bg || null, text: text || null };
+    } else if (typeof window !== "undefined") {
+      colorSections.forEach((section) => {
+        const bg =
+          document.documentElement.style.getPropertyValue(section.bgVariableName).trim() ||
+          getComputedStyle(document.documentElement).getPropertyValue(section.bgVariableName).trim();
+        const text =
+          document.documentElement.style.getPropertyValue(section.textVariableName).trim() ||
+          getComputedStyle(document.documentElement).getPropertyValue(section.textVariableName).trim();
+        currentColors[section.bgVariableName] = {
+          background: bg || null,
+          text: text || null,
+        };
       });
     }
     setStagedColors(currentColors);
-    setInitialPanelColors(JSON.parse(JSON.stringify(currentColors))); // Deep copy for cancel
+    setInitialPanelColors(JSON.parse(JSON.stringify(currentColors)));
   }, []);
-
 
   useEffect(() => {
     if (visible) {
@@ -89,60 +96,58 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
     }
   }, [visible, loadInitialColors]);
 
-  const handleColorSwatchClick = (bgVariableName: string, colorValue: string) => {
-    const newChoice = { background: colorValue, text: '#FFFFFF' };
-    setStagedColors(prev => ({
+  const handleColorSwatchClick = (
+    bgVariableName: string,
+    colorValue: string
+  ) => {
+    const newChoice = { background: colorValue, text: "#FFFFFF" };
+    setStagedColors((prev) => ({
       ...prev,
       [bgVariableName]: newChoice,
     }));
 
-    // Apply live preview
-    const section = colorSections.find(s => s.bgVariableName === bgVariableName);
+    const section = colorSections.find((s) => s.bgVariableName === bgVariableName);
     if (section) {
       document.documentElement.style.setProperty(section.bgVariableName, newChoice.background);
-      if (newChoice.text) { // Should always be #FFFFFF
+      if (newChoice.text) {
         document.documentElement.style.setProperty(section.textVariableName, newChoice.text);
       }
     }
   };
 
   const handleSave = () => {
-    // The styles are already live previewed by handleColorSwatchClick.
-    // Save just needs to persist stagedColors to localStorage and update initialPanelColors.
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stagedColors));
-    setInitialPanelColors(JSON.parse(JSON.stringify(stagedColors))); // Update baseline for "Cancel"
-    onClose(); // Close panel on save
+    setInitialPanelColors(JSON.parse(JSON.stringify(stagedColors)));
+    onClose();
   };
 
   const handleCancel = () => {
-    // Revert live UI to the state stored in initialPanelColors
-    Object.keys(initialPanelColors).forEach(bgVariableKey => {
+    Object.keys(initialPanelColors).forEach((bgVariableKey) => {
       const choice = initialPanelColors[bgVariableKey];
-      const section = colorSections.find(s => s.bgVariableName === bgVariableKey);
+      const section = colorSections.find((s) => s.bgVariableName === bgVariableKey);
 
       if (section) {
         if (choice && choice.background) {
           document.documentElement.style.setProperty(section.bgVariableName, choice.background);
           if (choice.text) {
             document.documentElement.style.setProperty(section.textVariableName, choice.text);
-          } else { // Should not happen if saved correctly, but good practice
+          } else {
             document.documentElement.style.removeProperty(section.textVariableName);
           }
         } else {
-          // If initial state for this section was "no custom color"
           document.documentElement.style.removeProperty(section.bgVariableName);
           document.documentElement.style.removeProperty(section.textVariableName);
         }
       }
     });
 
-    setStagedColors(initialPanelColors); // Reset staged colors to match the reverted live UI
+    setStagedColors(initialPanelColors);
     onClose();
   };
 
   const handleResetToDefaults = () => {
     const defaultStaged: StagedColors = {};
-    colorSections.forEach(section => {
+    colorSections.forEach((section) => {
       document.documentElement.style.removeProperty(section.bgVariableName);
       document.documentElement.style.removeProperty(section.textVariableName);
       defaultStaged[section.bgVariableName] = getDefaultColorChoice();
@@ -150,80 +155,115 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
     setStagedColors(defaultStaged);
     setInitialPanelColors(JSON.parse(JSON.stringify(defaultStaged)));
     localStorage.removeItem(LOCAL_STORAGE_KEY);
-     // console.log('Colors Reset to Theme Defaults and Saved Settings Cleared');
   };
 
-  // Handle external theme changes (light/dark mode)
-   useEffect(() => {
+  useEffect(() => {
     const observer = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-          // If theme changes, and if there are no saved custom settings,
-          // we might want to update stagedColors to reflect the new theme's computed styles.
-          // However, if there ARE saved/staged settings, they should take precedence.
-          // This logic can get complex. For now, prioritize explicit user choices.
-          // A full refresh of stagedColors from computed styles might be needed if no localStorage.
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "data-theme"
+        ) {
           const savedSettings = localStorage.getItem(LOCAL_STORAGE_KEY);
-          if (!savedSettings) { // Only if no custom settings are saved
-             loadInitialColors(); // Re-evaluate based on new theme's computed styles
+          if (!savedSettings) {
+            loadInitialColors();
           }
           break;
         }
       }
     });
-     if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       observer.observe(document.body, { attributes: true });
     }
-     return () => {
+    return () => {
       observer.disconnect();
     };
-  }, [loadInitialColors]); // loadInitialColors is stable due to useCallback
+  }, [loadInitialColors]);
+
+  const renderSettingPanelHeader = () => {
+    return (
+      <Space style={{ width: "100%", justifyContent: "space-between" }}>
+        <Title level={4} style={{ margin: 0 }} className="crt-settings-panel-title">
+          Settings
+        </Title>
+        <Button
+          onClick={handleResetToDefaults}
+          className="crt-reset-button"
+        >
+          Reset
+        </Button>
+      </Space>
+    );
+  };
 
   return (
     <Drawer
-      title="Theme Customizer"
+      title={renderSettingPanelHeader()}
       placement="right"
-      onClose={handleCancel} // Use handleCancel for drawer's native close
+      onClose={handleCancel}
+      className="crt-settings-panel"
       open={visible}
       width={320}
+      style={{ overflow: "hidden" }}
+      styles={{ body: { padding: 0, overflow: 'hidden' } }}
       footer={
-        <Space style={{ width: '100%', justifyContent: 'space-between' }}>
-          <Button onClick={handleResetToDefaults}>
-            Reset & Clear Saved
+        <Space style={{ width: "100%", justifyContent: "space-between" }}>
+          <Button onClick={handleCancel}>Cancel</Button>
+          <Button type="primary" onClick={handleSave}>
+            Save
           </Button>
-          <Space>
-            <Button onClick={handleCancel}>Cancel</Button>
-            <Button type="primary" onClick={handleSave}>
-              Save Changes
-            </Button>
-          </Space>
         </Space>
       }
     >
-      <Space direction="vertical" size="large" style={{ width: '100%' }}>
-        {colorSections.map((section) => (
-          <div key={section.key}>
-            <Title level={5}>{section.label}</Title>
-            <Space wrap>
-              {presetColors.map((color) => {
-                const currentChoice = stagedColors[section.bgVariableName] || getDefaultColorChoice();
-                const isActive = currentChoice.background === color.value;
-                return (
-                  <Tooltip title={color.name} key={color.value}>
-                    <Button
-                      className={`color-swatch ${isActive ? 'active' : ''}`}
-                      style={{ backgroundColor: color.value, width: '32px', height: '32px', minWidth: '32px' }}
-                      onClick={() => handleColorSwatchClick(section.bgVariableName, color.value)}
-                      aria-label={`Set ${section.label} to ${color.name}${isActive ? ' (active)' : ''}`}
-                    />
-                  </Tooltip>
-                );
-              })}
-            </Space>
-            <Divider style={{ margin: '16px 0' }}/>
-          </div>
-        ))}
-      </Space>
+      <SimpleBarScroll style={{ height: "calc(100vh - 134px)", padding: 16 }}>
+        <Space direction="vertical" size="large" style={{ width: "100%" }}>
+          {colorSections?.map((section) => (
+            <div key={section.key} className="crt-color-swatches">
+              <Title level={5} className="crt-settings-panel-section-title">
+                {section.label} Theme
+              </Title>
+              <p className="crt-setting-panel-sub-section">{`Choose your ${section.label} theme color`}</p>
+              <Space wrap>
+                {presetColors.map((color) => {
+                  const currentChoice =
+                    stagedColors[section.bgVariableName] || getDefaultColorChoice();
+                  const isActive = currentChoice.background === color.value;
+                  return (
+                    <Tooltip title={color.name} key={color.value}>
+                      <Button
+                        className={`color-swatch ${isActive ? "active" : ""}`}
+                        style={{
+                          backgroundColor: color.value,
+                        }}
+                        onClick={() =>
+                          handleColorSwatchClick(section.bgVariableName, color.value)
+                        }
+                        aria-label={`Set ${section.label} to ${color.name}${
+                          isActive ? " (active)" : ""
+                        }`}
+                      >
+                        {isActive && (
+                          <LiaCheckDoubleSolid
+                            style={{
+                              position: "absolute",
+                              top: "50%",
+                              left: "50%",
+                              transform: "translate(-50%, -50%)",
+                              color: "#FFFFFF",
+                              fontSize: "16px",
+                              zIndex: 2,
+                            }}
+                          />
+                        )}
+                      </Button>
+                    </Tooltip>
+                  );
+                })}
+              </Space>
+            </div>
+          ))}
+        </Space>
+      </SimpleBarScroll>
     </Drawer>
   );
 };
