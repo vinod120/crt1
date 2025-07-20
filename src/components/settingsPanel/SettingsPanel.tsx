@@ -209,7 +209,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
       footer={
         <Space style={{ width: "100%", justifyContent: "space-between" }}>
           <Button onClick={handleCancel}>Cancel</Button>
-          <Button type="primary" onClick={handleSave}>
+          <Button className="crt-setting-panel-save-button" onClick={handleSave}>
             Save
           </Button>
         </Space>

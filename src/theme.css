@@ -5,6 +5,7 @@
   --pc-heading-color: #1d2630;
   --pc-active-background: #f3f5f7;
   --crt-sidebar-background: #3f4d67;
+  --crt-primary-orange: #e46c09;
   --crt-sidebar-color: #a9b7d0;
   --crt-setting-panel-sub-section: #748892;
   --crt-sidebar-color-rgb: 169, 183, 208;
@@ -73,8 +74,9 @@
   --bs-body-bg: #212224;
   --bs-body-bg-rgb: 33, 34, 36;
   --pc-heading-color: rgba(255, 255, 255, 0.8);
-  --crt-setting-panel-sub-section: rgba(33, 37, 41, 0.75);
+  --crt-setting-panel-sub-section: #748892;
   --crt-sidebar-background: #2b2c2f;
+  --crt-primary-orange: #e46c09;
   --crt-sidebar-color: rgba(255, 255, 255, 0.7);
   --crt-sidebar-shadow: none;
   --crt-sidebar-color-rgb: 255, 255, 255;
