@@ -4,7 +4,7 @@
   --bs-body-bg-rgb: 244, 247, 250;
   --pc-heading-color: #1d2630;
   --pc-active-background: #f3f5f7;
-  --crt-sidebar-background: var(--crt-primary-orange);
+  --crt-sidebar-background: #3f4d67;
   --crt-primary-orange: #e46c09;
   --crt-sidebar-color: #a9b7d0;
   --crt-setting-panel-sub-section: #748892;
@@ -12,7 +12,7 @@
   --crt-sidebar-active-color: #04a9f5;
   --crt-sidebar-active-background: rgba(0, 0, 0, 0.1);
   --crt-sidebar-main-active-color: #fff;
-  --crt-sidebar-shadow: 1px 0 20px 0 var(--crt-primary-orange);
+  --crt-sidebar-shadow: 1px 0 20px 0 #3f4d67;
   --crt-sidebar-caption-color: #e8edf7;
   --crt-sidebar-border: none;
   --crt-sidebar-scrollbar-color: #9cb7d2;
@@ -43,18 +43,18 @@
 /* end -> header color for light -> default theme */
   
 /* start -> sidebar header(logo) color for light -> default theme */
-  --crt-sidebar-header-background: var(--crt-primary-orange);
+  --crt-sidebar-header-background: #3f4d67;
   --crt-sidebar-header-main-active-color: #fff;
 /* end -> sidebar header(logo) for light -> default theme */
 
 /* start -> sidebar for for light -> default theme */
-  --crt-sidebar-main-background: var(--crt-primary-orange);
-  --crt-sidebar-main-shadow: 1px 0 20px 0 var(--crt-primary-orange);
+  --crt-sidebar-main-background: #3f4d67;
+  --crt-sidebar-main-shadow: 1px 0 20px 0 #3f4d67;
   --crt-sidebar-main-caption-color: #e8edf7;
   --crt-sidebar-main-caption-secondary-text-color: #67758a;
   --crt-sidebar-main-color: #a9b7d0;
   --crt-sidebar-main-active-background: rgba(0, 0, 0, 0.1);
-  --crt-sidebar-main-active-color: #04a9f5;
+  --crt-sidebar-main-active-color: var(--crt-primary-orange);
   --crt-sidebar-main-active-clr: #fff;
   --crt-sidebar-main-link-active-highlight-color: rgba(0, 0, 0, 0.1);
 /* end -> sidebar for for light -> default theme */
@@ -102,7 +102,7 @@
   --crt-sidebar-main-caption-secondary-text-color: #8a9eb5;
   --crt-sidebar-main-color: rgba(255, 255, 255, 0.7);
   --crt-sidebar-main-active-background: rgba(0, 0, 0, 0.1);
-  --crt-sidebar-main-active-color: #04a9f5;
+  --crt-sidebar-main-active-color: var(--crt-primary-orange);
   --crt-sidebar-main-active-clr: #fff;
   --crt-sidebar-main-link-active-highlight-color: rgba(255, 255, 255, 0.05);
 /* end -> sidebar for dark theme */

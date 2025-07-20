@@ -30,8 +30,34 @@ const presetColors = [
   { name: "Green", value: "#00a585" },
   { name: "Mint", value: "#7cccbf" },
   { name: "Dark Grey", value: "#595959" },
-  { name: "Night Sky", value: "#0c3e54" },
+  { name: "Night Sky", value: "#0c3e54" }
 ];
+
+const colorSections = [
+  {
+    key: "header",
+    label: "Header",
+    bgVariableName: "--crt-header-background",
+    textVariableName: "--crt-header-color",
+  },
+  {
+    key: "sidebar",
+    label: "Sidebar",
+    bgVariableName: "--crt-sidebar-main-background",
+    textVariableName: "--crt-sidebar-main-color",
+  },
+  {
+    key: "logoHeader",
+    label: "Header Logo",
+    bgVariableName: "--crt-sidebar-header-background",
+    textVariableName: "--crt-sidebar-header-main-active-color",
+  },
+];
+
+const getDefaultColorChoice = (): ColorChoice => ({
+  background: null,
+  text: null,
+});
 
 const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
   const [stagedColors, setStagedColors] = useState<StagedColors>({});
@@ -40,7 +66,6 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
   const loadInitialColors = useCallback(() => {
     let currentColors: StagedColors = {};
     const savedSettings = localStorage.getItem(LOCAL_STORAGE_KEY);
-
     if (savedSettings) {
       try {
         currentColors = JSON.parse(savedSettings);
@@ -48,15 +73,26 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
         console.error("Failed to parse saved theme settings:", e);
       }
     } else if (typeof window !== "undefined") {
-      const primaryColor = getComputedStyle(document.documentElement)
+      const customColor = getComputedStyle(document.documentElement)
         .getPropertyValue("--crt-primary-orange")
         .trim();
       currentColors["--crt-primary-orange"] = {
-        background: primaryColor || null,
+        background: customColor || null,
         text: "#FFFFFF",
       };
+      colorSections.forEach((section) => {
+        const bg =
+          document.documentElement.style.getPropertyValue(section.bgVariableName).trim() ||
+          getComputedStyle(document.documentElement).getPropertyValue(section.bgVariableName).trim();
+        const text =
+          document.documentElement.style.getPropertyValue(section.textVariableName).trim() ||
+          getComputedStyle(document.documentElement).getPropertyValue(section.textVariableName).trim();
+        currentColors[section.bgVariableName] = {
+          background: bg || null,
+          text: text || null,
+        };
+      });
     }
-
     setStagedColors(currentColors);
     setInitialPanelColors(JSON.parse(JSON.stringify(currentColors)));
   }, []);
@@ -67,15 +103,17 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
     }
   }, [visible, loadInitialColors]);
 
-  const handleColorSwatchClick = (colorValue: string) => {
+  const handleColorSwatchClick = (
+    colorValue: string,
+    bgVariableName: string = '--crt-primary-orange'
+  ) => {
     const newChoice = { background: colorValue, text: "#FFFFFF" };
-    setStagedColors({
-      "--crt-primary-orange": newChoice,
-    });
-    document.documentElement.style.setProperty(
-      "--crt-primary-orange",
-      colorValue
-    );
+    setStagedColors((prev) => ({
+      ...prev,
+      [bgVariableName]: newChoice,
+    }));
+
+    document.documentElement.style.setProperty(bgVariableName, newChoice.background);
   };
 
   const handleSave = () => {
@@ -85,28 +123,44 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
   };
 
   const handleCancel = () => {
-    const initialPrimaryColor = initialPanelColors["--crt-primary-orange"];
-    if (initialPrimaryColor && initialPrimaryColor.background) {
-      document.documentElement.style.setProperty(
-        "--crt-primary-orange",
-        initialPrimaryColor.background
-      );
-    } else {
-      document.documentElement.style.removeProperty("--crt-primary-orange");
-    }
+    Object.keys(initialPanelColors).forEach((bgVariableKey) => {
+      const choice = initialPanelColors[bgVariableKey];
+      const section = colorSections.find((s) => s.bgVariableName === bgVariableKey);
+
+      if (section) {
+        if (choice && choice.background) {
+          document.documentElement.style.setProperty(section.bgVariableName, choice.background);
+          if (choice.text) {
+            document.documentElement.style.setProperty(section.textVariableName, choice.text);
+          } else {
+            document.documentElement.style.removeProperty(section.textVariableName);
+          }
+        } else {
+          document.documentElement.style.removeProperty(section.bgVariableName);
+          document.documentElement.style.removeProperty(section.textVariableName);
+        }
+      } else {
+        if (choice && choice.background) {
+          document.documentElement.style.setProperty(bgVariableKey, choice.background);
+        } else {
+          document.documentElement.style.removeProperty(bgVariableKey);
+        }
+      }
+    });
+
     setStagedColors(initialPanelColors);
     onClose();
   };
 
   const handleResetToDefaults = () => {
-    const defaultColor = "#e46c09";
-    document.documentElement.style.setProperty(
-      "--crt-primary-orange",
-      defaultColor
-    );
-    const defaultStaged: StagedColors = {
-      "--crt-primary-orange": { background: defaultColor, text: "#FFFFFF" },
-    };
+    const defaultStaged: StagedColors = {};
+    document.documentElement.style.removeProperty('--crt-primary-orange');
+    defaultStaged['--crt-primary-orange'] = getDefaultColorChoice();
+    colorSections.forEach((section) => {
+      document.documentElement.style.removeProperty(section.bgVariableName);
+      document.documentElement.style.removeProperty(section.textVariableName);
+      defaultStaged[section.bgVariableName] = getDefaultColorChoice();
+    });
     setStagedColors(defaultStaged);
     setInitialPanelColors(JSON.parse(JSON.stringify(defaultStaged)));
     localStorage.removeItem(LOCAL_STORAGE_KEY);
@@ -177,7 +231,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
               Custom Theme
             </Title>
             <p className="crt-setting-panel-sub-section">
-              Choose your primary theme color, that will main color, of siderbar, text, border right which we have on the left side and, button color, etc...
+              Choose your primary theme color
             </p>
             <Space wrap>
               {presetColors.map((color) => {
@@ -208,6 +262,51 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
               })}
             </Space>
           </div>
+          {colorSections?.map((section) => (
+            <div key={section.key} className="crt-color-swatches">
+              <Title level={5} className="crt-settings-panel-section-title">
+                {section.label} Theme
+              </Title>
+              <p className="crt-setting-panel-sub-section">{`Choose your ${section.label} theme color`}</p>
+              <Space wrap>
+                {presetColors.map((color) => {
+                  const currentChoice =
+                    stagedColors[section.bgVariableName] || getDefaultColorChoice();
+                  const isActive = currentChoice.background === color.value;
+                  return (
+                    <Tooltip title={color.name} key={color.value}>
+                      <Button
+                        className={`color-swatch ${isActive ? "active" : ""}`}
+                        style={{
+                          backgroundColor: color.value,
+                        }}
+                        onClick={() =>
+                          handleColorSwatchClick(section.bgVariableName, color.value)
+                        }
+                        aria-label={`Set ${section.label} to ${color.name}${
+                          isActive ? " (active)" : ""
+                        }`}
+                      >
+                        {isActive && (
+                          <LiaCheckDoubleSolid
+                            style={{
+                              position: "absolute",
+                              top: "50%",
+                              left: "50%",
+                              transform: "translate(-50%, -50%)",
+                              color: "#FFFFFF",
+                              fontSize: "16px",
+                              zIndex: 2,
+                            }}
+                          />
+                        )}
+                      </Button>
+                    </Tooltip>
+                  );
+                })}
+              </Space>
+            </div>
+          ))}
         </Space>
       </SimpleBarScroll>
     </Drawer>
