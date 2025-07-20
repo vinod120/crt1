@@ -1,10 +1,11 @@
 import FooterNav from "@/components/footer";
 import Header from "@/components/header";
+import NProgressLoader from "@/components/loader/NProgressLoader";
 import SideNav from "@/components/sidebar";
 import Dashboard from "@/pages/dashboard";
 import { AppDispatch, RootState } from '@/store';
 import { close } from '@/store/slices/sidebarSlice';
-import { Drawer, Layout, Progress } from 'antd';
+import { Drawer, Layout } from 'antd';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,6 +26,8 @@ const AppLayout = () => {
   }, []);
 
   return (
+    <>
+    <NProgressLoader />
     <Layout style={{ minHeight: '100vh', display: 'flex', flexDirection: 'row' }}>
       {(lg || md)? (
         <SideNav collapsed={!isOpen} />
@@ -41,11 +44,6 @@ const AppLayout = () => {
         </Drawer>
       )}
       <Layout className="app-layout" style={{ flex: 1, display: 'flex', flexDirection: 'column',  margin: isOpen ? "0 auto 0 250px" : 'unset' }}>
-        {isLoading && (
-          <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 1000 }}>
-            <Progress percent={75} size="small" />
-          </div>
-        )}
        <Header />
         <Content style={{ flex: 1, overflow: 'auto'}} className="app-layout-content">
             <Dashboard />
@@ -55,6 +53,7 @@ const AppLayout = () => {
         </Footer>
       </Layout>
     </Layout>
+    </>
   );
 };
 
