@@ -1,24 +1,61 @@
+.crt-settings-panel .ant-drawer-header-title{
+  flex-direction: row-reverse;
+}
+.crt-settings-panel .crt-settings-panel-title, .crt-settings-panel .crt-settings-panel-section-title {
+  color: var(--pc-heading-color);
+  font-weight: 400;
+  margin: 0;
+}
+.crt-settings-panel p.crt-setting-panel-sub-section {
+  font-size: 12px;
+  margin-bottom: 8px;
+  color: var(--crt-setting-panel-sub-section);
+}
+.crt-settings-panel .crt-reset-button {
+  margin-right: 10px;
+  color: var(--pc-heading-color);
+  border-color: #f44236;
+  padding: 10px;
+}
+.crt-settings-panel .crt-reset-button:hover {
+  background-color: #f44236 !important;
+  color: whitesmoke !important;
+}
+.crt-color-swatches {
+  max-height: 100px;
+}
 .color-swatch {
-  border: 1px solid #d9d9d9;
   border-radius: 4px;
   cursor: pointer;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  padding: 0; /* Ensure background color fills the button */
+  padding: 0;
+  position: relative;
+  width: 25px;
+  height: 45px;
 }
 
 .color-swatch:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Optional: Style for an active/selected swatch if you implement that state */
 .color-swatch.active {
   border-width: 2px;
-  border-color: #096dd9; /* A contrasting color to indicate selection */
   box-shadow: 0 0 8px rgba(24, 144, 255, 0.5);
+  width: 45px;
 }
 
-/* Ensure drawer content has enough padding if not using Space component extensively */
-.ant-drawer-body {
-  padding: 24px;
+.color-swatch .anticon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  color: #FFFFFF;
+  font-size: 16px;
+  transition: transform 0.15s ease-in-out, opacity 0.15s ease-in-out;
+  z-index: 2;
+}
+
+.color-swatch.active .anticon {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
 }

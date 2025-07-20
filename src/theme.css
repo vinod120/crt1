@@ -6,6 +6,7 @@
   --pc-active-background: #f3f5f7;
   --crt-sidebar-background: #3f4d67;
   --crt-sidebar-color: #a9b7d0;
+  --crt-setting-panel-sub-section: #748892;
   --crt-sidebar-color-rgb: 169, 183, 208;
   --crt-sidebar-active-color: #04a9f5;
   --crt-sidebar-active-background: rgba(0, 0, 0, 0.1);
@@ -72,6 +73,7 @@
   --bs-body-bg: #212224;
   --bs-body-bg-rgb: 33, 34, 36;
   --pc-heading-color: rgba(255, 255, 255, 0.8);
+  --crt-setting-panel-sub-section: rgba(33, 37, 41, 0.75);
   --crt-sidebar-background: #2b2c2f;
   --crt-sidebar-color: rgba(255, 255, 255, 0.7);
   --crt-sidebar-shadow: none;
