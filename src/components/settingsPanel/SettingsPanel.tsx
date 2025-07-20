@@ -43,8 +43,8 @@ const colorSections = [
   {
     key: "sidebar",
     label: "Sidebar",
-    bgVariableName: "--crt-sidebar-background",
-    textVariableName: "--crt-sidebar-color",
+    bgVariableName: "--crt-sidebar-main-background",
+    textVariableName: "--crt-sidebar-main-color",
   },
   {
     key: "logoHeader",
@@ -111,6 +111,11 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
       document.documentElement.style.setProperty(section.bgVariableName, newChoice.background);
       if (newChoice.text) {
         document.documentElement.style.setProperty(section.textVariableName, newChoice.text);
+      }
+      if (section.key === 'sidebar') {
+        document.documentElement.style.setProperty('--crt-sidebar-main-active-background', colorValue);
+        document.documentElement.style.setProperty('--crt-sidebar-main-active-color', '#FFFFFF');
+        document.documentElement.style.setProperty('--crt-sidebar-main-active-clr', '#FFFFFF');
       }
     }
   };
