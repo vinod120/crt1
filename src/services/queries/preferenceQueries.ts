@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchUserPreferecesByUserID } from "../api/preferences";
 
-interface PreferencesResponse {
+export interface PreferencesResponse {
   assetNames: string[];
   assetLocations: string[];
   manufactures: string[];

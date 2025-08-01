@@ -1,8 +1,10 @@
+import LocalDBObj from "@/utils/localDb";
 import "@ant-design/v5-patch-for-react-19";
 import { ConfigProvider, Spin, theme } from "antd";
 import { Suspense, useEffect } from "react"; // Added React and useEffect
 import { useSelector } from "react-redux";
 import { RouterProvider } from "react-router-dom";
+import LoadPreferencesOnStart from "./components/preferences/LoadPreferencesOnStart ";
 import router from "./routes";
 import { RootState } from "./store";
 
@@ -36,6 +38,7 @@ const persistenceColorSections = [
 
 const App = () => {
   const themeType = useSelector((state: RootState) => state.theme.theme);
+  const userDetails = JSON.parse(LocalDBObj?.getVal('userDetails') || '{}');
 
   useEffect(() => {
     const applyPersistedThemeSettings = () => {
@@ -105,6 +108,7 @@ const App = () => {
         }
       >
         <div className="app-container">
+          {userDetails?.userName && userDetails?.userId &&  <LoadPreferencesOnStart /> }
           <RouterProvider router={router} />
         </div>
       </Suspense>
