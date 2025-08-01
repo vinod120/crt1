@@ -1,6 +1,7 @@
 import { Breadcrumb } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import "./Breadcrumb.css";
 import { BreadcrumbViewProps } from "./types";
 
@@ -40,7 +41,7 @@ const BreadcrumbView: React.FC<BreadcrumbViewProps> = React.memo(
         </div>
         <Breadcrumb
           className="breadcrumb"
-          separator=">"
+          separator={<MdKeyboardArrowRight />}
           items={breadcrumbItems}
         />
       </div>

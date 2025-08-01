@@ -150,7 +150,7 @@
 }
 
 .crt-sidebar-content .pc-navbar > .pc-item:not(.pc-caption) .pc-submenu {
-  padding: 15px 0;
+  padding-bottom: 8px;
 }
 
 .crt-sidebar-content

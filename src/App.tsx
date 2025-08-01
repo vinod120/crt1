@@ -1,12 +1,13 @@
-import React, { useEffect } from "react"; // Added React and useEffect
-import { ConfigProvider, theme } from "antd";
+import "@ant-design/v5-patch-for-react-19";
+import { ConfigProvider, Spin, theme } from "antd";
+import { Suspense, useEffect } from "react"; // Added React and useEffect
 import { useSelector } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
-import AppLayout from "./layout/appLayout";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes";
 import { RootState } from "./store";
 
 // Definitions needed for applying styles (could be imported from a shared constants file)
-const LOCAL_STORAGE_KEY = 'crtCustomThemeSettings';
+const LOCAL_STORAGE_KEY = "crtCustomThemeSettings";
 
 interface ColorChoice {
   background: string | null;
@@ -20,19 +21,18 @@ interface StoredSettings {
 // Simplified version for applying styles; original in SettingsPanel defines more for UI
 const persistenceColorSections = [
   {
-    bgVariableName: '--crt-header-background',
-    textVariableName: '--crt-header-color',
+    bgVariableName: "--crt-header-background",
+    textVariableName: "--crt-header-color",
   },
   {
-    bgVariableName: '--crt-sidebar-background',
-    textVariableName: '--crt-sidebar-color',
+    bgVariableName: "--crt-sidebar-background",
+    textVariableName: "--crt-sidebar-color",
   },
   {
-    bgVariableName: '--crt-sidebar-header-background',
-    textVariableName: '--crt-sidebar-header-main-active-color',
+    bgVariableName: "--crt-sidebar-header-background",
+    textVariableName: "--crt-sidebar-header-main-active-color",
   },
 ];
-
 
 const App = () => {
   const themeType = useSelector((state: RootState) => state.theme.theme);
@@ -44,21 +44,32 @@ const App = () => {
         try {
           const savedSettings: StoredSettings = JSON.parse(savedSettingsRaw);
 
-          persistenceColorSections.forEach(sectionInfo => {
+          persistenceColorSections.forEach((sectionInfo) => {
             const settingKey = sectionInfo.bgVariableName; // Settings are stored by bgVariable name
             const choice = savedSettings[settingKey];
 
             if (choice && choice.background) {
-              document.documentElement.style.setProperty(sectionInfo.bgVariableName, choice.background);
-              if (choice.text) { // Should be '#FFFFFF' if background was set
-                document.documentElement.style.setProperty(sectionInfo.textVariableName, choice.text);
+              document.documentElement.style.setProperty(
+                sectionInfo.bgVariableName,
+                choice.background
+              );
+              if (choice.text) {
+                // Should be '#FFFFFF' if background was set
+                document.documentElement.style.setProperty(
+                  sectionInfo.textVariableName,
+                  choice.text
+                );
               }
             } else {
               // If a setting for a section was explicitly nullified or is missing after being saved previously,
               // ensure its properties are removed to revert to theme defaults.
               // This case might be less common if saving only occurs for actual choices.
-              document.documentElement.style.removeProperty(sectionInfo.bgVariableName);
-              document.documentElement.style.removeProperty(sectionInfo.textVariableName);
+              document.documentElement.style.removeProperty(
+                sectionInfo.bgVariableName
+              );
+              document.documentElement.style.removeProperty(
+                sectionInfo.textVariableName
+              );
             }
           });
         } catch (e) {
@@ -79,11 +90,24 @@ const App = () => {
           themeType === "light" ? theme.defaultAlgorithm : theme.darkAlgorithm,
       }}
     >
-      <div className="app-container">
-        <Router>
-          <AppLayout />
-        </Router>
-      </div>
+      <Suspense
+        fallback={
+          <div
+            style={{
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Spin size="large" />
+          </div>
+        }
+      >
+        <div className="app-container">
+          <RouterProvider router={router} />
+        </div>
+      </Suspense>
     </ConfigProvider>
   );
 };

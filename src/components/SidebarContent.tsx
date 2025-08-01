@@ -82,7 +82,7 @@ const SidebarContent: FC<SidebarContentProps> = ({
                 <li
                   key={item.id}
                   className={`pc-item pc-hasmenu ${
-                    open[item.id] ? "pc-trigger" : item.id
+                    open[item.id] ? "pc-trigger" : ""
                   } ${isActive(item) ? "active" : ""}`}
                 >
                   <Link
