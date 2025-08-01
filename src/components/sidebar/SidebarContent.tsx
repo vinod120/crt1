@@ -1,17 +1,52 @@
 import SimpleBarScroll from "@/scrollbar/SimpleBarScroll";
+import { useAssetsBasedOnPreferencesQuery } from "@/services/queries/assetQueries";
+import { RootState } from "@/store";
 import { DownOutlined, HomeOutlined, RightOutlined } from "@ant-design/icons";
-import { FC, useCallback, useEffect, useState } from "react";
+import { Skeleton } from "antd";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import menuItems from "../../menu-items";
 
-interface MenuItem {
-  id: string;
-  url?: string;
-  title: string;
-  icon?: string | { props: { className: string } };
-  type?: string;
-  children?: MenuItem[];
+export interface Asset {
+  assetId: string;
+  assetName: string;
+  assetTypeName: string;
+  location: string;
+  manufacturer: string;
+  description: string;
 }
+
+interface Department {
+  departmentId: string;
+  deptName: string;
+  assetInfo: Asset[];
+}
+
+export interface MenuItem {
+  id: string;
+  title: string;
+  type?: "group" | "collapse" | "item";
+  url?: string;
+  icon?: string | { props: { className: string } };
+  children?: MenuItem[];
+  deptId?: string;
+  asset?: Asset;
+}
+
+export const transformMenuData = (departments: Department[]): MenuItem[] =>
+  departments.map((dept) => ({
+    id: dept.departmentId,
+    title: dept.deptName,
+    type: "collapse",
+    deptId: dept.departmentId,
+    children: dept.assetInfo.map((asset) => ({
+      id: asset.assetId,
+      title: asset.assetName,
+      type: "item",
+      url: `/asset/${asset.assetId}`,
+      asset,
+    })),
+  }));
 
 interface SidebarContentProps {
   selectedItems?: MenuItem;
@@ -24,65 +59,87 @@ const SidebarContent: FC<SidebarContentProps> = ({
   selectedItems,
   setSelectedItems,
 }) => {
-  const [selectTab, setSelectTab] = useState<MenuItem>(menuItems.items[0]);
+  const [open, setOpen] = useState<Record<string, boolean>>({});
   const { pathname } = useLocation();
-  const [open, setOpen] = useState<{ [key: string]: boolean }>({});
+  const preferences = useSelector((state: RootState) => state.preferences);
+
+  const {
+    data: departments = [],
+    isLoading,
+    isError,
+  } = useAssetsBasedOnPreferencesQuery({
+    enabled: preferences?.loaded,
+    preferences,
+  });
+
+  const menuData: MenuItem = useMemo(() => {
+    const transformed = transformMenuData(departments);
+    return {
+      id: "navigation",
+      title: "Navigation",
+      type: "group",
+      children: transformed,
+    };
+  }, [departments]);
+
+  const isActive = useCallback(
+    (item: MenuItem) => item.url && pathname.toLowerCase().includes(item.url.toLowerCase()),
+    [pathname]
+  );
+
+  useEffect(() => {
+    const openMap: Record<string, boolean> = {};
+    menuData.children?.forEach((item) => {
+      if (item.children?.some((child) => isActive(child))) {
+        openMap[item.id] = true;
+      }
+    });
+    setOpen(openMap);
+  }, [menuData, isActive]);
 
   const handleClick = (item: MenuItem) => {
-    if (!item.id) return;
+    if (!item.id || item.type === "group") return;
+
     const isMobile = window.innerWidth <= 1024;
     setOpen((prev) => ({
       ...prev,
       [item.id]: !prev[item.id],
     }));
-    if (isMobile || !collapsed) {
+
+    if ((isMobile || !collapsed) && item.type === "item") {
       setSelectedItems(item);
     }
   };
 
-  const isActive = useCallback(
-    (item: MenuItem) => {
-      if (!item.url) return false;
-      return pathname.toLowerCase().includes(item.url.toLowerCase());
-    },
-    [pathname]
-  );
-
-  const autoOpenParents = useCallback(
-    (items: MenuItem[] | undefined) => {
-      const openMap: { [key: string]: boolean } = {};
-      const findAndMark = (entries: MenuItem[] = []) => {
-        entries.forEach((item) => {
-          if (item.children) {
-            const match = item.children.find(
-              (child) => isActive(child) || child.children?.some(isActive)
-            );
-            if (match) openMap[item.id] = true;
-            findAndMark(item.children);
-          }
-        });
-      };
-      findAndMark(items);
-      setOpen(openMap);
-    },
-    [isActive]
-  );
-
-  useEffect(() => {
-    autoOpenParents(selectTab?.children);
-  }, [autoOpenParents, selectTab]);
+  if (isLoading) {
+    return (
+      <div className="crt-sidebar-content">
+        {Array.from({ length: 10 }).map((_, index) => (
+          <Skeleton.Input
+            active
+            key={index}
+            style={{
+              width: "100%",
+              marginTop: 8,
+              marginBottom: 8,
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="crt-sidebar-content">
       <div className="tab-link">
         <div className="pc-trigger">
-          <SimpleBarScroll style={{ height: "calc(100vh - 74px)" }}>
+          <SimpleBarScroll style={{ height: "calc(100vh - 114px)" }}>
             <ul className="pc-navbar">
-              {selectTab?.children?.map((item) => (
+              {menuData.children?.map((item) => (
                 <li
                   key={item.id}
                   className={`pc-item pc-hasmenu ${
-                    open[item.id] ? "pc-trigger" : ""
+                    item.type === "collapse" && open[item.id] ? "pc-trigger" : ""
                   } ${isActive(item) ? "active" : ""}`}
                 >
                   <Link
@@ -91,32 +148,26 @@ const SidebarContent: FC<SidebarContentProps> = ({
                     onClick={() => handleClick(item)}
                   >
                     <span className="pc-micon">
-                      <HomeOutlined
-                        style={{ fontSize: "15px", fontWeight: "bolder" }}
-                      />
+                      <HomeOutlined style={{ fontSize: 15, fontWeight: "bolder" }} />
                     </span>
                     <span className="pc-mtext">{item.title}</span>
-                    <span className="pc-arrow">
-                      {" "}
-                      {open[item.id] ? (
-                        <DownOutlined
-                          style={{ fontSize: "12px", fontWeight: "bolder" }}
-                        />
-                      ) : (
-                        <RightOutlined
-                          style={{ fontSize: "12px", fontWeight: "bolder" }}
-                        />
-                      )}
-                    </span>
+                    {item.type === "collapse" && (
+                      <span className="pc-arrow">
+                        {open[item.id] ? (
+                          <DownOutlined style={{ fontSize: 12, fontWeight: "bolder" }} />
+                        ) : (
+                          <RightOutlined style={{ fontSize: 12, fontWeight: "bolder" }} />
+                        )}
+                      </span>
+                    )}
                   </Link>
-                  {open[item.id] && item.children && (
+
+                  {item.type === "collapse" && open[item.id] && item.children && (
                     <ul className="pc-submenu">
                       {item.children.map((child) => (
                         <li
                           key={child.id}
-                          className={`pc-item ${
-                            open[child.id] ? "pc-trigger" : ""
-                          } ${isActive(child) ? "active" : ""}`}
+                          className={`pc-item ${isActive(child) ? "active" : ""}`}
                         >
                           <Link
                             to={child.url || "#"}
@@ -125,25 +176,6 @@ const SidebarContent: FC<SidebarContentProps> = ({
                           >
                             {child.title}
                           </Link>
-                          {open[child.id] && child.children && (
-                            <ul className="pc-submenu">
-                              {child.children.map((value) => (
-                                <li
-                                  key={value.id}
-                                  className={`pc-item ${
-                                    isActive(value) ? "active" : ""
-                                  }`}
-                                >
-                                  <Link
-                                    className="pc-link"
-                                    to={value.url || ""}
-                                  >
-                                    {value.title}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
                         </li>
                       ))}
                     </ul>

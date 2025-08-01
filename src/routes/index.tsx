@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: '/assets/:assetId',
+        path: '/asset/:assetId',
         element: <Dashboard />,
       },
       {

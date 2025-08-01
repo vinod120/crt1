@@ -18,7 +18,7 @@ export const useDashboardCountsQuery = ({
       assetNames: preferences?.assetNames || [],
       assetTypes: preferences?.assetTypes || [],
       assetLocations: preferences?.assetLocations || [],
-      manufacturers: preferences?.manufactures || [],
+      manufactures: preferences?.manufactures || [],
       assetIds: []
     }),
     enabled: enabled && !!preferences?.departmentIds?.length,

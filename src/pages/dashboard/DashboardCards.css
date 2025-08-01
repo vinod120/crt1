@@ -1,3 +1,37 @@
+.dashboard-card-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.dashboard-card-wrapper {
+  flex: 1 1 100%;
+}
+
+@media (min-width: 576px) {
+  .dashboard-card-wrapper {
+    flex: 1 1 calc(50% - 16px);
+  }
+}
+
+@media (min-width: 768px) {
+  .dashboard-card-wrapper {
+    flex: 1 1 calc(33.33% - 16px);
+  }
+}
+
+@media (min-width: 992px) {
+  .dashboard-card-wrapper {
+    flex: 1 1 calc(25% - 16px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .dashboard-card-wrapper {
+    flex: 1 1 calc(20% - 16px);
+  }
+}
+
 .dashboard-card-container {
   transition: box-shadow 0.2s ease-in-out;
   background-color: var(--crt-dashboard-card-background);
@@ -5,9 +39,11 @@
   cursor: pointer;
   box-shadow: var(--pc-card-box-shadow);
 }
+
 .dashboard-card-container > .ant-card-body {
   padding: 24px 16px;
 }
+
 .dashboard-card-content {
   display: flex;
   justify-content: space-between;

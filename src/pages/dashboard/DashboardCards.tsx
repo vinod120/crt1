@@ -3,7 +3,7 @@ import {
   AppstoreOutlined,
   ContainerOutlined,
 } from "@ant-design/icons";
-import { Card, Col, Row, Skeleton } from "antd";
+import { Card, Skeleton } from "antd";
 import type { FC } from "react";
 import "./DashboardCards.css";
 import { DashboardCardsProps } from "./types";
@@ -43,11 +43,11 @@ const defaultCards = [
 
 const renderSkeleton = () =>
   defaultCards.map((card) => (
-    <Col key={card.id} xs={24} sm={12} md={8} lg={6} xl={4} style={{ flex: "0 0 20%", maxWidth: "20%" }}>
+    <div key={card.id} className="dashboard-card-wrapper">
       <Card className="dashboard-card-container">
         <Skeleton.Input active size="default" block />
       </Card>
-    </Col>
+    </div>
   ));
 
 const DashboardCards: FC<DashboardCardsProps> = ({
@@ -58,28 +58,27 @@ const DashboardCards: FC<DashboardCardsProps> = ({
 }) => {
   const renderCards = () => {
     return defaultCards.map((card) => (
-      <Col key={card.id} xs={24} sm={12} md={8} lg={6} xl={4} style={{ flex: "0 0 20%", maxWidth: "20%" }}>
-        <Card
-          className={`dashboard-card-container ${
-            selectedCard === card.key ? "selected" : ""
-          }`}
-          onClick={() => setSelectedCard?.(card.key)}
-        >
+      <div
+        key={card.id}
+        className={`dashboard-card-wrapper ${selectedCard === card.key ? "selected" : ""}`}
+        onClick={() => setSelectedCard?.(card.key)}
+      >
+        <Card className="dashboard-card-container">
           <div className="dashboard-card-content sub-headline">
             <div className="dashboard-card-left">
               {card.icon}
               <span>{card.title}</span>
             </div>
-            <div>
+            <div className="dashboard-card-count">
               {formatNumber(counts?.[card.key] ?? 0)}
             </div>
           </div>
         </Card>
-      </Col>
+      </div>
     ));
   };
 
-  return <Row gutter={[16, 16]}>{countsLoading ? renderSkeleton() : renderCards()}</Row>;
+  return <div className="dashboard-card-row">{countsLoading ? renderSkeleton() : renderCards()}</div>;
 };
 
 export default DashboardCards;

@@ -213,6 +213,7 @@
   opacity: 1;
   transform: scale(1.2);
   background: var(--crt-sidebar-main-active-color);
+  color: var(--crt-sidebar-main-active-color);;
 }
 
 .crt-sidebar-content .pc-navbar > .pc-item:not(.pc-caption) .pc-submenu:after {
@@ -329,7 +330,9 @@
   font-weight: 500;
   color: var(--crt-sidebar-main-active-clr) !important;
 }
-
+.pc-submenu li.pc-item {
+  padding: 5px 0px;
+}
 .crt-sidebar-content .pc-navbar > .pc-item:not(.pc-caption).active,
 .crt-sidebar-content .pc-navbar > .pc-item:not(.pc-caption).pc-trigger {
   background: var(--crt-sidebar-active-background);

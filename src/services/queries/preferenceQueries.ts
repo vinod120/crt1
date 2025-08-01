@@ -7,6 +7,7 @@ export interface PreferencesResponse {
   manufactures: string[];
   assetTypes: string[];
   departmentIds: string[];
+  assetIds?: string[]
   loaded: boolean;
 }
 
