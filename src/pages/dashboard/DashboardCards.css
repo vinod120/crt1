@@ -3,8 +3,11 @@
   background-color: var(--crt-dashboard-card-background);
   border-radius: 2px;
   cursor: pointer;
+  box-shadow: var(--pc-card-box-shadow);
 }
-
+.dashboard-card-container > .ant-card-body {
+  padding: 24px 16px;
+}
 .dashboard-card-content {
   display: flex;
   justify-content: space-between;
@@ -20,11 +23,11 @@
 
 .dashboard-card-title {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .dashboard-card-count {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   color: var(--crt-dashboard-card-count-text-color);
 }

@@ -1,7 +1,7 @@
 import { Layout } from "antd";
-import SidebarMenu from "../SidebarMenu";
 import "./Sidebar.css";
 import SidebarHeader from "./SidebarHeader";
+import SidebarMenu from "./SidebarMenu";
 import SidebarSearch from "./SidebarSearch";
 const { Sider } = Layout;
 interface SideNavProps {

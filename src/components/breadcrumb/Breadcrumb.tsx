@@ -41,7 +41,7 @@ const BreadcrumbView: React.FC<BreadcrumbViewProps> = React.memo(
         </div>
         <Breadcrumb
           className="breadcrumb"
-          separator={<MdKeyboardArrowRight />}
+          separator={<MdKeyboardArrowRight fontSize={20} />}
           items={breadcrumbItems}
         />
       </div>

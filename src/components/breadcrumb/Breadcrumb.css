@@ -15,7 +15,10 @@
   background: 0 0;
   font-size: 14px;
 }
-
+.breadcrumb-header li.ant-breadcrumb-separator {
+  display: flex;
+  align-items: anchor-center
+}
 .breadcrumb-header .breadcrumb .ant-breadcrumb-link {
   color: var(--crt-breadcrumb-link-color);
   cursor: pointer;

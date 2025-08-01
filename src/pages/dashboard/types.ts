@@ -1,6 +1,6 @@
 export interface DashboardCardsProps {
-  counts: any;
+  counts?: Record<string, number>;
   countsLoading: boolean;
-  selectedCard: number;
-  setSelectedCard: (id: number) => void;
+  selectedCard?: string | null;
+  setSelectedCard?: (key: string) => void;
 }

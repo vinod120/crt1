@@ -1,8 +1,8 @@
+import SimpleBarScroll from "@/scrollbar/SimpleBarScroll";
 import { DownOutlined, HomeOutlined, RightOutlined } from "@ant-design/icons";
 import { FC, useCallback, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import menuItems from "../menu-items";
-import SimpleBarScroll from "../scrollbar/SimpleBarScroll";
+import menuItems from "../../menu-items";
 
 interface MenuItem {
   id: string;

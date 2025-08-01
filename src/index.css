@@ -3,3 +3,41 @@
 *, body {
   margin: 0;
 }
+/* Headline: Helvetica Neue LT Pro 85 Heavy, 24pt/27pt, 75% Black */
+.headline {
+  font-family: 'Helvetica Neue LT Pro', Arial, sans-serif;
+  font-weight: 800;
+  font-size: 24pt;
+  line-height: 27pt;
+}
+
+/* Subheadline: Helvetica Neue LT Pro 55 Roman, 11pt/13.5pt, 40 tracking, 75% Black or Orange */
+.sub-headline {
+  font-family: 'Helvetica Neue LT Pro', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 10pt;
+  line-height: 13.5pt;
+  letter-spacing: 0.04em;
+}
+
+/* Subheadline (Primary variant) */
+.sub-headline-primary {
+  color: var(--primary-color);
+}
+
+/* sub-sub-headline: Helvetica Neue LT Pro 75 Bold, 9.5pt/13.5pt, 75% Black */
+.sub-sub-headline {
+  font-family: 'Helvetica Neue LT Pro', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 9.5pt;
+  line-height: 13.5pt;
+}
+
+/* Normal Text: Helvetica Neue LT Pro 55 Roman, 9.5pt/13.5pt, 10 tracking, 75% Black */
+.normal-text {
+  font-family: 'Helvetica Neue LT Pro', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 9.5pt;
+  line-height: 13.5pt;
+  letter-spacing: 0.01em;
+}

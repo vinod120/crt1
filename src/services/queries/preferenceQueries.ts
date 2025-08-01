@@ -19,7 +19,6 @@ export const useUserPreferencesQuery = ({ userId, open }: PreferenceRequest) => 
   return useQuery<PreferencesResponse>({
     queryKey: ['userPreferences', userId],
     queryFn: () => fetchUserPreferecesByUserID(userId),
-    retry: 1,
     enabled: open,
   });
 };
