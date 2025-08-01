@@ -7,11 +7,6 @@
   background-color: var(--crt-sidebar-header-background);
 }
 
-.crt-logo-image {
-  width: 32px;
-  height: 32px;
-}
-
 .crt-logo-text {
   margin-left: 8px;
   font-size: 18px;

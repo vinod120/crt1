@@ -1,4 +1,6 @@
+import { Image } from "antd";
 import React from "react";
+import kayeLogo from "../../assets/kayeLogo.svg";
 import "./SidebarHeader.css";
 
 interface SidebarHeaderProps {
@@ -8,12 +10,14 @@ interface SidebarHeaderProps {
 const SidebarHeader: React.FC<SidebarHeaderProps> = ({ collapsed }) => {
   return (
     <div className="crt-sidebar-header">
-      <img
-        src="https://placehold.co/600x400"
-        alt="logo"
-        className="crt-logo-image"
+      <Image
+        width={200}
+        src={kayeLogo}
+        preview={false}
+        height="auto"
+        style={{ objectFit: "contain", width: 220 }}
+        alt="Kaye Logo"
       />
-      {!collapsed && <span className="crt-logo-text">CRT</span>}
     </div>
   );
 };

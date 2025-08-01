@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import SidebarMenu from "../SidebarMenu";
 import "./Sidebar.css";
 import SidebarHeader from "./SidebarHeader";
-
 const { Sider } = Layout;
 interface SideNavProps {
   collapsed: boolean;
