@@ -1,16 +1,14 @@
-import { RootState } from "@/store";
 import { Layout } from "antd";
-import { useSelector } from "react-redux";
 import SidebarMenu from "../SidebarMenu";
 import "./Sidebar.css";
 import SidebarHeader from "./SidebarHeader";
+import SidebarSearch from "./SidebarSearch";
 const { Sider } = Layout;
 interface SideNavProps {
   collapsed: boolean;
 }
 
 const SideNav: React.FC<SideNavProps> = ({ collapsed }) => {
-  const themeType = useSelector((state: RootState) => state.theme.theme);
   return (
     <Sider
       className="crt-sidebar"
@@ -19,6 +17,7 @@ const SideNav: React.FC<SideNavProps> = ({ collapsed }) => {
       collapsed={collapsed}
     >
       <SidebarHeader collapsed={collapsed} />
+      <SidebarSearch />
       <SidebarMenu collapsed={collapsed} />
     </Sider>
   );
