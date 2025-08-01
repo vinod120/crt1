@@ -5,7 +5,7 @@ import jsconfigPaths from 'vite-jsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
 
 export default defineConfig(({ mode }) => {
-  const PORT = 3003;
+  const PORT = 3000;
   return {
     server: {
       open: true,

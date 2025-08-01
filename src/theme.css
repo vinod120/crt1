@@ -1,5 +1,6 @@
 [data-theme="light"],
 :root {
+  --primary-color: #04a9f5;
   --bs-body-bg: #f4f7fa;
   --bs-body-bg-rgb: 244, 247, 250;
   --pc-heading-color: #1d2630;
