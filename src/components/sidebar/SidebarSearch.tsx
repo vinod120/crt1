@@ -22,7 +22,7 @@ const SidebarSearch = memo(({ searchText, setSearchText }: any) => {
     <div style={{ width: "95%", margin: "10px auto" }}>
       <Input
         type="search"
-        placeholder="Search assets..."
+        placeholder="Search..."
         name="asset search explorer"
         autoComplete="off"
         id="asset-search-explorer"
