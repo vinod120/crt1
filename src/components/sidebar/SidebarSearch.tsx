@@ -28,7 +28,8 @@ const SidebarSearch = memo(({ searchText, setSearchText }: any) => {
         id="asset-search-explorer"
         value={inputValue}
         allowClear
-        prefix={<CiSearch size={15} />}
+        size="large"
+        prefix={<CiSearch size={20} />}
         onChange={handleSearchChange}
       />
     </div>
