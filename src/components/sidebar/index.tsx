@@ -1,14 +1,14 @@
 import { Layout } from "antd";
+import { useState } from "react";
 import "./Sidebar.css";
 import SidebarHeader from "./SidebarHeader";
 import SidebarMenu from "./SidebarMenu";
 import SidebarSearch from "./SidebarSearch";
+import { SideNavProps } from "./types";
 const { Sider } = Layout;
-interface SideNavProps {
-  collapsed: boolean;
-}
 
 const SideNav: React.FC<SideNavProps> = ({ collapsed }) => {
+  const [searchText, setSearchText] = useState("");
   return (
     <Sider
       className="crt-sidebar"
@@ -17,8 +17,8 @@ const SideNav: React.FC<SideNavProps> = ({ collapsed }) => {
       collapsed={collapsed}
     >
       <SidebarHeader collapsed={collapsed} />
-      <SidebarSearch />
-      <SidebarMenu collapsed={collapsed} />
+      <SidebarSearch searchText={searchText} setSearchText={setSearchText} />
+      <SidebarMenu searchText={searchText} />
     </Sider>
   );
 };

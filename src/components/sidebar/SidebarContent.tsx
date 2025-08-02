@@ -1,64 +1,42 @@
 import SimpleBarScroll from "@/scrollbar/SimpleBarScroll";
-import { useAssetsBasedOnPreferencesQuery } from "@/services/queries/assetQueries";
+import {
+  useAssetsBasedOnPreferencesQuery,
+  useSearchByAssetsOrStudyQuery,
+} from "@/services/queries/assetQueries";
 import { RootState } from "@/store";
-import { DownOutlined, HomeOutlined, RightOutlined } from "@ant-design/icons";
+import {
+  DownOutlined,
+  HomeOutlined,
+  RightOutlined,
+} from "@ant-design/icons";
 import { Skeleton } from "antd";
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-
-export interface Asset {
-  assetId: string;
-  assetName: string;
-  assetTypeName: string;
-  location: string;
-  manufacturer: string;
-  description: string;
-}
-
-interface Department {
-  departmentId: string;
-  deptName: string;
-  assetInfo?: Asset[];
-}
-
-export interface MenuItem {
-  id: string;
-  title: string;
-  type?: "group" | "collapse" | "item";
-  url?: string;
-  icon?: string | { props: { className: string } };
-  children?: MenuItem[];
-  deptId?: string;
-  asset?: Asset;
-}
+import { Department, MenuItem } from "./types";
 
 export const transformMenuData = (departments?: Department[]): MenuItem[] =>
   departments?.map((dept) => ({
     id: dept?.departmentId || "",
-    title: dept?.deptName || "Unnamed Department",
+    title: dept?.deptName || "",
     type: "collapse",
     deptId: dept?.departmentId,
-    children: dept?.assetInfo?.map((asset) => ({
-      id: asset?.assetId || "",
-      title: asset?.assetName || "Unnamed Asset",
-      type: "item",
-      url: asset?.assetId ? `/asset/${asset?.assetId}` : "#",
-      asset,
-    })) || [],
+    children: Array.isArray(dept?.assetInfo)
+      ? dept?.assetInfo?.map((asset) => ({
+          id: asset?.assetId || "",
+          title: asset?.assetName || "Unnamed Asset",
+          type: "item",
+          url: asset?.assetId ? `/asset/${asset?.assetId}` : "#",
+          asset,
+        }))
+      : [],
   })) || [];
 
 interface SidebarContentProps {
-  selectedItems?: MenuItem;
-  setSelectedItems: (item: MenuItem | undefined) => void;
-  collapsed: boolean;
+  searchText: string;
 }
 
-const SidebarContent: FC<SidebarContentProps> = ({
-  collapsed,
-  selectedItems,
-  setSelectedItems,
-}) => {
+const SidebarContent: FC<SidebarContentProps> = ({ searchText }) => {
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const { pathname } = useLocation();
   const preferences = useSelector((state: RootState) => state?.preferences);
@@ -67,17 +45,26 @@ const SidebarContent: FC<SidebarContentProps> = ({
     data: departments = [],
     isLoading,
     isError,
-  } = useAssetsBasedOnPreferencesQuery({
-    enabled: preferences?.loaded,
-    preferences,
-  });
+  } = searchText?.trim()
+    ? useSearchByAssetsOrStudyQuery({
+        searchText: searchText.trim(),
+        enabled: preferences?.loaded,
+        preferences,
+      })
+    : useAssetsBasedOnPreferencesQuery({
+        enabled: preferences?.loaded,
+        preferences,
+      });
 
-  const menuData: MenuItem = useMemo(() => ({
-    id: "navigation",
-    title: "Navigation",
-    type: "group",
-    children: transformMenuData(departments),
-  }), [departments]);
+  const menuData: MenuItem = useMemo(
+    () => ({
+      id: "navigation",
+      title: "Navigation",
+      type: "group",
+      children: transformMenuData(departments),
+    }),
+    [departments]
+  );
 
   const isActive = useCallback(
     (item: MenuItem) =>
@@ -89,10 +76,13 @@ const SidebarContent: FC<SidebarContentProps> = ({
     if (!departments?.length) return;
 
     const openMap: Record<string, boolean> = {};
-    departments.forEach((dept) => {
-      if (dept?.assetInfo?.some((asset) =>
-        pathname?.toLowerCase()?.includes(asset?.assetId?.toLowerCase())
-      )) {
+    departments.forEach((dept: { assetInfo: any[]; departmentId: string | number; }) => {
+      if (
+        Array.isArray(dept.assetInfo) &&
+        dept.assetInfo.some((asset) =>
+          pathname?.toLowerCase()?.includes(asset.assetId?.toLowerCase())
+        )
+      ) {
         openMap[dept.departmentId] = true;
       }
     });
@@ -103,17 +93,11 @@ const SidebarContent: FC<SidebarContentProps> = ({
   const handleClick = (item: MenuItem) => {
     if (!item?.id || item?.type === "group") return;
 
-    const isMobile = window?.innerWidth <= 1024;
-
-    if (item.type === "collapse") {
+    if (item?.type === "collapse") {
       setOpen((prev) => ({
         ...prev,
-        [item.id]: !prev[item.id],
+        [item?.id]: !prev[item?.id],
       }));
-    }
-
-    if ((isMobile || !collapsed) && item.type === "item") {
-      setSelectedItems(item);
     }
   };
 
@@ -124,11 +108,7 @@ const SidebarContent: FC<SidebarContentProps> = ({
           <Skeleton.Input
             active
             key={index}
-            style={{
-              width: "100%",
-              marginTop: 8,
-              marginBottom: 8,
-            }}
+            style={{ width: "100%", marginTop: 8, marginBottom: 8 }}
           />
         ))}
       </div>
@@ -153,23 +133,23 @@ const SidebarContent: FC<SidebarContentProps> = ({
             <ul className="pc-navbar">
               {menuData?.children?.map((item) => (
                 <li
-                  key={item.id}
+                  key={item?.id}
                   className={`pc-item pc-hasmenu ${
-                    item.type === "collapse" && open[item.id] ? "pc-trigger" : ""
+                    item?.type === "collapse" && open[item?.id] ? "pc-trigger" : ""
                   } ${isActive(item) ? "active" : ""}`}
                 >
                   <Link
-                    to={item.url || "#"}
+                    to={item?.url || "#"}
                     className="pc-link"
                     onClick={() => handleClick(item)}
                   >
                     <span className="pc-micon">
                       <HomeOutlined style={{ fontSize: 15, fontWeight: "bolder" }} />
                     </span>
-                    <span className="pc-mtext">{item.title}</span>
-                    {item.type === "collapse" && (
+                    <span className="pc-mtext">{item?.title}</span>
+                    {item?.type === "collapse" && (
                       <span className="pc-arrow">
-                        {open[item.id] ? (
+                        {open[item?.id] ? (
                           <DownOutlined style={{ fontSize: 12, fontWeight: "bolder" }} />
                         ) : (
                           <RightOutlined style={{ fontSize: 12, fontWeight: "bolder" }} />
@@ -178,22 +158,22 @@ const SidebarContent: FC<SidebarContentProps> = ({
                     )}
                   </Link>
 
-                  {item.type === "collapse" &&
-                    open[item.id] &&
-                    Array.isArray(item.children) &&
-                    item.children.length > 0 && (
+                  {item?.type === "collapse" &&
+                    open[item?.id] &&
+                    Array.isArray(item?.children) &&
+                    item?.children?.length > 0 && (
                       <ul className="pc-submenu">
-                        {item.children.map((child) => (
+                        {item?.children?.map((child) => (
                           <li
-                            key={child.id}
+                            key={child?.id}
                             className={`pc-item ${isActive(child) ? "active" : ""}`}
                           >
                             <Link
-                              to={child.url || "#"}
+                              to={child?.url || "#"}
                               className="pc-link"
                               onClick={() => handleClick(child)}
                             >
-                              {child.title}
+                              {child?.title}
                             </Link>
                           </li>
                         ))}

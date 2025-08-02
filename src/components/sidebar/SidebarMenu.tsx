@@ -1,18 +1,11 @@
-import { FC, useState } from "react";
-import SidebarContent, { MenuItem } from "./SidebarContent";
+import { FC } from "react";
+import SidebarContent from "./SidebarContent";
+import { SidebarMenuProps } from "./types";
 
-interface SidebarMenuProps {
-  collapsed: boolean;
-}
-
-const SidebarMenu: FC<SidebarMenuProps> = ({ collapsed }) => {
-  const [selectedItems, setSelectedItems] = useState<MenuItem | undefined>();
-
+const SidebarMenu: FC<SidebarMenuProps> = ({searchText }) => {
   return (
     <SidebarContent
-      collapsed={collapsed}
-      selectedItems={selectedItems}
-      setSelectedItems={setSelectedItems}
+      searchText={searchText}
     />
   );
 };

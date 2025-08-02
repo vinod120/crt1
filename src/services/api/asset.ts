@@ -18,3 +18,8 @@ export const fetchAssetsBasedOnPreferences = async(payload: unknown) :Promise<Ap
   const response = await axiosInstance.post('Asset/AssetsBasedOnDeptsAndPreferences', payload);
   return response?.data || [];
 };
+
+export const serchByAssestOrStudy = async (payload: any) => {
+  const response = await axiosInstance.get(`/Asset/GetSearchItems?searchText=${payload?.searchText}&departmentIds=${payload?.deptId}`);
+  return response?.data;
+};

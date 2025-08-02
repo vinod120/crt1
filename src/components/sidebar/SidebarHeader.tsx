@@ -2,10 +2,7 @@ import { Image } from "antd";
 import React from "react";
 import kayeLogo from "../../assets/kayeLogo.svg";
 import "./SidebarHeader.css";
-
-interface SidebarHeaderProps {
-  collapsed: boolean;
-}
+import { SidebarHeaderProps } from "./types";
 
 const SidebarHeader: React.FC<SidebarHeaderProps> = ({ collapsed }) => {
   return (
