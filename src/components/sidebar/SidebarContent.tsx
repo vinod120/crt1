@@ -19,7 +19,7 @@ export interface Asset {
 interface Department {
   departmentId: string;
   deptName: string;
-  assetInfo: Asset[];
+  assetInfo?: Asset[];
 }
 
 export interface MenuItem {
@@ -33,20 +33,20 @@ export interface MenuItem {
   asset?: Asset;
 }
 
-export const transformMenuData = (departments: Department[]): MenuItem[] =>
-  departments.map((dept) => ({
-    id: dept.departmentId,
-    title: dept.deptName,
+export const transformMenuData = (departments?: Department[]): MenuItem[] =>
+  departments?.map((dept) => ({
+    id: dept?.departmentId || "",
+    title: dept?.deptName || "Unnamed Department",
     type: "collapse",
-    deptId: dept.departmentId,
-    children: dept.assetInfo.map((asset) => ({
-      id: asset.assetId,
-      title: asset.assetName,
+    deptId: dept?.departmentId,
+    children: dept?.assetInfo?.map((asset) => ({
+      id: asset?.assetId || "",
+      title: asset?.assetName || "Unnamed Asset",
       type: "item",
-      url: `/asset/${asset.assetId}`,
+      url: asset?.assetId ? `/asset/${asset?.assetId}` : "#",
       asset,
-    })),
-  }));
+    })) || [],
+  })) || [];
 
 interface SidebarContentProps {
   selectedItems?: MenuItem;
@@ -61,7 +61,7 @@ const SidebarContent: FC<SidebarContentProps> = ({
 }) => {
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const { pathname } = useLocation();
-  const preferences = useSelector((state: RootState) => state.preferences);
+  const preferences = useSelector((state: RootState) => state?.preferences);
 
   const {
     data: departments = [],
@@ -83,24 +83,24 @@ const SidebarContent: FC<SidebarContentProps> = ({
   }, [departments]);
 
   const isActive = useCallback(
-    (item: MenuItem) => item.url && pathname.toLowerCase().includes(item.url.toLowerCase()),
+    (item: MenuItem) => item?.url && pathname?.toLowerCase()?.includes(item?.url?.toLowerCase()),
     [pathname]
   );
 
   useEffect(() => {
     const openMap: Record<string, boolean> = {};
-    menuData.children?.forEach((item) => {
-      if (item.children?.some((child) => isActive(child))) {
-        openMap[item.id] = true;
+    menuData?.children?.forEach((item) => {
+      if (item?.children?.some((child) => isActive(child))) {
+        openMap[item?.id] = true;
       }
     });
     setOpen(openMap);
   }, [menuData, isActive]);
 
   const handleClick = (item: MenuItem) => {
-    if (!item.id || item.type === "group") return;
+    if (!item?.id || item?.type === "group") return;
 
-    const isMobile = window.innerWidth <= 1024;
+    const isMobile = window?.innerWidth <= 1024;
     setOpen((prev) => ({
       ...prev,
       [item.id]: !prev[item.id],
@@ -125,6 +125,14 @@ const SidebarContent: FC<SidebarContentProps> = ({
             }}
           />
         ))}
+      </div>
+    );
+  }
+
+  if (isError || !menuData?.children?.length) {
+    return (
+      <div className="crt-sidebar-content">
+        <p style={{ padding: 16, color: "#999" }}>No departments or assets available.</p>
       </div>
     );
   }
@@ -162,9 +170,9 @@ const SidebarContent: FC<SidebarContentProps> = ({
                     )}
                   </Link>
 
-                  {item.type === "collapse" && open[item.id] && item.children && (
+                  {item.type === "collapse" && open[item.id] && (item.children?.length ?? 0) > 0 &&  (
                     <ul className="pc-submenu">
-                      {item.children.map((child) => (
+                      {item?.children?.map((child) => (
                         <li
                           key={child.id}
                           className={`pc-item ${isActive(child) ? "active" : ""}`}
