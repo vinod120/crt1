@@ -8,13 +8,13 @@ interface AssetInfo {
   assetTypeName: string;
 }
 
-interface Department {
+interface ApiDepartment  {
   departmentId: string;
   deptName: string;
-  assetInfo?: AssetInfo[];
+  assetInfo: AssetInfo[];
 }
 
-export const fetchAssetsBasedOnPreferences = async(payload: unknown) :Promise<Department[]> => {
+export const fetchAssetsBasedOnPreferences = async(payload: unknown) :Promise<ApiDepartment []> => {
   const response = await axiosInstance.post('Asset/AssetsBasedOnDeptsAndPreferences', payload);
   return response?.data || [];
 };

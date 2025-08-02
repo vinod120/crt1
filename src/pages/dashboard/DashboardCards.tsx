@@ -59,18 +59,18 @@ const DashboardCards: FC<DashboardCardsProps> = ({
   const renderCards = () => {
     return defaultCards.map((card) => (
       <div
-        key={card.id}
-        className={`dashboard-card-wrapper ${selectedCard === card.key ? "selected" : ""}`}
-        onClick={() => setSelectedCard?.(card.key)}
+        key={card?.id}
+        className={`dashboard-card-wrapper ${selectedCard === card?.key ? "selected" : ""}`}
+        onClick={() => setSelectedCard?.(card?.key)}
       >
         <Card className="dashboard-card-container">
           <div className="dashboard-card-content sub-headline">
             <div className="dashboard-card-left">
-              {card.icon}
-              <span>{card.title}</span>
+              {card?.icon}
+              <span>{card?.title}</span>
             </div>
             <div className="dashboard-card-count">
-              {formatNumber(counts?.[card.key] ?? 0)}
+              {formatNumber(counts?.[card?.key] ?? 0)}
             </div>
           </div>
         </Card>
