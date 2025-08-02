@@ -14,7 +14,6 @@ const LoadPreferencesOnStart = () => {
   });
 
   useEffect(() => {
-    console.log("user pre", userPreference)
     if (isLoading) return;
 
     if (userPreference?.departmentIds?.length) {

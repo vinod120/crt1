@@ -72,39 +72,45 @@ const SidebarContent: FC<SidebarContentProps> = ({
     preferences,
   });
 
-  const menuData: MenuItem = useMemo(() => {
-    const transformed = transformMenuData(departments);
-    return {
-      id: "navigation",
-      title: "Navigation",
-      type: "group",
-      children: transformed,
-    };
-  }, [departments]);
+  const menuData: MenuItem = useMemo(() => ({
+    id: "navigation",
+    title: "Navigation",
+    type: "group",
+    children: transformMenuData(departments),
+  }), [departments]);
 
   const isActive = useCallback(
-    (item: MenuItem) => item?.url && pathname?.toLowerCase()?.includes(item?.url?.toLowerCase()),
+    (item: MenuItem) =>
+      item?.url && pathname?.toLowerCase()?.includes(item?.url?.toLowerCase()),
     [pathname]
   );
 
   useEffect(() => {
+    if (!departments?.length) return;
+
     const openMap: Record<string, boolean> = {};
-    menuData?.children?.forEach((item) => {
-      if (item?.children?.some((child) => isActive(child))) {
-        openMap[item?.id] = true;
+    departments.forEach((dept) => {
+      if (dept?.assetInfo?.some((asset) =>
+        pathname?.toLowerCase()?.includes(asset?.assetId?.toLowerCase())
+      )) {
+        openMap[dept.departmentId] = true;
       }
     });
+
     setOpen(openMap);
-  }, [menuData, isActive]);
+  }, [departments, pathname]);
 
   const handleClick = (item: MenuItem) => {
     if (!item?.id || item?.type === "group") return;
 
     const isMobile = window?.innerWidth <= 1024;
-    setOpen((prev) => ({
-      ...prev,
-      [item.id]: !prev[item.id],
-    }));
+
+    if (item.type === "collapse") {
+      setOpen((prev) => ({
+        ...prev,
+        [item.id]: !prev[item.id],
+      }));
+    }
 
     if ((isMobile || !collapsed) && item.type === "item") {
       setSelectedItems(item);
@@ -132,7 +138,9 @@ const SidebarContent: FC<SidebarContentProps> = ({
   if (isError || !menuData?.children?.length) {
     return (
       <div className="crt-sidebar-content">
-        <p style={{ padding: 16, color: "#999" }}>No departments or assets available.</p>
+        <p style={{ padding: 16, color: "#999" }}>
+          No departments or assets available.
+        </p>
       </div>
     );
   }
@@ -170,24 +178,27 @@ const SidebarContent: FC<SidebarContentProps> = ({
                     )}
                   </Link>
 
-                  {item.type === "collapse" && open[item.id] && (item.children?.length ?? 0) > 0 &&  (
-                    <ul className="pc-submenu">
-                      {item?.children?.map((child) => (
-                        <li
-                          key={child.id}
-                          className={`pc-item ${isActive(child) ? "active" : ""}`}
-                        >
-                          <Link
-                            to={child.url || "#"}
-                            className="pc-link"
-                            onClick={() => handleClick(child)}
+                  {item.type === "collapse" &&
+                    open[item.id] &&
+                    Array.isArray(item.children) &&
+                    item.children.length > 0 && (
+                      <ul className="pc-submenu">
+                        {item.children.map((child) => (
+                          <li
+                            key={child.id}
+                            className={`pc-item ${isActive(child) ? "active" : ""}`}
                           >
-                            {child.title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                            <Link
+                              to={child.url || "#"}
+                              className="pc-link"
+                              onClick={() => handleClick(child)}
+                            >
+                              {child.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                 </li>
               ))}
             </ul>
