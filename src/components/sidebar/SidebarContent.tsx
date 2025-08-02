@@ -151,7 +151,7 @@ const SidebarContent: FC<SidebarContentProps> = ({
         <div className="pc-trigger">
           <SimpleBarScroll style={{ height: "calc(100vh - 114px)" }}>
             <ul className="pc-navbar">
-              {menuData.children?.map((item) => (
+              {menuData?.children?.map((item) => (
                 <li
                   key={item.id}
                   className={`pc-item pc-hasmenu ${
