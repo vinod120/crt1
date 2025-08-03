@@ -11,7 +11,9 @@ import {
   AiOutlineGlobal,
   AiTwotoneSetting,
 } from "react-icons/ai";
+import { BiSolidReport } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
+
 import UserProfile from "../profile/UserProfile";
 import SettingsPanel from "../settingsPanel/SettingsPanel";
 const Preferences  = lazy(() => import("../preferences/Preferences"))
@@ -108,9 +110,12 @@ const HeaderRight: React.FC = () => {
           <Preferences />
         </Suspense>
         <Tooltip title="Report Template Preferences">
+          { !sm ? 
+          <BiSolidReport fontSize={20} /> :
           <Button variant="outlined" color="cyan" className="header-preference-btn">
             Report Preferences
           </Button>
+}
         </Tooltip>
         <UserProfile />
       </Space>

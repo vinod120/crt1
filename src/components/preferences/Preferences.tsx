@@ -11,6 +11,7 @@ import {
 import LocalDBObj from "@/utils/localDb";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button, Drawer, Space, Tooltip } from "antd";
+import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import type { FC } from "react";
 import React, {
   Suspense,
@@ -19,6 +20,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { MdRoomPreferences } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import "./preferences.css";
 import PreferencesContent from "./PreferencesContent";
@@ -42,6 +44,7 @@ class ErrorBoundary extends React.Component<{
 
 const Preferences: FC = React.memo(() => {
   const userDetails = JSON.parse(LocalDBObj?.getVal("userDetails") || "{}");
+  const { sm } = useBreakpoint();
   const dispatch = useDispatch();
   const preferences = useSelector((state: RootState) => state.preferences);
   const [open, setOpen] = useState(false);
@@ -244,7 +247,10 @@ const Preferences: FC = React.memo(() => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Tooltip title="User Preferences">
-        <Button
+        {
+          !sm ? 
+          <MdRoomPreferences fontSize={20} /> : 
+          <Button
           variant="outlined"
           color="cyan"
           className="header-preference-btn"
@@ -254,6 +260,8 @@ const Preferences: FC = React.memo(() => {
         >
           User Preferences
         </Button>
+        }
+        
       </Tooltip>
       <Drawer
         title="User Preferences"
