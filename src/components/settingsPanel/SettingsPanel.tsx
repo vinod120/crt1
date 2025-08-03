@@ -193,7 +193,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
         </Title>
         <Button
           onClick={handleResetToDefaults}
-          className="crt-reset-button"
+          className="crt-reset-button primary-btn"
         >
           Reset
         </Button>
@@ -214,7 +214,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
       footer={
         <Space style={{ width: "100%", justifyContent: "space-between" }}>
           <Button onClick={handleCancel}>Cancel</Button>
-          <Button className="crt-setting-panel-save-button" onClick={handleSave}>
+          <Button className="primary-btn" onClick={handleSave}>
             Save
           </Button>
         </Space>

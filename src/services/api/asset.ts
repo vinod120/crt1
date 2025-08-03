@@ -15,11 +15,28 @@ interface ApiDepartment  {
 }
 
 export const fetchAssetsBasedOnPreferences = async(payload: unknown) :Promise<ApiDepartment []> => {
-  const response = await axiosInstance.post('Asset/AssetsBasedOnDeptsAndPreferences', payload);
-  return response?.data || [];
+  try {
+    const response = await axiosInstance.post('Asset/AssetsBasedOnDeptsAndPreferences', payload);
+    return response?.data || [];
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const serchByAssestOrStudy = async (payload: any) => {
-  const response = await axiosInstance.get(`/Asset/GetSearchItems?searchText=${payload?.searchText}&departmentIds=${payload?.deptId}`);
-  return response?.data;
+  try {
+    const response = await axiosInstance.get(`/Asset/GetSearchItems?searchText=${payload?.searchText}&departmentIds=${payload?.deptId}`);
+    return response?.data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const fetchAllAssetTypes = async (payload: any) => {
+    try {
+        const { deptId } = payload;
+        const response = await axiosInstance.get(`Asset/GetAllAssetTypes?departmentID=${deptId}`);
+        return response?.data;
+    } catch (error) {
+        throw error
+    }
 };

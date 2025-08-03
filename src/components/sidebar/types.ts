@@ -12,6 +12,7 @@ export interface Asset {
 }
 
 export interface Department {
+  deptId: any;
   departmentId: string;
   deptName: string;
   assetInfo?: Asset[];

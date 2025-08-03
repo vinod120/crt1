@@ -13,13 +13,7 @@
 }
 .crt-settings-panel .crt-reset-button {
   margin-right: 10px;
-  color: var(--pc-heading-color);
-  border-color: var(--crt-primary-orange);
   padding: 10px;
-}
-.crt-settings-panel .crt-reset-button:hover {
-  background-color: var(--crt-primary-orange) !important;
-  color: whitesmoke !important;
 }
 .crt-color-swatches {
   max-height: 100px;
@@ -59,12 +53,12 @@
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
 }
-.crt-setting-panel-save-button {
+.primary-btn {
   background-color: var(--crt-primary-orange);
   color: #FFFFFF;
   border: none;
 }
-.crt-setting-panel-save-button:hover {
+.primary-btn:hover {
   color: var(--crt-primary-orange) !important;
   border: 1px solid var(--crt-primary-orange) !important;
 }

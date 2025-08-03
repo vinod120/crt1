@@ -1,5 +1,7 @@
+import { Asset } from "@/components/sidebar/types";
 import { useQuery } from "@tanstack/react-query";
 import {
+  fetchAllAssetTypes,
   fetchAssetsBasedOnPreferences,
   serchByAssestOrStudy,
 } from "../api/asset";
@@ -44,5 +46,13 @@ export const useSearchByAssetsOrStudyQuery = ({
         deptId: preferences?.departmentIds?.join(","),
       }),
     enabled: enabled && !!preferences?.departmentIds?.length,
+  });
+};
+
+export const useAssetPreferencesTypesQuery = ({ open, deptId }: { open: boolean, deptId: any }) => { 
+  return useQuery<Asset[]>({
+    queryKey: ['assetPreferencesTypes', deptId],
+    queryFn: () => fetchAllAssetTypes({deptId}),
+    enabled: open,
   });
 };

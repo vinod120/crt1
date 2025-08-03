@@ -1,0 +1,3 @@
+.preferences-drawer .ant-drawer-header-title{
+  flex-direction: row-reverse;
+}

@@ -2,6 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchUserPreferecesByUserID } from "../api/preferences";
 
 export interface PreferencesResponse {
+  createdDate?: any;
+  createdBy?: any;
+  modifiedDate?: any;
+  userId?: any;
   assetNames: string[];
   assetLocations: string[];
   manufactures: string[];
@@ -18,7 +22,7 @@ interface PreferenceRequest {
 
 export const useUserPreferencesQuery = ({ userId, open }: PreferenceRequest) => {
   return useQuery<PreferencesResponse>({
-    queryKey: ['userPreferences', userId],
+    queryKey: ['userPreferences'],
     queryFn: () => fetchUserPreferecesByUserID(userId),
     enabled: open,
   });

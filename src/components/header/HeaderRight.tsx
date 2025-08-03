@@ -2,7 +2,7 @@ import { AppDispatch, RootState } from "@/store";
 import { toggleTheme } from "@/store/slices/themeSlice";
 import { Button, Dropdown, Space, Tooltip } from "antd";
 import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
-import React, { useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AiFillClockCircle,
@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from "../profile/UserProfile";
 import SettingsPanel from "../settingsPanel/SettingsPanel";
+const Preferences  = lazy(() => import("../preferences/Preferences"))
 
 const HeaderRight: React.FC = () => {
   const { sm } = useBreakpoint();
@@ -103,11 +104,9 @@ const HeaderRight: React.FC = () => {
             <AiTwotoneSetting fontSize={20} className="header-right-icon" />
           </span>
         </Tooltip>
-        <Tooltip title="User Preferences">
-          <Button variant="outlined" color="cyan" className="header-preference-btn">
-            User Preferences
-          </Button>
-        </Tooltip>
+        <Suspense fallback={<div>Preferences</div>}>
+          <Preferences />
+        </Suspense>
         <Tooltip title="Report Template Preferences">
           <Button variant="outlined" color="cyan" className="header-preference-btn">
             Report Preferences

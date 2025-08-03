@@ -17,6 +17,11 @@ const LoadPreferencesOnStart = () => {
     if (isLoading) return;
 
     if (userPreference?.departmentIds?.length) {
+      delete userPreference?.createdDate;
+      delete userPreference?.createdBy;
+      delete userPreference?.modifiedDate;
+      delete userPreference?.modifiedDate;
+      delete userPreference?.userId;
       dispatch(setPreferences(userPreference));
     } else if (userDetails?.deptId) {
       dispatch(
