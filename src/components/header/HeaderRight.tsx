@@ -1,16 +1,10 @@
 import { AppDispatch, RootState } from "@/store";
 import { toggleTheme } from "@/store/slices/themeSlice";
-import {
-  ClockCircleOutlined,
-  GlobalOutlined,
-  MoonOutlined,
-  SettingOutlined,
-  SunOutlined,
-} from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { AiFillClockCircle, AiFillMoon, AiFillSun, AiOutlineGlobal, AiTwotoneSetting } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from "../profile/UserProfile";
 import SettingsPanel from "../settingsPanel/SettingsPanel";
@@ -22,7 +16,7 @@ const HeaderRight: React.FC = () => {
   const { i18n } = useTranslation();
 
   const [time, setTime] = useState(() => new Date().toLocaleTimeString());
-  const [isSettingsPanelVisible, setIsSettingsPanelVisible] = useState(false); // State for panel visibility
+  const [isSettingsPanelVisible, setIsSettingsPanelVisible] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,13 +54,13 @@ const HeaderRight: React.FC = () => {
     <div className="crt-header-right">
       <Space size="middle" align="center">
         {sm && <div className="crt-time">
-          <ClockCircleOutlined style={{ marginRight: 4 }} />
+          <AiFillClockCircle style={{ marginRight: 4 }} fontSize={20} className="header-right-icon" />
           <span>{time}</span>
         </div>}
         <div className="crt-header-icon">
           <Dropdown menu={{ items: languageMenu }} placement="bottomRight">
             <span role="button" tabIndex={0} aria-label="Toggle Language">
-              <GlobalOutlined />
+              <AiOutlineGlobal fontSize={20} className="header-right-icon" />
             </span>
           </Dropdown>
         </div>
@@ -77,7 +71,7 @@ const HeaderRight: React.FC = () => {
             aria-label="Toggle Theme"
             onClick={() => dispatch(toggleTheme())}
           >
-            {themeType === "light" ? <SunOutlined /> : <MoonOutlined />}
+            {themeType === "light" ? <AiFillSun fontSize={20} className="header-right-icon" /> : <AiFillMoon fontSize={20} className="header-right-icon" />}
           </span>
         </div>
         <div className="crt-header-icon">
@@ -87,7 +81,7 @@ const HeaderRight: React.FC = () => {
             aria-label="Open Theme Customizer"
             onClick={showSettingsPanel}
           >
-            <SettingOutlined />
+            <AiTwotoneSetting fontSize={20} className="header-right-icon" />
           </span>
         </div>
         <UserProfile />

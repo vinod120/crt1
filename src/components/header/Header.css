@@ -19,14 +19,14 @@
   display: flex;
   align-items: center;
 }
-
+.crt-time {
+  display: flex;
+}
 .crt-header-icon {
-  font-size: 18px;
   padding: 5px;
-
 }
 
-.crt-header-icon:hover .anticon {
+.crt-header-icon:hover {
   color: var(--crt-header-icon-hover-color);
   cursor: pointer;
 }
