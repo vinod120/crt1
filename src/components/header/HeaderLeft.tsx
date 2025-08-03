@@ -11,6 +11,7 @@ const HeaderLeft: React.FC = () => {
     <div className="crt-header-left">
       <Button
         type="text"
+        className="crt-header-icon"
         icon={<FiMenu fontSize={25} />}
         onClick={() => dispatch(toggle())}
       />

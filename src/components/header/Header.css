@@ -26,7 +26,12 @@
   padding-left: 2px;
 }
 
-.crt-header-icon:hover {
+.crt-header-icon:hover, .crt-header-icon:hover .ant-btn-icon {
   color: var(--crt-header-icon-hover-color);
   cursor: pointer;
+}
+.header-preference-btn:hover{
+  color: #ffffff !important;
+  background: #1de9b6 !important;
+  border-color: #1de9b6;
 }

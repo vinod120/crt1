@@ -104,12 +104,12 @@ const HeaderRight: React.FC = () => {
           </span>
         </Tooltip>
         <Tooltip title="User Preferences">
-          <Button variant="outlined" color="cyan">
+          <Button variant="outlined" color="cyan" className="header-preference-btn">
             User Preferences
           </Button>
         </Tooltip>
         <Tooltip title="Report Template Preferences">
-          <Button variant="outlined" color="cyan">
+          <Button variant="outlined" color="cyan" className="header-preference-btn">
             Report Preferences
           </Button>
         </Tooltip>
