@@ -1,16 +1,22 @@
 import { AppDispatch, RootState } from "@/store";
 import { toggleTheme } from "@/store/slices/themeSlice";
-import { Dropdown, Space } from "antd";
-import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { Button, Dropdown, Space, Tooltip } from "antd";
+import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AiFillClockCircle, AiFillMoon, AiFillSun, AiOutlineGlobal, AiTwotoneSetting } from "react-icons/ai";
+import {
+  AiFillClockCircle,
+  AiFillMoon,
+  AiFillSun,
+  AiOutlineGlobal,
+  AiTwotoneSetting,
+} from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from "../profile/UserProfile";
 import SettingsPanel from "../settingsPanel/SettingsPanel";
 
 const HeaderRight: React.FC = () => {
-  const {sm } = useBreakpoint();
+  const { sm } = useBreakpoint();
   const themeType = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch<AppDispatch>();
   const { i18n } = useTranslation();
@@ -53,28 +59,41 @@ const HeaderRight: React.FC = () => {
   return (
     <div className="crt-header-right">
       <Space size="middle" align="center">
-        {sm && <div className="crt-time">
-          <AiFillClockCircle style={{ marginRight: 4 }} fontSize={20} className="header-right-icon" />
-          <span>{time}</span>
-        </div>}
-        <div className="crt-header-icon">
+        {sm && (
+          <Tooltip title={time} className="crt-time">
+            <AiFillClockCircle
+              style={{ marginRight: 4 }}
+              fontSize={20}
+              className="header-right-icon"
+            />
+            <span>{time}</span>
+          </Tooltip>
+        )}
+        <Tooltip className="crt-header-icon">
           <Dropdown menu={{ items: languageMenu }} placement="bottomRight">
             <span role="button" tabIndex={0} aria-label="Toggle Language">
               <AiOutlineGlobal fontSize={20} className="header-right-icon" />
             </span>
           </Dropdown>
-        </div>
-        <div className="crt-header-icon">
+        </Tooltip>
+        <Tooltip
+          title={themeType === "light" ? "Light Theme" : "Dark Theme"}
+          className="crt-header-icon"
+        >
           <span
             role="button"
             tabIndex={0}
             aria-label="Toggle Theme"
             onClick={() => dispatch(toggleTheme())}
           >
-            {themeType === "light" ? <AiFillSun fontSize={20} className="header-right-icon" /> : <AiFillMoon fontSize={20} className="header-right-icon" />}
+            {themeType === "light" ? (
+              <AiFillSun fontSize={20} className="header-right-icon" />
+            ) : (
+              <AiFillMoon fontSize={20} className="header-right-icon" />
+            )}
           </span>
-        </div>
-        <div className="crt-header-icon">
+        </Tooltip>
+        <Tooltip title="settings" className="crt-header-icon">
           <span
             role="button"
             tabIndex={0}
@@ -83,10 +102,23 @@ const HeaderRight: React.FC = () => {
           >
             <AiTwotoneSetting fontSize={20} className="header-right-icon" />
           </span>
-        </div>
+        </Tooltip>
+        <Tooltip title="User Preferences">
+          <Button variant="outlined" color="cyan">
+            User Preferences
+          </Button>
+        </Tooltip>
+        <Tooltip title="Report Template Preferences">
+          <Button variant="outlined" color="cyan">
+            Report Preferences
+          </Button>
+        </Tooltip>
         <UserProfile />
       </Space>
-      <SettingsPanel visible={isSettingsPanelVisible} onClose={hideSettingsPanel} />
+      <SettingsPanel
+        visible={isSettingsPanelVisible}
+        onClose={hideSettingsPanel}
+      />
     </div>
   );
 };

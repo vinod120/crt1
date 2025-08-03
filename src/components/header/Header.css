@@ -23,7 +23,7 @@
   display: flex;
 }
 .crt-header-icon {
-  padding: 5px;
+  padding-left: 2px;
 }
 
 .crt-header-icon:hover {

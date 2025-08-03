@@ -115,7 +115,7 @@ const SidebarContent: FC<SidebarContentProps> = ({ searchText }) => {
     );
   }
 
-  if (isError || !menuData?.children?.length) {
+  if (isError) {
     return (
       <div className="crt-sidebar-content">
         <p style={{ padding: 16, color: "#999" }}>
