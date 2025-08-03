@@ -8,7 +8,7 @@ import {
   SunOutlined,
 } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
-import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,10 +16,10 @@ import UserProfile from "../profile/UserProfile";
 import SettingsPanel from "../settingsPanel/SettingsPanel";
 
 const HeaderRight: React.FC = () => {
-  const {sm } = useBreakpoint();
+  const { sm } = useBreakpoint();
   const themeType = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch<AppDispatch>();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const [time, setTime] = useState(() => new Date().toLocaleTimeString());
   const [isSettingsPanelVisible, setIsSettingsPanelVisible] = useState(false); // State for panel visibility
@@ -38,12 +38,12 @@ const HeaderRight: React.FC = () => {
   const languageMenu = [
     {
       key: "en",
-      label: "English",
+      label: t("english"),
       onClick: () => changeLanguage("en"),
     },
     {
       key: "fr",
-      label: "Français",
+      label: t("french"),
       onClick: () => changeLanguage("fr"),
     },
   ];

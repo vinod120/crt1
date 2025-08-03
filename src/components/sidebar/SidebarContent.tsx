@@ -11,11 +11,12 @@ import {
 } from "@ant-design/icons";
 import { Skeleton } from "antd";
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { Department, MenuItem } from "./types";
 
-export const transformMenuData = (departments?: Department[]): MenuItem[] =>
+export const transformMenuData = (departments?: Department[], t?: any): MenuItem[] =>
   departments?.map((dept) => ({
     id: dept?.departmentId || "",
     title: dept?.deptName || "",
@@ -24,7 +25,7 @@ export const transformMenuData = (departments?: Department[]): MenuItem[] =>
     children: Array.isArray(dept?.assetInfo)
       ? dept?.assetInfo?.map((asset) => ({
           id: asset?.assetId || "",
-          title: asset?.assetName || "Unnamed Asset",
+          title: asset?.assetName || t("unnamedAsset"),
           type: "item",
           url: asset?.assetId ? `/asset/${asset?.assetId}` : "#",
           asset,
@@ -37,6 +38,7 @@ interface SidebarContentProps {
 }
 
 const SidebarContent: FC<SidebarContentProps> = ({ searchText }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const { pathname } = useLocation();
   const preferences = useSelector((state: RootState) => state?.preferences);
@@ -59,11 +61,11 @@ const SidebarContent: FC<SidebarContentProps> = ({ searchText }) => {
   const menuData: MenuItem = useMemo(
     () => ({
       id: "navigation",
-      title: "Navigation",
+      title: t("navigation"),
       type: "group",
-      children: transformMenuData(departments),
+      children: transformMenuData(departments, t),
     }),
-    [departments]
+    [departments, t]
   );
 
   const isActive = useCallback(
@@ -119,7 +121,7 @@ const SidebarContent: FC<SidebarContentProps> = ({ searchText }) => {
     return (
       <div className="crt-sidebar-content">
         <p style={{ padding: 16, color: "#999" }}>
-          No departments or assets available.
+          {t("noDepartmentsOrAssets")}
         </p>
       </div>
     );

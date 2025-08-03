@@ -10,5 +10,6 @@ export interface Breadcrumb {
 }
 
 export interface BreadcrumbViewProps {
-  breadcrumbs: Breadcrumb[];
+  breadcrumbs?: Breadcrumb[];
+  title?: string;
 }

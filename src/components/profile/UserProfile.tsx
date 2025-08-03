@@ -1,15 +1,16 @@
 import "./UserProfile.css";
 
 import {
-    LogoutOutlined,
-    SettingOutlined,
-    ShareAltOutlined,
-    UserOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+  ShareAltOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, MenuProps, Space } from "antd";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 
-const items: MenuProps["items"] = [
+const items = (t: any): MenuProps["items"] => [
   {
     key: "header",
     type: "group",
@@ -18,8 +19,8 @@ const items: MenuProps["items"] = [
         <Space>
           <Avatar src={null} size={40} />
           <div>
-            <div className="user-profile-title">Test User</div>
-            <div className="user-profile-sub-title">testuser@amphenol.com</div>
+            <div className="user-profile-title">{t("testUser")}</div>
+            <div className="user-profile-sub-title">{t("testUserEmail")}</div>
           </div>
         </Space>
       </div>
@@ -30,7 +31,7 @@ const items: MenuProps["items"] = [
     label: (
       <Space size="middle" align="center" className="user-profile-label">
         <SettingOutlined />
-        Settings
+        {t("settings")}
       </Space>
     ),
   },
@@ -39,7 +40,7 @@ const items: MenuProps["items"] = [
     label: (
       <Space size="middle" align="center" className="user-profile-label">
         <ShareAltOutlined />
-        Audit Trail
+        {t("auditTrail")}
       </Space>
     ),
   },
@@ -50,17 +51,18 @@ const items: MenuProps["items"] = [
     key: "logout",
     label: (
       <Button type="text" icon={<LogoutOutlined />} block danger>
-        Logout
+        {t("logout")}
       </Button>
     ),
   },
 ];
 
 const UserProfile: FC = () => {
+  const { t } = useTranslation();
   return (
     <div className="user-profile-container">
       <Dropdown
-        menu={{ items }}
+        menu={{ items: items(t) }}
         trigger={["click"]}
         placement="bottomRight"
         overlayClassName="user-profile"
@@ -69,7 +71,7 @@ const UserProfile: FC = () => {
           <UserOutlined style={{ fontSize: 20, cursor: "pointer" }} />
         </div>
       </Dropdown>
-      <div className="user-profile-name">Test User</div>
+      <div className="user-profile-name">{t("testUser")}</div>
     </div>
   );
 };

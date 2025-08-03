@@ -1,6 +1,7 @@
 import SimpleBarScroll from "@/scrollbar/SimpleBarScroll";
 import { Button, Drawer, Space, Tooltip, Typography } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { LiaCheckDoubleSolid } from "react-icons/lia";
 import "./SettingsPanel.css";
 
@@ -23,32 +24,32 @@ interface StagedColors {
 const LOCAL_STORAGE_KEY = "crtCustomThemeSettings";
 
 const presetColors = [
-  { name: "Orange", value: "#e46c09" },
-  { name: "Teal", value: "#2a838a" },
-  { name: "Light Blue", value: "#74cee2" },
-  { name: "Cornflower", value: "#71a0cb" },
-  { name: "Green", value: "#00a585" },
-  { name: "Mint", value: "#7cccbf" },
-  { name: "Dark Grey", value: "#595959" },
-  { name: "Night Sky", value: "#0c3e54" }
+  { name: "orange", value: "#e46c09" },
+  { name: "teal", value: "#2a838a" },
+  { name: "lightBlue", value: "#74cee2" },
+  { name: "cornflower", value: "#71a0cb" },
+  { name: "green", value: "#00a585" },
+  { name: "mint", value: "#7cccbf" },
+  { name: "darkGrey", value: "#595959" },
+  { name: "nightSky", value: "#0c3e54" },
 ];
 
 const colorSections = [
   {
     key: "header",
-    label: "Header",
+    label: "headerTheme",
     bgVariableName: "--crt-header-background",
     textVariableName: "--crt-header-color",
   },
   {
     key: "sidebar",
-    label: "Sidebar",
+    label: "sidebarTheme",
     bgVariableName: "--crt-sidebar-main-background",
     textVariableName: "--crt-sidebar-main-color",
   },
   {
     key: "logoHeader",
-    label: "Header Logo",
+    label: "headerLogoTheme",
     bgVariableName: "--crt-sidebar-header-background",
     textVariableName: "--crt-sidebar-header-main-active-color",
   },
@@ -60,8 +61,11 @@ const getDefaultColorChoice = (): ColorChoice => ({
 });
 
 const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
+  const { t } = useTranslation();
   const [stagedColors, setStagedColors] = useState<StagedColors>({});
-  const [initialPanelColors, setInitialPanelColors] = useState<StagedColors>({});
+  const [initialPanelColors, setInitialPanelColors] = useState<StagedColors>(
+    {}
+  );
 
   const loadInitialColors = useCallback(() => {
     let currentColors: StagedColors = {};
@@ -75,11 +79,19 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
     } else if (typeof window !== "undefined") {
       colorSections.forEach((section) => {
         const bg =
-          document.documentElement.style.getPropertyValue(section.bgVariableName).trim() ||
-          getComputedStyle(document.documentElement).getPropertyValue(section.bgVariableName).trim();
+          document.documentElement.style
+            .getPropertyValue(section.bgVariableName)
+            .trim() ||
+          getComputedStyle(document.documentElement)
+            .getPropertyValue(section.bgVariableName)
+            .trim();
         const text =
-          document.documentElement.style.getPropertyValue(section.textVariableName).trim() ||
-          getComputedStyle(document.documentElement).getPropertyValue(section.textVariableName).trim();
+          document.documentElement.style
+            .getPropertyValue(section.textVariableName)
+            .trim() ||
+          getComputedStyle(document.documentElement)
+            .getPropertyValue(section.textVariableName)
+            .trim();
         currentColors[section.bgVariableName] = {
           background: bg || null,
           text: text || null,
@@ -106,16 +118,33 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
       [bgVariableName]: newChoice,
     }));
 
-    const section = colorSections.find((s) => s.bgVariableName === bgVariableName);
+    const section = colorSections.find(
+      (s) => s.bgVariableName === bgVariableName
+    );
     if (section) {
-      document.documentElement.style.setProperty(section.bgVariableName, newChoice.background);
+      document.documentElement.style.setProperty(
+        section.bgVariableName,
+        newChoice.background
+      );
       if (newChoice.text) {
-        document.documentElement.style.setProperty(section.textVariableName, newChoice.text);
+        document.documentElement.style.setProperty(
+          section.textVariableName,
+          newChoice.text
+        );
       }
-      if (section.key === 'sidebar') {
-        document.documentElement.style.setProperty('--crt-sidebar-main-active-background', colorValue);
-        document.documentElement.style.setProperty('--crt-sidebar-main-active-color', '#FFFFFF');
-        document.documentElement.style.setProperty('--crt-sidebar-main-active-clr', '#FFFFFF');
+      if (section.key === "sidebar") {
+        document.documentElement.style.setProperty(
+          "--crt-sidebar-main-active-background",
+          colorValue
+        );
+        document.documentElement.style.setProperty(
+          "--crt-sidebar-main-active-color",
+          "#FFFFFF"
+        );
+        document.documentElement.style.setProperty(
+          "--crt-sidebar-main-active-clr",
+          "#FFFFFF"
+        );
       }
     }
   };
@@ -129,19 +158,31 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
   const handleCancel = () => {
     Object.keys(initialPanelColors).forEach((bgVariableKey) => {
       const choice = initialPanelColors[bgVariableKey];
-      const section = colorSections.find((s) => s.bgVariableName === bgVariableKey);
+      const section = colorSections.find(
+        (s) => s.bgVariableName === bgVariableKey
+      );
 
       if (section) {
         if (choice && choice.background) {
-          document.documentElement.style.setProperty(section.bgVariableName, choice.background);
+          document.documentElement.style.setProperty(
+            section.bgVariableName,
+            choice.background
+          );
           if (choice.text) {
-            document.documentElement.style.setProperty(section.textVariableName, choice.text);
+            document.documentElement.style.setProperty(
+              section.textVariableName,
+              choice.text
+            );
           } else {
-            document.documentElement.style.removeProperty(section.textVariableName);
+            document.documentElement.style.removeProperty(
+              section.textVariableName
+            );
           }
         } else {
           document.documentElement.style.removeProperty(section.bgVariableName);
-          document.documentElement.style.removeProperty(section.textVariableName);
+          document.documentElement.style.removeProperty(
+            section.textVariableName
+          );
         }
       }
     });
@@ -188,14 +229,15 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
   const renderSettingPanelHeader = () => {
     return (
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
-        <Title level={4} style={{ margin: 0 }} className="crt-settings-panel-title">
-          Settings
-        </Title>
-        <Button
-          onClick={handleResetToDefaults}
-          className="crt-reset-button"
+        <Title
+          level={4}
+          style={{ margin: 0 }}
+          className="crt-settings-panel-title"
         >
-          Reset
+          {t("settings")}
+        </Title>
+        <Button onClick={handleResetToDefaults} className="crt-reset-button">
+          {t("reset")}
         </Button>
       </Space>
     );
@@ -209,13 +251,25 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
       className="crt-settings-panel"
       open={visible}
       width={360}
-      style={{ overflow: "hidden",  transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)' }}
-      styles={{ body: { padding: 0, overflow: 'hidden', transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)' } }}
+      style={{
+        overflow: "hidden",
+        transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+      }}
+      styles={{
+        body: {
+          padding: 0,
+          overflow: "hidden",
+          transition: "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+        },
+      }}
       footer={
         <Space style={{ width: "100%", justifyContent: "space-between" }}>
-          <Button onClick={handleCancel}>Cancel</Button>
-          <Button className="crt-setting-panel-save-button" onClick={handleSave}>
-            Save
+          <Button onClick={handleCancel}>{t("cancel")}</Button>
+          <Button
+            className="crt-setting-panel-save-button"
+            onClick={handleSave}
+          >
+            {t("save")}
           </Button>
         </Space>
       }
@@ -225,23 +279,27 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({ visible, onClose }) => {
           {colorSections?.map((section) => (
             <div key={section.key} className="crt-color-swatches">
               <Title level={5} className="crt-settings-panel-section-title">
-                {section.label} Theme
+                {t(section.label)}
               </Title>
-              <p className="crt-setting-panel-sub-section">{`Choose your ${section.label} theme color`}</p>
+              <p className="crt-setting-panel-sub-section">{t(`choose${section.label.charAt(0).toUpperCase() + section.label.slice(1)}Color`)}</p>
               <Space wrap>
                 {presetColors.map((color) => {
                   const currentChoice =
-                    stagedColors[section.bgVariableName] || getDefaultColorChoice();
+                    stagedColors[section.bgVariableName] ||
+                    getDefaultColorChoice();
                   const isActive = currentChoice.background === color.value;
                   return (
-                    <Tooltip title={color.name} key={color.value}>
+                    <Tooltip title={t(color.name)} key={color.value}>
                       <Button
                         className={`color-swatch ${isActive ? "active" : ""}`}
                         style={{
                           backgroundColor: color.value,
                         }}
                         onClick={() =>
-                          handleColorSwatchClick(section.bgVariableName, color.value)
+                          handleColorSwatchClick(
+                            section.bgVariableName,
+                            color.value
+                          )
                         }
                         aria-label={`Set ${section.label} to ${color.name}${
                           isActive ? " (active)" : ""

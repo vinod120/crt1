@@ -1,48 +1,46 @@
 import { formatNumber } from "@/utils";
-import {
-  AppstoreOutlined,
-  ContainerOutlined,
-} from "@ant-design/icons";
+import { AppstoreOutlined, ContainerOutlined } from "@ant-design/icons";
 import { Card, Skeleton } from "antd";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import "./DashboardCards.css";
 import { DashboardCardsProps } from "./types";
 
-const defaultCards = [
+const defaultCards = (t: any) => [
   {
     id: 1,
-    title: "Assets",
+    title: t("assets"),
     key: "assetCount",
     icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
   },
   {
     id: 2,
-    title: "Study Setup",
+    title: t("studySetup"),
     key: "setupCount",
     icon: <ContainerOutlined style={{ fontSize: "20px" }} />,
   },
   {
     id: 3,
-    title: "Study",
+    title: t("study"),
     key: "studyCount",
     icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
   },
   {
     id: 4,
-    title: "Reports",
+    title: t("reports"),
     key: "reportCount",
     icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
   },
   {
     id: 5,
-    title: "Audit Trail",
+    title: t("auditTrail"),
     key: "auditTrail",
     icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
   },
 ];
 
-const renderSkeleton = () =>
-  defaultCards.map((card) => (
+const renderSkeleton = (t: any) =>
+  defaultCards(t).map((card) => (
     <div key={card.id} className="dashboard-card-wrapper">
       <Card className="dashboard-card-container">
         <Skeleton.Input active size="default" block />
@@ -56,11 +54,14 @@ const DashboardCards: FC<DashboardCardsProps> = ({
   selectedCard,
   setSelectedCard,
 }) => {
+  const { t } = useTranslation();
   const renderCards = () => {
-    return defaultCards.map((card) => (
+    return defaultCards(t).map((card) => (
       <div
         key={card?.id}
-        className={`dashboard-card-wrapper ${selectedCard === card?.key ? "selected" : ""}`}
+        className={`dashboard-card-wrapper ${
+          selectedCard === card?.key ? "selected" : ""
+        }`}
         onClick={() => setSelectedCard?.(card?.key)}
       >
         <Card className="dashboard-card-container">
@@ -78,7 +79,11 @@ const DashboardCards: FC<DashboardCardsProps> = ({
     ));
   };
 
-  return <div className="dashboard-card-row">{countsLoading ? renderSkeleton() : renderCards()}</div>;
+  return (
+    <div className="dashboard-card-row">
+      {countsLoading ? renderSkeleton(t) : renderCards()}
+    </div>
+  );
 };
 
 export default DashboardCards;

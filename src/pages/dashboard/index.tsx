@@ -33,7 +33,7 @@ const Dashboard = () => {
   return (
       
       <>
-      <BreadcrumbView />
+      <BreadcrumbView title="dashboard" />
       <DashboardCards
         counts={countsError ? {} : counts}
         countsLoading={countsLoading}
