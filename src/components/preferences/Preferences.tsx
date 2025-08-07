@@ -22,7 +22,7 @@ import React, {
 } from "react";
 import { MdRoomPreferences } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import "./preferences.css";
+import "./Preferences.css";
 import PreferencesContent from "./PreferencesContent";
 import { PreferencesState, UserPreference } from "./types";
 
