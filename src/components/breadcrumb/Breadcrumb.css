@@ -8,6 +8,14 @@
   font-size: 1.125rem;
   color: var(--crt-breadcrumb-title-color);
 }
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-icon {
+  margin-right: 5px;
+}
 
 .breadcrumb-header .breadcrumb {
   padding: 0;
@@ -19,7 +27,7 @@
   display: flex;
   align-items: anchor-center
 }
-.breadcrumb-header .breadcrumb .ant-breadcrumb-link {
+.breadcrumb-header .breadcrumb {
   color: var(--crt-breadcrumb-link-color);
   cursor: pointer;
 }
@@ -27,6 +35,11 @@
 .breadcrumb-header .breadcrumb .ant-breadcrumb-link:hover {
   color: var(--crt-breadcrumb-link-hover-color);
 }
+.breadcrumb-header .breadcrumb ol > li:last-child {
+  color: var(--crt-breadcrumb-link-hover-color);
+  font-weight: 500;
+}
+
 @media (max-width: 575.98px) {
   .breadcrumb-header .h5,
   .breadcrumb-header h5 {

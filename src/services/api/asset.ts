@@ -15,8 +15,18 @@ interface ApiDepartment  {
   assetInfo: AssetInfo[];
 }
 
+export const fetchAssetDetailsById = async (payload: { assetId: string | undefined }) => {
+  try {
+    const response = await axiosInstance.get(`Asset/GetAssetDetails?assetId=${payload?.assetId}`);
+    return response?.data?.[0] || [];
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const fetchAssetsBasedOnPreferences = async(payload: PreferencesResponse) :Promise<ApiDepartment []> => {
   try {
+
     const response = await axiosInstance.post('Asset/AssetsBasedOnDeptsAndPreferences', payload);
     return response?.data || [];
   } catch (error) {
@@ -27,7 +37,7 @@ export const fetchAssetsBasedOnPreferences = async(payload: PreferencesResponse)
 export const serchByAssestOrStudy = async (payload: any) => {
   try {
     const response = await axiosInstance.get(`/Asset/GetSearchItems?searchText=${payload?.searchText}&departmentIds=${payload?.deptId}`);
-    return response?.data;
+    return response?.data || [];
   } catch (error) {
     throw error;
   }
@@ -36,7 +46,7 @@ export const fetchAllAssetTypes = async (payload: any) => {
     try {
         const { deptId } = payload;
         const response = await axiosInstance.get(`Asset/GetAllAssetTypes?departmentID=${deptId}`);
-        return response?.data;
+        return response?.data || [];
     } catch (error) {
         throw error
     }
@@ -45,7 +55,7 @@ export const fetchAllAssetTypes = async (payload: any) => {
 export const fetchRecentAssetsByPreferences = async (payload: PreferencesResponse) => {
   try {
     const response = await axiosInstance.post('Asset/RecentAssetsByPreferences', payload);
-    return response?.data;
+    return response?.data || [];
   } catch (error) {
     throw error;
   }

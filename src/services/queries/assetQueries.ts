@@ -2,11 +2,20 @@ import { Asset } from "@/components/sidebar/types";
 import { useQuery } from "@tanstack/react-query";
 import {
   fetchAllAssetTypes,
+  fetchAssetDetailsById,
   fetchAssetsBasedOnPreferences,
   fetchRecentAssetsByPreferences,
   serchByAssestOrStudy,
 } from "../api/asset";
 import { PreferencesResponse } from "./preferenceQueries";
+
+export const useAssetDetailsByIdQuery = (assetId: string | undefined) => {
+  return useQuery({
+    queryKey: [`assetDetails-${assetId}`, assetId],
+    queryFn: () => fetchAssetDetailsById({ assetId: assetId! }),
+    enabled: !!assetId,
+  });
+};
 
 export const useAssetsBasedOnPreferencesQuery = ({
   enabled,

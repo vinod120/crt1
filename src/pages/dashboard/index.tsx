@@ -3,14 +3,13 @@ import BreadcrumbView from "@/components/breadcrumb/Breadcrumb";
 import { useDashboardCountsQuery } from "@/services/queries/countQueries";
 import { RootState } from "@/store";
 import { useEffect, useState } from "react";
+import { IoHome } from "react-icons/io5";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import RecentDashboardTable from "../recentDataTables";
 import DashboardCards from "./DashboardCards";
 
 const Dashboard = () => {
   const preferences = useSelector((state: RootState) => state?.preferences);
-  const navigate = useNavigate();
   const {
     data: counts,
     isLoading: countsLoading,
@@ -21,7 +20,7 @@ const Dashboard = () => {
     preferences,
   });
 
-  const [selectedCard, setSelectedCard] = useState<string>('recentStudies');
+  const [selectedCard, setSelectedCard] = useState<string>("recentStudies");
 
   useEffect(() => {
     if (countsError) {
@@ -38,11 +37,16 @@ const Dashboard = () => {
       <BreadcrumbView
         breadcrumbs={[
           {
-            title: "Home",
+            title: (
+              <div className="breadcrumb-item">
+                <IoHome size={15} className="breadcrumb-icon" />
+                <span>Home</span>
+              </div>
+            ),
             key: "",
-            onClick: () => navigate("/"),
           },
         ]}
+        title="Dashboard"
       />
       <DashboardCards
         counts={countsError ? {} : counts}

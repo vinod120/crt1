@@ -1,10 +1,12 @@
 import ErrorPage from "@/errors/Error";
 import Error400Page from "@/errors/Error400";
 import AppLayout from "@/layout/appLayout";
-import Dashboard from "@/pages/dashboard";
+import { lazy } from "react";
 import { createBrowserRouter } from 'react-router-dom';
 import PublicRoute from './PublicRoute';
 import { PageWrapper, WrapperRouteComponent } from './WrapperRouteComponent';
+const Dashboard = lazy(()=> import('@/pages/dashboard'));
+const  AssetDashboard = lazy(() =>import('@/pages/assets/AssetDashboard'));
 const LoginPage = () => {
   return (
     <div></div>
@@ -37,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/asset/:assetId',
-        element: <Dashboard />,
+        element: <AssetDashboard />,
       },
       {
         path: 'studies/vrt/:assetId/:studyId',

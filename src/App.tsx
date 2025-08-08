@@ -112,7 +112,7 @@ const App = () => {
               alignItems: "center",
             }}
           >
-            <Spin size="large" />
+            <Spin size="default" />
           </div>
         }
       >
