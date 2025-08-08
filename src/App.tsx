@@ -84,7 +84,7 @@ const App = () => {
     };
 
     applyPersistedThemeSettings();
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, []);
 
   return (
     <ConfigProvider
