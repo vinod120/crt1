@@ -207,6 +207,7 @@ const Preferences: FC = React.memo(() => {
   }, [preferences, queryClient, userDetails]);
 
   const handleCancel = () => {
+    console.log("cancel called...")
     setOpen(false);
     userPreference && dispatch(resetPreferences(userPreference));
   };
