@@ -9,3 +9,12 @@ export const fetchRecentStudiesByPreferences = async (payload: PreferencesRespon
         throw error;
     }
 };
+
+export const fetchStudyDetailsByAsset = async (payload: {assetId: string | undefined}) => {
+    try {
+        const response = await axiosInstance.get(`/Setup/GetCombinedSetupStudyByAsset?assetID=${payload?.assetId}`);
+        return response?.data;
+    } catch (error) {
+        throw error;
+    }
+};
