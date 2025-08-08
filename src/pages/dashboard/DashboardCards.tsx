@@ -60,8 +60,8 @@ const DashboardCards: FC<DashboardCardsProps> = ({
     return defaultCards.map((card) => (
       <div
         key={card?.id}
-        className={`dashboard-card-wrapper ${selectedCard === card?.key ? "selected" : ""}`}
-        onClick={() => setSelectedCard?.(card?.key)}
+        className={`dashboard-card-wrapper ${selectedCard === card?.id ? "selected" : ""}`}
+        onClick={() => setSelectedCard?.(card?.id)}
       >
         <Card className="dashboard-card-container">
           <div className="dashboard-card-content sub-headline">

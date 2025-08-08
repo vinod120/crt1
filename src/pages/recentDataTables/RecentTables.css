@@ -1,0 +1,40 @@
+.crt-table .ant-table {
+  color: var(--table-text-color);
+}
+
+.crt-table .ant-table-container {
+  background-color: var(--crt-dashboard-card-background);
+  box-shadow: var(--pc-card-box-shadow);
+}
+
+.crt-table .ant-table-thead > tr > th {
+  font-size: 13px;
+  color: var(--table-header-color);
+  background: var(--table-header-bg);
+  vertical-align: middle;
+  border-top: 0;
+  border-bottom: 1px solid var(--table-border-color);
+  white-space: nowrap;
+}
+
+.crt-table .ant-table .ant-table-thead > tr > th,
+.crt-table .ant-table .ant-table-tbody > tr > td {
+  border-top: 1px solid var(--table-border-color);
+  border-bottom: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.crt-table .ant-table .ant-table-thead > tr:last-child > th,
+.crt-table .ant-table .ant-table-tbody > tr:last-child > td {
+  border-bottom: 1px solid var(--table-border-color);
+}
+
+.crt-table .ant-table .ant-table-tbody > tr.ant-table-row:hover > td {
+  background: unset;
+  background-color: var(--table-hover-bg);
+}
+
+#recent-tables-card-header > .ant-card-body {
+  padding: 0;
+}

@@ -69,6 +69,13 @@
   --bs-bg-opacity: 1;
   --bs-primary-rgb: rgba(4, 169, 245, 1);
   --bs-white-rgb: rgba(255, 255, 255, 1);
+  /* table css */
+   --table-header-color: #262626;
+  --table-header-bg: rgba(244, 247, 250, 0.5);
+  --table-border-color: #f1f1f1;
+  --table-hover-bg: rgba(91, 107, 121, 0.03);
+  --table-text-color: #888;
+  --table-fixed-column-bg: var(--crt-dashboard-card-background);
 }
 
 [data-theme="dark"] {
@@ -148,4 +155,12 @@
   --bs-bg-opacity: 1;
   --bs-primary-rgb: rgba(4, 169, 245, 1);
   --bs-white-rgb: rgba(255, 255, 255, 1);
+
+  /* table css for dark mode */
+   --table-header-color: var(--bs-body-color);
+  --table-header-bg: #46484c;
+  --table-border-color: #46484c;
+  --table-hover-bg: rgba(91, 107, 121, 0.03);
+  --table-text-color: #bfbfbf;
+  --table-fixed-column-bg: var(--crt-dashboard-card-background);
 }

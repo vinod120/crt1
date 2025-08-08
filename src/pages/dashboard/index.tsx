@@ -5,11 +5,12 @@ import { RootState } from "@/store";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import RecentDashboardTable from "../recentDataTables";
 import DashboardCards from "./DashboardCards";
 
 const Dashboard = () => {
   const preferences = useSelector((state: RootState) => state?.preferences);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     data: counts,
     isLoading: countsLoading,
@@ -20,7 +21,7 @@ const Dashboard = () => {
     preferences,
   });
 
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
+  const [selectedCard, setSelectedCard] = useState<number>(3);
 
   useEffect(() => {
     if (countsError) {
@@ -33,22 +34,24 @@ const Dashboard = () => {
   }, [countsError, error]);
 
   return (
-      
-      <>
-      <BreadcrumbView breadcrumbs={[
-        {
-          title: 'Home',
-          key: "",
-          onClick: () => navigate("/"),
-        }
-      ]} />
+    <>
+      <BreadcrumbView
+        breadcrumbs={[
+          {
+            title: "Home",
+            key: "",
+            onClick: () => navigate("/"),
+          },
+        ]}
+      />
       <DashboardCards
         counts={countsError ? {} : counts}
         countsLoading={countsLoading}
         selectedCard={selectedCard}
         setSelectedCard={setSelectedCard}
       />
-      </>
+      <RecentDashboardTable selectedCard={selectedCard} />
+    </>
   );
 };
 

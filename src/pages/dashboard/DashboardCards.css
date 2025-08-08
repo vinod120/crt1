@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  padding-bottom: 1rem;
 }
 
 .dashboard-card-wrapper {
@@ -41,7 +42,7 @@
 }
 
 .dashboard-card-container > .ant-card-body {
-  padding: 24px 16px;
+  padding: 24px 10px;
 }
 
 .dashboard-card-content {

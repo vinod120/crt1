@@ -91,7 +91,13 @@ const App = () => {
       theme={{
         algorithm:
           themeType === "light" ? theme.defaultAlgorithm : theme.darkAlgorithm,
-      }}
+          components: {
+            Table: {
+              headerBorderRadius: 0,
+            }
+          }
+      }
+    }
     >
       <Suspense
         fallback={
