@@ -1,5 +1,5 @@
-import { Input } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { Input, Spin } from "antd";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { FaFileLines } from "react-icons/fa6";
 import { IoHome } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
@@ -12,21 +12,22 @@ import { DEBOUNCE_DELAY } from "@/utils";
 import { debounce } from "lodash";
 import "./Assets.css";
 import StudyTable from "./StudyTable";
+const AssetInfo = lazy(() => import("./AssetInfo"));
 
 const { Search } = Input;
 
 const AssetDashboard = () => {
   const navigate = useNavigate();
   const { assetId } = useParams();
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const debouncedSetSearchText = useMemo(
     () =>
       debounce((value: string) => {
         setSearchText(value);
       }, DEBOUNCE_DELAY),
-    [],
+    []
   );
- const handleSearch = (value: string) => {
+  const handleSearch = (value: string) => {
     setSearchText(value);
     debouncedSetSearchText(value);
   };
@@ -41,7 +42,7 @@ const AssetDashboard = () => {
     data: studies,
     isLoading: studiesLoading,
     isError: studiesError,
-    error: studyError
+    error: studyError,
   } = useStudyDetailsByAssetQuery(assetId);
 
   useEffect(() => {
@@ -92,24 +93,32 @@ const AssetDashboard = () => {
         breadcrumbs={breadcrumbs}
         title={assetLoading ? "Loading..." : assetDetails?.assetName || ""}
       />
-
-        <Search
-          placeholder="Search studies and setups..."
-          onChange={e => handleSearch(e.target.value)}
-          onSearch={handleSearch}
-          value={searchText}
-          className="setups-study-search"
-          enterButton
-          name="stuides and setups search"
-          allowClear
-          id="setup-study-search"
-          disabled={studiesLoading}
-        />
-        <StudyTable
-          data={filteredStudies}
-          loading={studiesLoading}
-          assetId={assetId!}
-        />
+      <Suspense
+        fallback={
+          <div className="centered-spinner">
+            <Spin />
+          </div>
+        }
+      >
+        <AssetInfo details={assetDetails || null} loading={assetLoading} />
+      </Suspense>
+      <Search
+        placeholder="Search studies and setups..."
+        onChange={(e) => handleSearch(e.target.value)}
+        onSearch={handleSearch}
+        value={searchText}
+        className="setups-study-search"
+        enterButton
+        name="stuides and setups search"
+        allowClear
+        id="setup-study-search"
+        disabled={studiesLoading}
+      />
+      <StudyTable
+        data={filteredStudies}
+        loading={studiesLoading}
+        assetId={assetId!}
+      />
     </>
   );
 };
