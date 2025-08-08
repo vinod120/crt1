@@ -12,7 +12,7 @@ export interface PreferencesResponse {
   assetTypes: string[];
   departmentIds: string[];
   assetIds?: string[]
-  loaded: boolean;
+  loaded?: boolean;
 }
 
 interface PreferenceRequest {

@@ -1,4 +1,5 @@
 import axiosInstance from "../axiosInstance";
+import { PreferencesResponse } from "../queries/preferenceQueries";
 
 export const fetchUserPreferecesByUserID = async (userId: string) => {
   try {
@@ -9,7 +10,7 @@ export const fetchUserPreferecesByUserID = async (userId: string) => {
   }
 };
 
-export const SaveUserPreferences = async (payload: any) => {
+export const SaveUserPreferences = async (payload: PreferencesResponse) => {
   try {
     const response = await axiosInstance.post('/Accounts/SaveOrUpdateUserPreferences', payload);
     return response?.data;

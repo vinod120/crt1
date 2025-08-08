@@ -1,5 +1,5 @@
 .crt-table .ant-table {
-  color: var(--table-text-color);
+  color: var(--pc-heading-color);
 }
 
 .crt-table .ant-table-container {
@@ -29,7 +29,6 @@
 .crt-table .ant-table .ant-table-tbody > tr:last-child > td {
   border-bottom: 1px solid var(--table-border-color);
 }
-
 .crt-table .ant-table .ant-table-tbody > tr.ant-table-row:hover > td {
   background: unset;
   background-color: var(--table-hover-bg);

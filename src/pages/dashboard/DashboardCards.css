@@ -68,3 +68,13 @@
   font-size: 16px;
   color: var(--crt-dashboard-card-count-text-color);
 }
+.dashboard-card-wrapper.selected {
+  border: 2px solid var(--crt-primary-orange);
+  border-radius: 5px;
+}
+.ellipsis-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+}

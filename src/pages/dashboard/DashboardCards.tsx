@@ -13,30 +13,35 @@ const defaultCards = [
     id: 1,
     title: "Assets",
     key: "assetCount",
+    name: 'recentAssets',
     icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
   },
   {
     id: 2,
     title: "Study Setup",
     key: "setupCount",
+    name: 'recentStudySetups',
     icon: <ContainerOutlined style={{ fontSize: "20px" }} />,
   },
   {
     id: 3,
     title: "Study",
     key: "studyCount",
+    name: 'recentStudies',
     icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
   },
   {
     id: 4,
     title: "Reports",
     key: "reportCount",
+    name: 'recentReports',
     icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
   },
   {
     id: 5,
     title: "Audit Trail",
     key: "auditTrail",
+    name: 'recentAuditTrails',
     icon: <AppstoreOutlined style={{ fontSize: "20px" }} />,
   },
 ];
@@ -60,8 +65,8 @@ const DashboardCards: FC<DashboardCardsProps> = ({
     return defaultCards.map((card) => (
       <div
         key={card?.id}
-        className={`dashboard-card-wrapper ${selectedCard === card?.id ? "selected" : ""}`}
-        onClick={() => setSelectedCard?.(card?.id)}
+        className={`dashboard-card-wrapper ${selectedCard === card?.name ? "selected" : ""}`}
+        onClick={() => setSelectedCard?.(card?.name)}
       >
         <Card className="dashboard-card-container">
           <div className="dashboard-card-content sub-headline">

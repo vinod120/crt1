@@ -17,11 +17,11 @@ const Dashboard = () => {
     isError: countsError,
     error,
   } = useDashboardCountsQuery({
-    enabled: preferences?.loaded,
+    enabled: preferences?.loaded || false,
     preferences,
   });
 
-  const [selectedCard, setSelectedCard] = useState<number>(3);
+  const [selectedCard, setSelectedCard] = useState<string>('recentStudies');
 
   useEffect(() => {
     if (countsError) {

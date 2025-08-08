@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   fetchAllAssetTypes,
   fetchAssetsBasedOnPreferences,
+  fetchRecentAssetsByPreferences,
   serchByAssestOrStudy,
 } from "../api/asset";
 import { PreferencesResponse } from "./preferenceQueries";
@@ -54,5 +55,26 @@ export const useAssetPreferencesTypesQuery = ({ open, deptId }: { open: boolean,
     queryKey: ['assetPreferencesTypes', deptId],
     queryFn: () => fetchAllAssetTypes({deptId}),
     enabled: open,
+  });
+};
+
+export const useRecentAssetsByPreferencesQuery = ({ 
+  enabled, 
+  preferences 
+}: { 
+  enabled: boolean; 
+  preferences?: PreferencesResponse
+}) => {
+  return useQuery({
+    queryKey: ['recent-top-assets', preferences],
+    queryFn: () => fetchRecentAssetsByPreferences({
+     departmentIds: preferences?.departmentIds || [],
+        assetNames: preferences?.assetNames || [],
+        assetTypes: preferences?.assetTypes || [],
+        assetLocations: preferences?.assetLocations || [],
+        manufactures: preferences?.manufactures || [],
+        assetIds: [],
+      }),
+    enabled: enabled && !!preferences?.departmentIds?.length,
   });
 };

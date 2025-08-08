@@ -1,105 +1,114 @@
+import { useRecentStudiesByPreferencesQuery } from "@/services/queries/studyQueries";
+import { RootState } from "@/store";
+import { getDateFormat } from "@/utils";
 import type { TableColumnsType } from "antd";
-import { Card, Table } from "antd";
+import { Tooltip } from "antd";
 import React from "react";
-import "./RecentTables.css";
+import { FaEye } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import RecentTable from "./RecentTable";
 
-interface DataType {
-  key: React.Key;
-  name: string;
-  age: number;
-  address: string;
+interface RecentStudyTypes {
+  assetName: string;
+  setupName: string;
+  assetId: string;
+  studyId: string;
+  studyStartDate: Date;
+  studyStartedByUserId: string;
+  studyFileComment: string;
+  studyType: string;
+  deptName: string;
 }
-
-const columns: TableColumnsType<DataType> = [
-  {
-    title: "Full Name",
-    width: 100,
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Age",
-    width: 100,
-    dataIndex: "age",
-    key: "age",
-  },
-  {
-    title: "Column 1",
-    dataIndex: "address",
-    key: "1",
-    width: 150,
-  },
-  {
-    title: "Column 2",
-    dataIndex: "address",
-    key: "2",
-    width: 150,
-  },
-  {
-    title: "Column 3",
-    dataIndex: "address",
-    key: "3",
-    width: 150,
-  },
-  {
-    title: "Column 4",
-    dataIndex: "address",
-    key: "4",
-    width: 150,
-  },
-  {
-    title: "Column 5",
-    dataIndex: "address",
-    key: "5",
-    width: 150,
-  },
-  {
-    title: "Column 6",
-    dataIndex: "address",
-    key: "6",
-    width: 150,
-  },
-  {
-    title: "Column 7",
-    dataIndex: "address",
-    key: "7",
-    width: 150,
-  },
-  { title: "Column 8", dataIndex: "address", key: "8" },
-  { title: "Column 9", dataIndex: "address", key: "9" },
-  { title: "Column 10", dataIndex: "address", key: "10" },
-  { title: "Column 11", dataIndex: "address", key: "11" },
-  { title: "Column 12", dataIndex: "address", key: "12" },
+const columns: TableColumnsType<RecentStudyTypes> = [
   {
     title: "Action",
-    key: "operation",
-    width: 100,
-    render: () => <a>action</a>,
+    dataIndex: "viewDetails",
+    render: (_, record) => (
+      <Link to={`/studies/vrt/${record?.assetId}/${record?.studyId}`}>
+        <Tooltip title="View Study Details">
+          <FaEye />
+        </Tooltip>
+      </Link>
+    ),
+  },
+  {
+    title: "Asset Name",
+    dataIndex: "assetName",
+    sorter: (a, b) => a?.assetName?.localeCompare(b?.assetName),
+  },
+  {
+    title: "Study Name",
+    dataIndex: "setupName",
+    sorter: (a, b) => a?.setupName?.localeCompare(b?.setupName),
+  },
+  {
+    title: "Study Start Date",
+    render: (row) => getDateFormat(row),
+    dataIndex: "studyStartDate",
+    sorter: (a, b) =>
+      new Date(a?.studyStartDate)?.getTime() -
+      new Date(b?.studyStartDate)?.getTime(),
+  },
+  {
+    title: "Study Started By",
+    dataIndex: "studyStartedByUserId",
+    sorter: (a, b) =>
+      a?.studyStartedByUserId?.localeCompare(b?.studyStartedByUserId),
+    render: (row) => (
+      <Tooltip title={row}>
+        <div className="ellipsis-cell">{row}</div>
+      </Tooltip>
+    ),
+  },
+  {
+    title: "Comments",
+    dataIndex: "studyFileComment",
+    sorter: (a, b) => a?.studyFileComment?.localeCompare(b?.studyFileComment),
+    render: (row) => (
+      <Tooltip title={row}>
+        <div className="ellipsis-cell">{row}</div>
+      </Tooltip>
+    ),
+  },
+  {
+    title: "Study Type",
+    dataIndex: "studyType",
+    sorter: (a, b) => a?.studyType?.localeCompare(b?.studyType),
+  },
+  {
+    title: "Product Type",
+    dataIndex: "productType",
+    render: () => "VRT",
+  },
+  {
+    title: "Department",
+    dataIndex: "deptName",
+    sorter: (a, b) => a?.deptName?.localeCompare(b?.deptName),
   },
 ];
 
-const dataSource = Array.from({ length: 100 }).map<DataType>((_, i) => ({
-  key: i,
-  name: `Edward King ${i}`,
-  age: 32,
-  address: `London, Park Lane no. ${i}`,
-}));
-
 const RecentStudies: React.FC = () => {
+  const preferences = useSelector((state: RootState) => state.preferences);
+  const {
+    data: topStudies,
+    isLoading,
+    isError,
+  } = useRecentStudiesByPreferencesQuery({
+    enabled: preferences?.loaded || false,
+    preferences,
+  });
+
+  const dataSource = Array.isArray(topStudies) ? topStudies : [];
+
   return (
-    <Card
+    <RecentTable<RecentStudyTypes>
       title="Recent Studies"
-      className="dashboard-card-container"
-      id="recent-tables-card-header"
-    >
-        <Table<DataType>
-          columns={columns}
-          dataSource={dataSource}
-          scroll={{ x: "max-content", y: 55 * 5 }}
-          className="crt-table"
-          pagination={false}
-        />
-    </Card>
+      columns={columns}
+      data={dataSource}
+      rowKey="studyStartDate"
+      loading={isLoading}
+    />
   );
 };
 

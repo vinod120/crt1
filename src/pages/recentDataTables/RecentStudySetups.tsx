@@ -1,45 +1,84 @@
-import type { TableColumnsType } from 'antd';
-import { Table } from 'antd';
-import React from 'react';
+import { useRecentSetupsByPreferencesQuery } from "@/services/queries/setupQueries";
+import { RootState } from "@/store";
+import { getDateFormat } from "@/utils";
+import type { TableColumnsType } from "antd";
+import { Tooltip } from "antd";
+import React from "react";
+import { useSelector } from "react-redux";
+import RecentTable from "./RecentTable";
 
-interface DataType {
-  key: React.Key;
-  name: string;
-  age: number;
-  address: string;
+interface RecentStudySetupTypes {
+  assetName: string;
+  setupName: string;
+  setupCreationDate: Date;
+  userName: string;
+  comment: string;
+  deptName: string;
 }
 
-const columns: TableColumnsType<DataType> = [
+const columns: TableColumnsType<RecentStudySetupTypes> = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    width: 150,
+    title: "Asset Name",
+    dataIndex: "assetName",
+    sorter: (a, b) => a?.assetName?.localeCompare(b?.assetName),
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    width: 150,
+    title: "Setup Name",
+    dataIndex: "setupName",
+    sorter: (a, b) => a?.setupName?.localeCompare(b?.setupName),
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
+    title: "Setup Creation Date",
+    render: (row) => getDateFormat(row),
+    dataIndex: "setupCreationDate",
+    sorter: (a, b) =>
+      new Date(a?.setupCreationDate)?.getTime() -
+      new Date(b?.setupCreationDate)?.getTime(),
+  },
+  {
+    title: "Setup Created By",
+    dataIndex: "userName",
+    sorter: (a, b) => a?.userName?.localeCompare(b?.userName),
+    render: (row) => (
+      <Tooltip title={row}>
+        <div className="ellipsis-cell">{row}</div>
+      </Tooltip>
+    ),
+  },
+  {
+    title: "Comments",
+    dataIndex: "comment",
+    sorter: (a, b) => a?.comment?.localeCompare(b?.comment),
+    render: (row) => (
+      <Tooltip title={row}>
+        <div className="ellipsis-cell">{row}</div>
+      </Tooltip>
+    ),
+  },
+  { title: "Product Type", dataIndex: "productType", render: () => "VRT" },
+  {
+    title: "Department",
+    dataIndex: "deptName",
+    sorter: (a, b) => a?.deptName?.localeCompare(b?.deptName),
   },
 ];
 
-const dataSource = Array.from({ length: 100 }).map<DataType>((_, i) => ({
-  key: i,
-  name: `Edward King ${i}`,
-  age: 32,
-  address: `London, Park Lane no. ${i}`,
-}));
-
 const RecentStudySetups: React.FC = () => {
+  const preferences = useSelector((state: RootState) => state.preferences);
+  const { data, isLoading, isError } = useRecentSetupsByPreferencesQuery({
+    enabled: preferences?.loaded || false,
+    preferences,
+  });
+
+  const dataSource = Array.isArray(data) && !isError ? data : [];
+
   return (
-    <Table<DataType>
+    <RecentTable<RecentStudySetupTypes>
+      title="Recent Study Setups"
       columns={columns}
-      dataSource={dataSource}
-      pagination={{ pageSize: 50 }}
-      scroll={{ y: 55 * 5 }}
+      data={dataSource}
+      rowKey="setupCreationDate"
+      loading={isLoading}
     />
   );
 };

@@ -1,4 +1,5 @@
 import axiosInstance from "../axiosInstance";
+import { PreferencesResponse } from "../queries/preferenceQueries";
 interface AssetInfo {
   assetId: string;
   assetName: string;
@@ -14,7 +15,7 @@ interface ApiDepartment  {
   assetInfo: AssetInfo[];
 }
 
-export const fetchAssetsBasedOnPreferences = async(payload: unknown) :Promise<ApiDepartment []> => {
+export const fetchAssetsBasedOnPreferences = async(payload: PreferencesResponse) :Promise<ApiDepartment []> => {
   try {
     const response = await axiosInstance.post('Asset/AssetsBasedOnDeptsAndPreferences', payload);
     return response?.data || [];
@@ -39,4 +40,13 @@ export const fetchAllAssetTypes = async (payload: any) => {
     } catch (error) {
         throw error
     }
+};
+
+export const fetchRecentAssetsByPreferences = async (payload: PreferencesResponse) => {
+  try {
+    const response = await axiosInstance.post('Asset/RecentAssetsByPreferences', payload);
+    return response?.data;
+  } catch (error) {
+    throw error;
+  }
 };

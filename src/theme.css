@@ -1,6 +1,5 @@
 [data-theme="light"],
 :root {
-  --primary-color: #04a9f5;
   --bs-body-bg: #f4f7fa;
   --bs-body-bg-rgb: 244, 247, 250;
   --pc-heading-color: #1d2630;
@@ -70,11 +69,11 @@
   --bs-primary-rgb: rgba(4, 169, 245, 1);
   --bs-white-rgb: rgba(255, 255, 255, 1);
   /* table css */
-   --table-header-color: #262626;
+  --table-text-color: #1d2630;
+  --table-header-color: #262626;
   --table-header-bg: rgba(244, 247, 250, 0.5);
   --table-border-color: #f1f1f1;
   --table-hover-bg: rgba(91, 107, 121, 0.03);
-  --table-text-color: #888;
   --table-fixed-column-bg: var(--crt-dashboard-card-background);
 }
 
@@ -157,10 +156,10 @@
   --bs-white-rgb: rgba(255, 255, 255, 1);
 
   /* table css for dark mode */
-   --table-header-color: var(--bs-body-color);
+  --table-text-color: rgba(255, 255, 255, 0.8);
+  --table-header-color: var(--bs-body-color);
   --table-header-bg: #46484c;
   --table-border-color: #46484c;
   --table-hover-bg: rgba(91, 107, 121, 0.03);
-  --table-text-color: #bfbfbf;
   --table-fixed-column-bg: var(--crt-dashboard-card-background);
 }

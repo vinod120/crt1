@@ -89,6 +89,9 @@ const App = () => {
   return (
     <ConfigProvider
       theme={{
+        token: {
+          colorPrimary: 'e46c09'
+        },
         algorithm:
           themeType === "light" ? theme.defaultAlgorithm : theme.darkAlgorithm,
           components: {
