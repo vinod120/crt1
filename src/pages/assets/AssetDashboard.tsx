@@ -41,17 +41,18 @@ const AssetDashboard = () => {
     data: studies,
     isLoading: studiesLoading,
     isError: studiesError,
+    error: studyError
   } = useStudyDetailsByAssetQuery(assetId);
 
   useEffect(() => {
-    if (assetError) {
+    if (assetError || studiesError) {
       const errorMessage =
         (error as any)?.response?.data?.message ||
         (error as Error)?.message ||
         "Failed to fetch dashboard data";
-      notify("error", "Asset Details Error", errorMessage);
+      notify("error", "Asset Dashboard Error", errorMessage);
     }
-  }, [assetError, error]);
+  }, [assetError, studiesError, studyError, error]);
 
   const filteredStudies = useMemo(() => {
     if (!studies) return [];

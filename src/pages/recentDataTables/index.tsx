@@ -1,7 +1,5 @@
 import { FC, Suspense, lazy } from "react";
 import RecentTableSkeleton from "./RecentTableSkeleton";
-import './RecentTables.css';
-
 const RecentAssets = lazy(() => import("./RecentAssets"));
 const RecentAuditTrails = lazy(() => import("./RecentAuditTrails"));
 const RecentReports = lazy(() => import("./RecentReports"));

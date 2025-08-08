@@ -1,5 +1,6 @@
 import type { TableColumnsType } from "antd";
 import { Card, Table } from "antd";
+import './RecentTables.css';
 
 type RecentTableProps<T> = {
   title: string;
