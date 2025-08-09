@@ -1,12 +1,15 @@
 import { notify } from "@/common/services/notificationService";
 import BreadcrumbView from "@/components/breadcrumb/Breadcrumb";
+import TagsView from "@/components/tagView";
 import {
     useStudyDetailsByAssetQuery,
     useVRTStudyDetailsByStudyQuery,
 } from "@/services/queries/studyQueries";
+import { addTag } from "@/store/slices/tagsViewSlice";
 import { useEffect, useMemo, useState } from "react";
 import { FaFileLines } from "react-icons/fa6";
 import { IoHome } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 interface StudyBreadcrumb {
   title: React.ReactNode;
@@ -19,6 +22,7 @@ interface StudyBreadcrumb {
 
 const StudyDashboard = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
   const { assetId, token } = useParams();
   const [studyRecord, setStudyRecord] = useState<string[]>(
@@ -84,15 +88,20 @@ const StudyDashboard = () => {
                   })
                 )}`}
                 onClick={() =>
-                  //   dispatch(
-                  //     addTag({
-                  //       path: `/studies/vrt/${assetId}/${study?.studyId}`,
-                  //       label: study?.setupName,
-                  //       closable: true,
-                  //       tags: [],
-                  //     }),
-                  //   )
-                  console.log("test")
+                  dispatch(
+                    addTag({
+                      path: `/studies/vrt/${assetId}/${btoa(
+                        JSON.stringify({
+                          studyId: study?.studyId,
+                          qualStudyType: study?.qualStudyType,
+                          qualStudySerialNo: study?.qualStudySerialNo,
+                        })
+                      )}`,
+                      label: study?.setupName,
+                      closable: true,
+                      tags: [],
+                    })
+                  )
                 }
               >
                 {study?.setupName}
@@ -143,17 +152,50 @@ const StudyDashboard = () => {
           navigate(
             `/studies/vrt/${assetId}/${btoa(
               JSON.stringify({
-                studyID: studyDetails.studyID,
+                studyId: studyDetails.studyID,
                 qualStudyType: studyDetails.qualStudyType,
                 qualStudySerialNo: studyDetails.qualStudySerialNo,
               })
             )}`
           );
+          dispatch(
+            addTag({
+              path: `/studies/vrt/${assetId}/${btoa(
+                JSON.stringify({
+                  studyId: studyDetails.studyID,
+                  qualStudyType: studyDetails.qualStudyType,
+                  qualStudySerialNo: studyDetails.qualStudySerialNo,
+                })
+              )}`,
+              label: studyDetails?.setupName || "Study",
+              closable: true,
+              tags: [],
+            })
+          );
         },
       },
     ];
-  }, [navigate, assetId, menuItems, studyDetails, studyLoading]);
+  }, [dispatch, navigate, assetId, menuItems, studyDetails, studyLoading]);
+  useEffect(() => {
+    if (studyDetails?.studyID) {
+      const path = `/studies/vrt/${assetId}/${btoa(
+        JSON.stringify({
+          studyId: studyDetails.studyID,
+          qualStudyType: studyDetails.qualStudyType,
+          qualStudySerialNo: studyDetails.qualStudySerialNo,
+        })
+      )}`;
 
+      dispatch(
+        addTag({
+          path,
+          label: studyDetails?.setupName || "Study",
+          closable: true,
+          tags: [],
+        })
+      );
+    }
+  }, [studyDetails, assetId, dispatch]);
   return (
     <>
       <BreadcrumbView
@@ -164,8 +206,10 @@ const StudyDashboard = () => {
             : studyDetails?.associatedAsset?.assetName || ""
         }
       />
+      <TagsView />
+      
       <h1>Study Dashboard</h1>
-      {studyRecord && <pre>{JSON.stringify(studyRecord, null, 2)}</pre>}
+      {studyRecord && <pre>{JSON.stringify(studyRecord?.filter((i)=>i.studyId === decodedStudyId), null, 2)}</pre>}
     </>
   );
 };

@@ -1,0 +1,18 @@
+.page-tabs {
+  padding: 8px 4px;
+}
+
+.tabs-bar {
+  margin: 0;
+}
+
+.tag-view-label {
+  white-space: normal;
+  line-height: 1.2;
+}
+
+.tag-view-date {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 5px;
+}
