@@ -90,14 +90,21 @@ const App = () => {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#36cfc9'
+          colorPrimary: '#36cfc9',
         },
         algorithm:
           themeType === "light" ? theme.defaultAlgorithm : theme.darkAlgorithm,
           components: {
             Table: {
               headerBorderRadius: 0,
-            }
+            },
+            Tabs: {
+            colorBorderSecondary: "#e46c09",
+            cardBg: "#e46c09",
+            colorBgContainer: "#e46c09",
+            itemSelectedColor: "whitesmoke",
+            itemHoverColor: "#000000",
+          },
           }
       }
     }

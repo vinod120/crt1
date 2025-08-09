@@ -1,5 +1,5 @@
 .breadcrumb-header {
-  padding-bottom: 16px;
+  padding-bottom: 5px;
 }
 .breadcrumb-header .h5,
 .breadcrumb-header h5 {
@@ -39,7 +39,7 @@
   color: var(--crt-breadcrumb-link-hover-color);
   font-weight: 500;
 }
-:where(.css-dev-only-do-not-override-1op274d).ant-breadcrumb .ant-breadcrumb-overlay-link {
+.ant-breadcrumb .ant-breadcrumb-overlay-link {
     display: flex
 }
 @media (max-width: 575.98px) {
