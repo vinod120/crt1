@@ -13,7 +13,7 @@
   align-items: center;
 }
 
-.breadcrumb-icon {
+.breadcrumb-icon, .breadcrumb-header-title {
   margin-right: 5px;
 }
 

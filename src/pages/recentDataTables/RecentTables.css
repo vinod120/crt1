@@ -33,7 +33,3 @@
   background: unset;
   background-color: var(--table-hover-bg);
 }
-
-#recent-tables-card-header > .ant-card-body {
-  padding: 0;
-}

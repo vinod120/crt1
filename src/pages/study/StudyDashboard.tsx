@@ -11,6 +11,7 @@ import { FaFileLines } from "react-icons/fa6";
 import { IoHome } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import StudyCollapse from "./StudyCollapse";
 interface StudyBreadcrumb {
   title: React.ReactNode;
   key: string;
@@ -207,9 +208,7 @@ const StudyDashboard = () => {
         }
       />
       <TagsView />
-      
-      <h1>Study Dashboard</h1>
-      {studyRecord && <pre>{JSON.stringify(studyRecord?.filter((i)=>i.studyId === decodedStudyId), null, 2)}</pre>}
+      <StudyCollapse />
     </>
   );
 };

@@ -1,0 +1,45 @@
+.crt-study-dashboard-accordian .ant-collapse {
+  border-radius: 0px;
+  border: 0;
+}
+.crt-study-dashboard-accordian .ant-collapse-header {
+  background: var(--crt-accordian-bg);
+  border-radius: 0px;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+    border-radius 0.15s ease;
+}
+.crt-study-dashboard-accordian .ant-collapse .ant-collapse-content {
+  border-top: 1px solid var(--crt-accordian-border);
+}
+.crt-study-dashboard-accordian
+  .ant-collapse-item.ant-collapse-item-active
+  .ant-collapse-header {
+  color: var(--crt-accordian-header-color);
+  background-color: var(--crt-accordian-header-bg-color);
+}
+.crt-study-dashboard-accordian .ant-collapse-content-box {
+  color: var(--bs-body-color);
+  background-color: var(--crt-dashboard-card-background);
+}
+.crt-study-dashboard-accordian
+  .ant-collapse
+  .ant-collapse-item:last-child
+ {
+  border-radius: 0px;
+  border: 0px;
+}
+.crt-study-dashboard-accordian .ant-collapse > .ant-collapse-item:first-child {
+  border-radius: 0px;
+}
+.crt-study-dashboard-accordian .ant-collapse > .ant-collapse-item {
+  border-bottom: 1px solid var(--crt-accordian-border);
+}
+.crt-study-dashboard-accordian .ant-collapse-item:first-child>.ant-collapse-header, .crt-study-dashboard-accordian .ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header  {
+    border-radius: 0px;
+}
+.crt-study-dashboard-accordian > .ant-card-body {
+    padding: 5px;
+  background: var(--crt-accordian-bg);
+
+}

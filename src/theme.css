@@ -31,7 +31,7 @@
   --crt-user-profile-header-background: var(--bs-primary-rgb);
   --crt-logout-button-background: var(--bs-primary-rgb);
   --crt-user-profile-label-text-color: var(--bs-body-color);
-
+  --bs-border-color: #f1f1f1;
   --crt-breadcrumb-title-color: var(--pc-heading-color);
   --crt-breadcrumb-link-color: var(--bs-body-color);
   --crt-breadcrumb-link-hover-color: #04a9f5;
@@ -75,6 +75,12 @@
   --table-border-color: #f1f1f1;
   --table-hover-bg: rgba(91, 107, 121, 0.03);
   --table-fixed-column-bg: var(--crt-dashboard-card-background);
+
+  /* accordian light */
+  --crt-accordian-border: #f1f1f1;
+  --crt-accordian-bg: #ffffff;
+  --crt-accordian-header-color: #04a9f5;
+  --crt-accordian-header-bg-color: #e6f6fe;
 }
 
 [data-theme="dark"] {
@@ -162,4 +168,10 @@
   --table-border-color: #46484c;
   --table-hover-bg: rgba(91, 107, 121, 0.03);
   --table-fixed-column-bg: var(--crt-dashboard-card-background);
+
+  /* accordian dark theme*/
+  --crt-accordian-border: #46484c;
+  --crt-accordian-bg: #2b2c2f;
+  --crt-accordian-header-color: #04a9f5;
+  --crt-accordian-header-bg-color: rgba(4, 169, 245, 0.2);
 }
