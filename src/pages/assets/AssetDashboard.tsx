@@ -57,7 +57,7 @@ const AssetDashboard = () => {
 
   const filteredStudies = useMemo(() => {
     if (!studies) return [];
-    return studies.filter((study: any) =>
+    return studies?.filter((study: any) =>
       study?.setupName?.toLowerCase().includes(searchText.toLowerCase())
     );
   }, [studies, searchText]);
@@ -83,7 +83,6 @@ const AssetDashboard = () => {
         </div>
       ),
       key: `${assetId}`,
-      onClick: () => navigate(`/asset/${assetId}`),
     },
   ];
 
@@ -118,6 +117,7 @@ const AssetDashboard = () => {
         data={filteredStudies}
         loading={studiesLoading}
         assetId={assetId!}
+        allStudies={studies}
       />
     </>
   );

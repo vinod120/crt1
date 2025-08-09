@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchRecentStudiesByPreferences, fetchStudyDetailsByAsset } from "../api/study";
+import { fetchRecentStudiesByPreferences, fetchStudyDetailsByAsset, fetchVRTStudyDetailsByStudy } from "../api/study";
 import { PreferencesResponse } from "./preferenceQueries";
 
 export const useRecentStudiesByPreferencesQuery = ({
@@ -29,5 +29,13 @@ export const useStudyDetailsByAssetQuery = (assetId: string | undefined) => {
     queryKey: [`vrtStudiesDetails-${assetId}`, assetId],
     queryFn: () => fetchStudyDetailsByAsset({ assetId: assetId! }),
     enabled: !!assetId,
+  });
+};
+
+export const useVRTStudyDetailsByStudyQuery = (studyId: string | undefined, enabled: unknown) => {
+  return useQuery({
+    queryKey: [`studyDetails-${studyId}`, studyId],
+    queryFn: () => fetchVRTStudyDetailsByStudy({ studyId: studyId! }),
+    enabled: !!enabled,
   });
 };

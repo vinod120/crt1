@@ -5,6 +5,7 @@ import { lazy } from "react";
 import { createBrowserRouter } from 'react-router-dom';
 import PublicRoute from './PublicRoute';
 import { PageWrapper, WrapperRouteComponent } from './WrapperRouteComponent';
+const StudyDashboard = lazy(()=>import("@/pages/study/StudyDashboard"));
 const Dashboard = lazy(()=> import('@/pages/dashboard'));
 const  AssetDashboard = lazy(() =>import('@/pages/assets/AssetDashboard'));
 const LoginPage = () => {
@@ -42,8 +43,8 @@ const router = createBrowserRouter([
         element: <AssetDashboard />,
       },
       {
-        path: 'studies/vrt/:assetId/:studyId',
-        element: <Dashboard />,
+        path: 'studies/vrt/:assetId/:token',
+        element: <StudyDashboard />,
       },
       {
         path: '/reports/:assetId/:studyId',

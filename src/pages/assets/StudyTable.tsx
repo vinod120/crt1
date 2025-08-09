@@ -21,17 +21,29 @@ interface StudyTableProps {
   data: StudyType[];
   loading: boolean;
   assetId: string;
+  allStudies: StudyType[]
 }
 
-const StudyTable = React.memo(({ data, loading, assetId }: StudyTableProps) => {
+const StudyTable = React.memo(({ data, loading, assetId, allStudies }: StudyTableProps) => {
   const studyColumns: TableColumnsType<StudyType> = [
     {
       title: "Action",
       dataIndex: "action",
-      render: (_: any, record: StudyType) => (
-        <div className="study-table-actions">
+      render: (_: any, record: StudyType) => {
+        const token = btoa(
+          JSON.stringify({
+            studyId: record?.studyId,
+            qualStudyType: record?.qualStudyType,
+            qualStudySerialNo: record?.qualStudySerialNo,
+          })
+        );
+
+      return (  <div className="study-table-actions">
           <Tooltip title="Study Details">
-            <Link to={`/studies/vrt/${assetId}/${record.studyId}`}>
+            <Link
+              to={`/studies/vrt/${assetId}/${token}`}
+              state={{allStudies}}
+              >
               <FaEye style={{ cursor: "pointer" }} />
             </Link>
           </Tooltip>
@@ -41,7 +53,7 @@ const StudyTable = React.memo(({ data, loading, assetId }: StudyTableProps) => {
             </Link>
           </Tooltip>
         </div>
-      ),
+)},
     },
     {
       title: "Study Name",
