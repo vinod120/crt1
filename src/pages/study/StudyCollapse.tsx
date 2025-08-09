@@ -1,7 +1,7 @@
 import type { CollapseProps } from 'antd';
 import { Card, Collapse } from 'antd';
 import React from 'react';
-import "./Study.css";
+import "./StudyDashboard.css";
 
 const text = `
   A dog is a type of domesticated animal.

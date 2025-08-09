@@ -22,10 +22,7 @@
   color: var(--bs-body-color);
   background-color: var(--crt-dashboard-card-background);
 }
-.crt-study-dashboard-accordian
-  .ant-collapse
-  .ant-collapse-item:last-child
- {
+.crt-study-dashboard-accordian .ant-collapse .ant-collapse-item:last-child {
   border-radius: 0px;
   border: 0px;
 }
@@ -35,11 +32,16 @@
 .crt-study-dashboard-accordian .ant-collapse > .ant-collapse-item {
   border-bottom: 1px solid var(--crt-accordian-border);
 }
-.crt-study-dashboard-accordian .ant-collapse-item:first-child>.ant-collapse-header, .crt-study-dashboard-accordian .ant-collapse>.ant-collapse-item:last-child>.ant-collapse-header  {
-    border-radius: 0px;
+.crt-study-dashboard-accordian
+  .ant-collapse-item:first-child
+  > .ant-collapse-header,
+.crt-study-dashboard-accordian
+  .ant-collapse
+  > .ant-collapse-item:last-child
+  > .ant-collapse-header {
+  border-radius: 0px;
 }
 .crt-study-dashboard-accordian > .ant-card-body {
-    padding: 5px;
+  padding: 5px;
   background: var(--crt-accordian-bg);
-
 }
